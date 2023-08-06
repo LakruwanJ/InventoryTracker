@@ -3,21 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package app.classes;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import app.classes.ItemData;
+import app.classes.SpplierCls;
 
 /**
  *
  * @author lakru
  */
-@WebServlet(urlPatterns = {"/NewServlet"})
-public class NewServlet extends HttpServlet {
+public class AddItem extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,19 +31,24 @@ public class NewServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet NewServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet NewServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+
+        ItemData item = new ItemData();
+
+        item.setItemName(request.getParameter("itemName"));
+        item.setCategory(request.getParameter("category"));
+        item.setUnitPrice(Double.parseDouble(request.getParameter("unitPrice")));
+
+        SpplierCls supcls = new SpplierCls();
+        String newID = supcls.incrementItemID();
+
+        String itemName = item.getItemName();
+        String category = item.getCategory();
+        Double unitPrice = item.getUnitPrice();
+//        supcls.addItem(newID, itemName, category, unitPrice);
+        supcls.addItem(newID, itemName, category, unitPrice);
+
+        response.sendRedirect("DashSupplier.jsp");
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
