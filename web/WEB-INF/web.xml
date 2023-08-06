@@ -9,9 +9,25 @@
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    <servlet>
+        <servlet-name>DBConector</servlet-name>
+        <servlet-class>app.classes.DBConector</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddItem</servlet-name>
+        <servlet-class>app.classes.AddItem</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DBConector</servlet-name>
+        <url-pattern>/DBConector</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddItem</servlet-name>
+        <url-pattern>/AddItem</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
