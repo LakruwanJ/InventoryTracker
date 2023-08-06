@@ -13,14 +13,14 @@
   <section class="position-relative py-4 py-xl-5">
     <div class="container">
       <div class="row mb-5">
-        <div class="col-md-8 col-xl-6 text-center mx-auto">
-          <h2>Log in</h2>
-        </div>
+        <div class="col-md-8 col-xl-6 text-center mx-auto"><img src="img/logo-no-background.png"
+            style="width: 150px;"></div>
       </div>
       <div class="row d-flex justify-content-center">
         <div class="col-md-6 col-xl-4">
           <div class="card mb-5">
             <div class="card-body d-flex flex-column align-items-center">
+              <h2>Log In</h2>
               <div class="bs-icon-xl bs-icon-circle bs-icon-primary bs-icon my-4"><svg
                   xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16"
                   class="bi bi-person">
