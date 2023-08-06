@@ -4,10 +4,17 @@
     Author     : lakru
 --%>
 
+<%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="app.classes.ItemData, app.classes.SpplierCls, app.classes.DBConector" %>
+<%
+    SpplierCls sup = new SpplierCls();
+    ResultSet data1 = sup.viewitems();
+    ResultSet data2 = sup.viewitems();
+    String selectedItemID = "";
+%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -70,7 +77,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 text-center p-3">
-                    <div class="card cardsFirstFW mt-2 pt-2" style="width: 100%" type="button" data-bs-toggle="modal" data-bs-target="#edit_remove">
+                    <div class="card cardsFirstFW mt-2 pt-2" style="width: 100%" type="button" data-bs-toggle="modal" data-bs-target="#remove">
                         <div class="card-body">
                             <div class="iconInCard"><h1><i class="fa-solid fa-trash"></i></h1></div>
                             <h2>Remove item</h2>
@@ -78,7 +85,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 text-center p-3">
-                    <div class="card cardsFirstTW mt-2 pt-2" style="width: 100%" type="button" data-bs-toggle="modal" data-bs-target="#edit_remove">
+                    <div class="card cardsFirstTW mt-2 pt-2" style="width: 100%" type="button" data-bs-toggle="modal" data-bs-target="#edit">
                         <div class="card-body">
                             <div class="iconInCard"><h1><i class="fa-solid fa-pen-to-square"></i></h1></div>
                             <h2>Update item</h2>
@@ -86,12 +93,14 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 text-center p-3">
-                    <div class="card cardsFirstTS mt-2 pt-2" style="width: 100%" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdropAP">
-                        <div class="card-body">
-                            <div class="iconInCard"><h1><i class="fa-solid fa-eye"></i></h1></div>
-                            <h2>View all item</h2>
+                    <a href="ShowSupp?actionSup=viewitems" style="text-decoration: none">
+                        <div class="card cardsFirstTS mt-2 pt-2" style="width: 100%">
+                            <div class="card-body">
+                                <div class="iconInCard"><h1><i class="fa-solid fa-eye"></i></h1></div>
+                                <h2>View all item</h2>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 text-center p-3">
                     <a href="wareHouses.html" style="text-decoration: none">
@@ -112,19 +121,23 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 text-center p-3">
-                    <div class="card cardsFirstTW mt-2 pt-2" style="width: 100%" type="button" data-bs-toggle="offcanvas" data-bs-target="#Request">
-                        <div class="card-body">
-                            <div class="iconInCard"><h1><i class="fa-solid fa-magnifying-glass"></i></h1></div>
-                            <h2>View Request</h2>
+                    <a href="ShowSupp?actionSup=RequestBySK" style="text-decoration: none">
+                        <div class="card cardsFirstTW mt-2 pt-2" style="width: 100%" type="button" data-bs-toggle="offcanvas" data-bs-target="#Request">
+                            <div class="card-body">
+                                <div class="iconInCard"><h1><i class="fa-solid fa-magnifying-glass"></i></h1></div>
+                                <h2>View Request</h2>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 text-center p-3">
-                    <div class="card cardsFirstTW mt-2 pt-2" style="width: 100%" type="button" data-bs-toggle="offcanvas" data-bs-target="#Transfer">
-                        <div class="card-body">
-                            <div class="iconInCard"><h1><i class="fa-solid fa-plane-departure"></i></h1></div>
-                            <h2>Transfer History</h2></div>
-                    </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 text-center p-3">                    
+                    <a href="ShowSupp?actionSup=TransferToSK" style="text-decoration: none">
+                        <div class="card cardsFirstTW mt-2 pt-2" style="width: 100%" type="button" data-bs-toggle="offcanvas" data-bs-target="#Transfer">
+                            <div class="card-body">
+                                <div class="iconInCard"><h1><i class="fa-solid fa-plane-departure"></i></h1></div>
+                                <h2>Transfer History</h2></div>
+                        </div>
+                    </a>
                 </div>
             </div>
 
@@ -139,7 +152,7 @@
                             <h1 class="modal-title fs-5">Add Item</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>                        
-                        <form class="was-validated" action="AddItem"method="POST">
+                        <form class="was-validated" action="ControlSupp?actionSup=add" method="POST">
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="mb-2">
@@ -153,7 +166,7 @@
                                     <label class="form-label">Select type</label>
                                     <select class="form-select  mb-3" required name="category">            
                                         <option value="Product">Product</option>
-                                        <option value="Raw materia">Raw material</option>
+                                        <option value="Raw material">Raw material</option>
                                     </select>
                                 </div>
                                 <br><div class="row">
@@ -176,28 +189,38 @@
             </div>
             <!--add item-->
 
-            <!--edit,delete item-->
-            <div class="modal fade" id="edit_remove" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+            <!--edit item-->
+            <div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
                     <div class="modal-content w-150">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5">Update, Delete Item</h1>
+                            <h1 class="modal-title fs-5">Update Item</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
-                        <div class="modal-body">
-                            <form class="was-validated">
+                        <form class="was-validated" action="ControlSupp?actionSup=edit" method="POST">
+                            <div class="modal-body">
                                 <div class="row">
-                                    <label class="form-label">Select Item Name</label>
-                                    <select class="form-select  mb-3" required a>            
-                                        <option value="1">Name 1</option>
-                                        <option value="2">Name 2</option>
+                                    <label class="form-label">Select Item ID</label>
+                                    <select class="form-select  mb-3" required name="id">
+                                        <option>Select</option>
+                                        <%while (data1.next()) {%>
+                                        <option value="<%= data1.getString("itemID")%>"><%= data1.getString("itemID")%></option>
+                                        <%}%>
                                     </select>
                                 </div>                                
                                 <br><div class="row">
                                     <div class="mb-2">
+                                        <label class="form-label">Item Name</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="itemName">
+                                        </div>
+                                    </div>
+                                </div>
+                                <br><div class="row">
+                                    <div class="mb-2">
                                         <label class="form-label">Item Type</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" name="category">
                                         </div>
                                     </div>
                                 </div>                                
@@ -205,23 +228,55 @@
                                     <div class="col-12">
                                         <label class="form-label">Unit price</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control" >
+                                            <input type="text" class="form-control" name="unitPrice">
                                             <span class="input-group-text">.00</span>
                                         </div>
                                     </div>
                                 </div> 
 
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
-                            <button type="button" class="btn btn-primary">Update</button>
-                            <button type="button" class="btn btn-primary">Delete</button>
-                        </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
+                                <button type="sumbit" class="btn btn-primary">Update</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-            <!--edit,delete item-->           
+            <!--edit item-->  
+
+            <!--delete item-->
+            <div class="modal fade" id="remove" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
+                    <div class="modal-content w-150">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5">Delete Item</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <form class="was-validated" action="ControlSupp?actionSup=delete" method="POST">
+                            <div class="modal-body">
+                                <div class="row">
+                                    <label class="form-label">Select Item ID</label>
+                                    <select class="form-select  mb-3" required name="id">
+                                        <option>Select</option>
+                                        <%while (data2.next()) {%>
+                                        <option value="<%= data2.getString("itemID")%>"><%= data2.getString("itemID")%></option>
+                                        <%}%>
+                                    </select>
+                                </div>                                
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
+                                <button type="submit" class="btn btn-primary">Delete</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <!--delete item-->  
 
             <!--Send item-->
             <div class="modal fade" id="send" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
@@ -275,96 +330,6 @@
             </div>
             <!--Send Item-->            
             <!--model end-->
-
-
-            <!--off canvas start-->   
-            <!--Product list start-->
-            <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="staticBackdropAP" style="width: 100%;">
-                <div class="offcanvas-header">
-                    <h3 class="offcanvas-title">Product list</h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" "></button>
-                </div>
-                <div class="offcanvas-body">
-                    <div>
-                        <div class="col tableBody">
-                            <table class="table text-center">
-                                <th scope="col">Added Date</th>
-                                <th scope="col">Product Id</th>
-                                <th scope="col">Product name</th>
-                                <th scope="col">Product Image</th>
-                                <th scope="col">Quantity(Pieces)</th>
-                                <tr class="table-light">
-                                    <td>12.06.2023</td>
-                                    <td>P001</td>
-                                    <td>Blue Bird Shirt</td>
-                                    <td><img src="https://www.beverlystreet.lk/media/catalog/product/cache/1/small_image/320x/040ec09b1e35df139433887a97daa66f/5/5/5541.jpg"style="height: 30px; width: 30px" /></td>
-                                    <td>1000</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--Product list End-->
-
-            <!--View Request start-->
-            <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="Request" style="width: 100%;">
-                <div class="offcanvas-header">
-                    <h3 class="offcanvas-title" >View Request</h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <div>
-                        <div class="col tableBody">
-                            <table class="table text-center">
-                                <th scope="col">Added Date</th>
-                                <th scope="col">Product Id</th>
-                                <th scope="col">Product name</th>
-                                <th scope="col">Product Image</th>
-                                <th scope="col">Quantity(Pieces)</th>
-                                <tr class="table-light">
-                                    <td>12.06.2023</td>
-                                    <td>P001</td>
-                                    <td>Blue Bird Shirt</td>
-                                    <td><img src="https://www.beverlystreet.lk/media/catalog/product/cache/1/small_image/320x/040ec09b1e35df139433887a97daa66f/5/5/5541.jpg"style="height: 30px; width: 30px" /></td>
-                                    <td>1000</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--View Request End-->
-
-            <!--View Transfer History start-->
-            <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="Transfer" style="width: 100%;">
-                <div class="offcanvas-header">
-                    <h3 class="offcanvas-title" >Transfer History</h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <div>
-                        <div class="col tableBody">
-                            <table class="table text-center">
-                                <th scope="col">Added Date</th>
-                                <th scope="col">Product Id</th>
-                                <th scope="col">Product name</th>
-                                <th scope="col">Product Image</th>
-                                <th scope="col">Quantity(Pieces)</th>
-                                <tr class="table-light">
-                                    <td>12.06.2023</td>
-                                    <td>P001</td>
-                                    <td>Blue Bird Shirt</td>
-                                    <td><img src="https://www.beverlystreet.lk/media/catalog/product/cache/1/small_image/320x/040ec09b1e35df139433887a97daa66f/5/5/5541.jpg"style="height: 30px; width: 30px" /></td>
-                                    <td>1000</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--View all items End-->
-            <!--off canvas end-->  
 
             <!--Table Start-->
             <div class="row">

@@ -14,8 +14,20 @@
         <servlet-class>app.classes.DBConector</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddItem</servlet-name>
-        <servlet-class>app.classes.AddItem</servlet-class>
+        <servlet-name>ShowItemSupllier</servlet-name>
+        <servlet-class>app.classes.ShowItemSupllier</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowSup</servlet-name>
+        <servlet-class>app.classes.ShowSup</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowSupp</servlet-name>
+        <servlet-class>app.classes.ShowSupp</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ControlSupp</servlet-name>
+        <servlet-class>app.classes.ControlSupp</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
@@ -26,8 +38,20 @@
         <url-pattern>/DBConector</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddItem</servlet-name>
-        <url-pattern>/AddItem</url-pattern>
+        <servlet-name>ShowItemSupllier</servlet-name>
+        <url-pattern>/ShowItemSupllier</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowSup</servlet-name>
+        <url-pattern>/ShowSup</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowSupp</servlet-name>
+        <url-pattern>/ShowSupp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControlSupp</servlet-name>
+        <url-pattern>/ControlSupp</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
