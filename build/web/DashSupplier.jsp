@@ -207,23 +207,7 @@
                                         <option value="<%= data1.getString("itemID")%>"><%= data1.getString("itemID")%></option>
                                         <%}%>
                                     </select>
-                                </div>                                
-                                <br><div class="row">
-                                    <div class="mb-2">
-                                        <label class="form-label">Item Name</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" name="itemName">
-                                        </div>
-                                    </div>
-                                </div>
-                                <br><div class="row">
-                                    <div class="mb-2">
-                                        <label class="form-label">Item Type</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" name="category">
-                                        </div>
-                                    </div>
-                                </div>                                
+                                </div>                   
                                 <br><div class="row">
                                     <div class="col-12">
                                         <label class="form-label">Unit price</label>

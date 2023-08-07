@@ -56,7 +56,8 @@ public final class DashSupplier_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("\r\n");
 
     SpplierCls sup = new SpplierCls();
-    ResultSet data = sup.viewitems();
+    ResultSet data1 = sup.viewitems();
+    ResultSet data2 = sup.viewitems();
     String selectedItemID = "";
 
       out.write("\r\n");
@@ -249,13 +250,13 @@ public final class DashSupplier_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("                                    <select class=\"form-select  mb-3\" required name=\"id\">\r\n");
       out.write("                                        <option>Select</option>\r\n");
       out.write("                                        ");
-while (data.next()) {
+while (data1.next()) {
       out.write("\r\n");
       out.write("                                        <option value=\"");
-      out.print( data.getString("itemID"));
+      out.print( data1.getString("itemID"));
       out.write('"');
       out.write('>');
-      out.print( data.getString("itemID"));
+      out.print( data1.getString("itemID"));
       out.write("</option>\r\n");
       out.write("                                        ");
 }
@@ -308,20 +309,20 @@ while (data.next()) {
       out.write("                            <h1 class=\"modal-title fs-5\">Delete Item</h1>\r\n");
       out.write("                            <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\"></button>\r\n");
       out.write("                        </div>\r\n");
-      out.write("                        <form class=\"was-validated\" action=\"ControlSupp?actionSup=deledte\" method=\"POST\">\r\n");
+      out.write("                        <form class=\"was-validated\" action=\"ControlSupp?actionSup=delete\" method=\"POST\">\r\n");
       out.write("                            <div class=\"modal-body\">\r\n");
       out.write("                                <div class=\"row\">\r\n");
       out.write("                                    <label class=\"form-label\">Select Item ID</label>\r\n");
       out.write("                                    <select class=\"form-select  mb-3\" required name=\"id\">\r\n");
       out.write("                                        <option>Select</option>\r\n");
       out.write("                                        ");
-while (data.next()) {
+while (data2.next()) {
       out.write("\r\n");
       out.write("                                        <option value=\"");
-      out.print( data.getString("itemID"));
+      out.print( data2.getString("itemID"));
       out.write('"');
       out.write('>');
-      out.print( data.getString("itemID"));
+      out.print( data2.getString("itemID"));
       out.write("</option>\r\n");
       out.write("                                        ");
 }
