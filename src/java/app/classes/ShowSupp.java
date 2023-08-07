@@ -7,18 +7,18 @@ package app.classes;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import app.classes.ItemData;
-import app.classes.SpplierCls;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author lakru
  */
-public class AddItem extends HttpServlet {
+public class ShowSupp extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,23 +31,45 @@ public class AddItem extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        String action = request.getParameter("actionSup");
 
-        ItemData item = new ItemData();
+        SpplierCls sup = new SpplierCls();
+        ResultSet data;
+        HttpSession session;
+        if (action != null) {
+            switch (action) {
+                case "viewitems":
+                    // Handle link 1 logic
+                    data = sup.viewitems();
+                    session = request.getSession();
+                    session.setAttribute("Data", data);
+                    session.setAttribute("title", "Product list");
+                    response.sendRedirect("aa.jsp");
+                    break;
+                case "RequestBySK":
+                    // Handle link 1 logic
+                    data = sup.RequestBySK();
+                    session = request.getSession();
+                    session.setAttribute("Data", data);
+                    session.setAttribute("title", "Item Requests by Stock Keepers");
+                    response.sendRedirect("aa.jsp");
+                    break;
+                case "TransferToSK":
+                    // Handle link 1 logic
+                    data = sup.TransferToSK();
+                    session = request.getSession();
+                    session.setAttribute("Data", data);
+                    session.setAttribute("title", "Transfer History");
+                    response.sendRedirect("aa.jsp");
+                    break;
+                default:
+                // Handle default case or show an error page
+            }
 
-        item.setItemName(request.getParameter("itemName"));
-        item.setCategory(request.getParameter("category"));
-        item.setUnitPrice(Double.parseDouble(request.getParameter("unitPrice")));
+        } else {
 
-        SpplierCls supcls = new SpplierCls();
-        String newID = supcls.incrementItemID();
-
-        String itemName = item.getItemName();
-        String category = item.getCategory();
-        Double unitPrice = item.getUnitPrice();
-//        supcls.addItem(newID, itemName, category, unitPrice);
-        supcls.addItem(newID, itemName, category, unitPrice);
-
-        response.sendRedirect("DashSupplier.jsp");
+        }
 
     }
 
