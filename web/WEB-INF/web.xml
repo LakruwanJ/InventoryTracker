@@ -29,6 +29,10 @@
         <servlet-name>ControlSupp</servlet-name>
         <servlet-class>app.classes.ControlSupp</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControlAdmin</servlet-name>
+        <servlet-class>app.classes.ControlAdmin</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
@@ -52,6 +56,10 @@
     <servlet-mapping>
         <servlet-name>ControlSupp</servlet-name>
         <url-pattern>/ControlSupp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControlAdmin</servlet-name>
+        <url-pattern>/ControlAdmin</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
