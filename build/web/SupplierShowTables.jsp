@@ -23,36 +23,6 @@
             int columnCount = metaData.getColumnCount();
         %>
         <main>
-            <ul class="box-info">
-                <li>
-                    <i class='bx bxs-calendar-check' ></i>
-                    <span class="text">
-                        <h3>1020</h3>
-                        <p>New Order</p>
-                    </span>
-                </li>
-                <li>
-                    <i class='bx bxs-group' ></i>
-                    <span class="text">
-                        <h3>2834</h3>
-                        <p>Customers</p>
-                    </span>
-                </li>
-                <li>
-                    <i class='bx bxs-cart' ></i>
-                    <span class="text">
-                        <h3>95</h3>
-                        <p>Sales</p>
-                    </span>
-                </li>
-                <li>
-                    <i class='bx bxs-dollar-circle' ></i>
-                    <span class="text">
-                        <h3>$7,864</h3>
-                        <p>Earning</p>
-                    </span>
-                </li>
-            </ul>
             <div class="table">
                 <div class="table__header">
                     <h1><%=title%></h1>

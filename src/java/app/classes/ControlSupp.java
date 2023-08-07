@@ -36,14 +36,20 @@ public class ControlSupp extends HttpServlet {
         String action = request.getParameter("actionSup");
 
         ItemData item = new ItemData();
+        StockKData stockK = new StockKData();
+        SupplierData supplierD = new SupplierData();
         SpplierCls supcls = new SpplierCls();
+
         ResultSet data;
         String itemName;
         String category;
         Double unitPrice;
         String ID;
+        String SupID;
+        String SkID;
+        String qty;
+        String date;
 
-        HttpSession session;
         if (action != null) {
             switch (action) {
 
@@ -57,27 +63,60 @@ public class ControlSupp extends HttpServlet {
                     itemName = item.getItemName();
                     category = item.getCategory();
                     unitPrice = item.getUnitPrice();
-                    supcls.addItem(newID, itemName, category, unitPrice);
 
-                    response.sendRedirect("DashSupplier.jsp");
+                    if (supcls.addItem(newID, itemName, category, unitPrice) > 0) {
+                        response.sendRedirect("DashSupplier.jsp?m=1");
+                    } else {
+                        response.sendRedirect("DashSupplier.jsp?m=2");
+                    }
                     break;
 
                 case "edit":
-                    ID = request.getParameter("id");
-                    itemName = request.getParameter("itemName");
-                    category = request.getParameter("category");
-                    unitPrice = Double.parseDouble(request.getParameter("unitPrice"));
-                    supcls.updateItem(ID, itemName, category, unitPrice);
-                    response.sendRedirect("DashSupplier.jsp");
+                    item.setID(request.getParameter("id"));
+                    item.setUnitPrice(Double.parseDouble(request.getParameter("unitPrice")));
+
+                    ID = item.getID();
+                    unitPrice = item.getUnitPrice();
+
+                    if (supcls.updateItem(ID, unitPrice) > 0) {
+                        response.sendRedirect("DashSupplier.jsp?m=3");
+                    } else {
+                        response.sendRedirect("DashSupplier.jsp?m=4");
+                    }
                     break;
 
                 case "delete":
                     ID = request.getParameter("id");
-                    supcls.deleteItem(ID);
-                    response.sendRedirect("DashSupplier.jsp");
+                    if (supcls.deleteItem(ID) > 0) {
+                        response.sendRedirect("DashSupplier.jsp?m=5");
+                    } else {
+                        response.sendRedirect("DashSupplier.jsp?m=6");
+                    }
                     break;
 
                 case "send":
+                    supplierD.setSID(request.getParameter("sid"));
+                    stockK.setSKID(request.getParameter("skid"));
+                    item.setQty(request.getParameter("qty"));
+                    item.setID(request.getParameter("iid"));
+
+                    String newid = supcls.incrementSupplyID();
+                    date = supcls.date();
+
+                    SupID = supplierD.getSID();
+                    SkID = stockK.getSKID();
+                    qty = item.getQty();
+                    ID = item.getID();
+
+                    if (supcls.checkEmptyS() - Integer.parseInt(qty) > 1) {
+                        if (supcls.sendItemToSK(newid, SupID, SkID, ID, qty, date) > 0) {
+                            response.sendRedirect("DashSupplier.jsp?m=7");
+                        } else {
+                            response.sendRedirect("DashSupplier.jsp?m=8");
+                        }
+                    }else {
+                        response.sendRedirect("DashSupplier.jsp?m=9");
+                    }
                     break;
 
                 default:

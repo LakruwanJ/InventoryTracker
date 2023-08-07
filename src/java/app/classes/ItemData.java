@@ -14,6 +14,16 @@ public class ItemData {
     private String itemName;
     private double unitPrice;
     private String category;
+    private String ID;
+    private String qty;
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
 
     public String getItemName() {
         return itemName;
@@ -38,4 +48,13 @@ public class ItemData {
     public void setCategory(String category) {
         this.category = category;
     }
+
+    public String getQty() {
+        return qty;
+    }
+
+    public void setQty(String qty) {
+        this.qty = qty;
+    }
+    
 }
