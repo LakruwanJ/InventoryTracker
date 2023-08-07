@@ -3,6 +3,9 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import java.sql.ResultSetMetaData;
+import java.net.URLDecoder;
+import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import app.classes.ItemData;
@@ -52,12 +55,56 @@ public final class DashSupplier_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("\r\n");
       out.write("\r\n");
       out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+
+    Cookie UID = new Cookie("U_ID", "sup0002");
+    response.addCookie(UID);
+    javax.servlet.http.Cookie[] cookies = request.getCookies();
+    String U_ID = null;
+
+    if (cookies != null) {
+        for (javax.servlet.http.Cookie cookie : cookies) {
+            if ("U_ID".equals(cookie.getName())) {
+                U_ID = URLDecoder.decode(cookie.getValue(), "UTF-8");
+                break;
+            }
+        }
+    }
+    SpplierCls sup = new SpplierCls();
+    ResultSet data1 = sup.viewitems();
+    ResultSet data2 = sup.viewitems();
+    ResultSet data3 = sup.viewitems();
+    ResultSet StID = sup.selectSK();
+    String selectedItemID = "";
+
+    String msj[] = {"", "Item Added Succfully", "Can't Add Item. Try Again",
+        "Item Edited Succfully", "Can't Edit Item. Try Again",
+        "Item Deleted Succfully", "Can't Delete Item. Try Again",
+        "Item Sent Succfully", "Can't sent Item. Try Again", "Can't sent Item. Not Enough Space to Store"};
+    String msjClr = null;
+    String msjNum = null;
+    String alt = null;
+    msjNum = request.getParameter("m");
+
+    if (msjNum != null && !msjNum.isEmpty()) {
+        if (msjNum.equals("1") || msjNum.equals("3") || msjNum.equals("5") || msjNum.equals("7")) {
+            msjClr = "alert-success";
+        } else {
+            msjClr = "alert-danger";
+        }
+    }
+
+
+      out.write("\r\n");
       out.write("<!DOCTYPE html>\r\n");
       out.write("<html lang=\"en\">\r\n");
       out.write("    <head>\r\n");
       out.write("        <meta charset=\"UTF-8\" />\r\n");
       out.write("        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\r\n");
-      out.write("        <title>Suplier DashBoard</title>\r\n");
+      out.write("        <title>Supplier DashBoard</title>\r\n");
       out.write("\r\n");
       out.write("        <link href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css\" rel=\"stylesheet\"/>        \r\n");
       out.write("        <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM\" crossorigin=\"anonymous\"/>\r\n");
@@ -95,13 +142,25 @@ public final class DashSupplier_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("                color: black;\r\n");
       out.write("            }\r\n");
       out.write("        </style>\r\n");
-      out.write("\r\n");
-      out.write("\r\n");
-      out.write("\r\n");
-      out.write("\r\n");
       out.write("    </head>\r\n");
       out.write("    <body>\r\n");
       out.write("        <div class=\"container\">\r\n");
+      out.write("            ");
+                if (msjNum != null && !msjNum.isEmpty()) {
+                    alt = "<br><div class='alert " + msjClr + " alert-dismissible fade show' role='alert'>"
+                            + "<strong>" + msj[Integer.parseInt(msjNum)] + "</strong>"
+                            + "<button type='button' class='btn-close' data-bs-dismiss='alert'>"
+                            + "</button></div><br>";
+                } else {
+                    alt = "<br>";
+                }
+            
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("            ");
+      out.print( alt);
+      out.write("\r\n");
+      out.write("\r\n");
       out.write("            <!--Fist card row Start-->\r\n");
       out.write("            <div class=\"row\">\r\n");
       out.write("\r\n");
@@ -114,7 +173,7 @@ public final class DashSupplier_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("                    </div>\r\n");
       out.write("                </div>\r\n");
       out.write("                <div class=\"col-lg-3 col-md-4 col-sm-6 text-center p-3\">\r\n");
-      out.write("                    <div class=\"card cardsFirstFW mt-2 pt-2\" style=\"width: 100%\" type=\"button\" data-bs-toggle=\"modal\" data-bs-target=\"#edit_remove\">\r\n");
+      out.write("                    <div class=\"card cardsFirstFW mt-2 pt-2\" style=\"width: 100%\" type=\"button\" data-bs-toggle=\"modal\" data-bs-target=\"#remove\">\r\n");
       out.write("                        <div class=\"card-body\">\r\n");
       out.write("                            <div class=\"iconInCard\"><h1><i class=\"fa-solid fa-trash\"></i></h1></div>\r\n");
       out.write("                            <h2>Remove item</h2>\r\n");
@@ -122,7 +181,7 @@ public final class DashSupplier_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("                    </div>\r\n");
       out.write("                </div>\r\n");
       out.write("                <div class=\"col-lg-3 col-md-4 col-sm-6 text-center p-3\">\r\n");
-      out.write("                    <div class=\"card cardsFirstTW mt-2 pt-2\" style=\"width: 100%\" type=\"button\" data-bs-toggle=\"modal\" data-bs-target=\"#edit_remove\">\r\n");
+      out.write("                    <div class=\"card cardsFirstTW mt-2 pt-2\" style=\"width: 100%\" type=\"button\" data-bs-toggle=\"modal\" data-bs-target=\"#edit\">\r\n");
       out.write("                        <div class=\"card-body\">\r\n");
       out.write("                            <div class=\"iconInCard\"><h1><i class=\"fa-solid fa-pen-to-square\"></i></h1></div>\r\n");
       out.write("                            <h2>Update item</h2>\r\n");
@@ -130,12 +189,14 @@ public final class DashSupplier_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("                    </div>\r\n");
       out.write("                </div>\r\n");
       out.write("                <div class=\"col-lg-3 col-md-4 col-sm-6 text-center p-3\">\r\n");
-      out.write("                    <div class=\"card cardsFirstTS mt-2 pt-2\" style=\"width: 100%\" type=\"button\" data-bs-toggle=\"offcanvas\" data-bs-target=\"#staticBackdropAP\">\r\n");
-      out.write("                        <div class=\"card-body\">\r\n");
-      out.write("                            <div class=\"iconInCard\"><h1><i class=\"fa-solid fa-eye\"></i></h1></div>\r\n");
-      out.write("                            <h2>View all item</h2>\r\n");
+      out.write("                    <a href=\"ShowSupp?actionSup=viewitems\" style=\"text-decoration: none\">\r\n");
+      out.write("                        <div class=\"card cardsFirstTS mt-2 pt-2\" style=\"width: 100%\">\r\n");
+      out.write("                            <div class=\"card-body\">\r\n");
+      out.write("                                <div class=\"iconInCard\"><h1><i class=\"fa-solid fa-eye\"></i></h1></div>\r\n");
+      out.write("                                <h2>View all item</h2>\r\n");
+      out.write("                            </div>\r\n");
       out.write("                        </div>\r\n");
-      out.write("                    </div>\r\n");
+      out.write("                    </a>\r\n");
       out.write("                </div>\r\n");
       out.write("                <div class=\"col-lg-3 col-md-4 col-sm-6 text-center p-3\">\r\n");
       out.write("                    <a href=\"wareHouses.html\" style=\"text-decoration: none\">\r\n");
@@ -156,19 +217,23 @@ public final class DashSupplier_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("                    </div>\r\n");
       out.write("                </div>\r\n");
       out.write("                <div class=\"col-lg-3 col-md-4 col-sm-6 text-center p-3\">\r\n");
-      out.write("                    <div class=\"card cardsFirstTW mt-2 pt-2\" style=\"width: 100%\" type=\"button\" data-bs-toggle=\"offcanvas\" data-bs-target=\"#Request\">\r\n");
-      out.write("                        <div class=\"card-body\">\r\n");
-      out.write("                            <div class=\"iconInCard\"><h1><i class=\"fa-solid fa-magnifying-glass\"></i></h1></div>\r\n");
-      out.write("                            <h2>View Request</h2>\r\n");
+      out.write("                    <a href=\"ShowSupp?actionSup=RequestBySK\" style=\"text-decoration: none\">\r\n");
+      out.write("                        <div class=\"card cardsFirstTW mt-2 pt-2\" style=\"width: 100%\">\r\n");
+      out.write("                            <div class=\"card-body\">\r\n");
+      out.write("                                <div class=\"iconInCard\"><h1><i class=\"fa-solid fa-magnifying-glass\"></i></h1></div>\r\n");
+      out.write("                                <h2>View Request</h2>\r\n");
+      out.write("                            </div>\r\n");
       out.write("                        </div>\r\n");
-      out.write("                    </div>\r\n");
+      out.write("                    </a>\r\n");
       out.write("                </div>\r\n");
-      out.write("                <div class=\"col-lg-3 col-md-4 col-sm-6 text-center p-3\">\r\n");
-      out.write("                    <div class=\"card cardsFirstTW mt-2 pt-2\" style=\"width: 100%\" type=\"button\" data-bs-toggle=\"offcanvas\" data-bs-target=\"#Transfer\">\r\n");
-      out.write("                        <div class=\"card-body\">\r\n");
-      out.write("                            <div class=\"iconInCard\"><h1><i class=\"fa-solid fa-plane-departure\"></i></h1></div>\r\n");
-      out.write("                            <h2>Transfer History</h2></div>\r\n");
-      out.write("                    </div>\r\n");
+      out.write("                <div class=\"col-lg-3 col-md-4 col-sm-6 text-center p-3\">                    \r\n");
+      out.write("                    <a href=\"ShowSupp?actionSup=TransferToSK\" style=\"text-decoration: none\">\r\n");
+      out.write("                        <div class=\"card cardsFirstTW mt-2 pt-2\" style=\"width: 100%\">\r\n");
+      out.write("                            <div class=\"card-body\">\r\n");
+      out.write("                                <div class=\"iconInCard\"><h1><i class=\"fa-solid fa-plane-departure\"></i></h1></div>\r\n");
+      out.write("                                <h2>Transfer History</h2></div>\r\n");
+      out.write("                        </div>\r\n");
+      out.write("                    </a>\r\n");
       out.write("                </div>\r\n");
       out.write("            </div>\r\n");
       out.write("\r\n");
@@ -183,7 +248,7 @@ public final class DashSupplier_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("                            <h1 class=\"modal-title fs-5\">Add Item</h1>\r\n");
       out.write("                            <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\"></button>\r\n");
       out.write("                        </div>                        \r\n");
-      out.write("                        <form class=\"was-validated\" action=\"AddItem\"method=\"POST\">\r\n");
+      out.write("                        <form class=\"was-validated\" action=\"ControlSupp?actionSup=add\" method=\"POST\">\r\n");
       out.write("                            <div class=\"modal-body\">\r\n");
       out.write("                                <div class=\"row\">\r\n");
       out.write("                                    <div class=\"mb-2\">\r\n");
@@ -197,7 +262,7 @@ public final class DashSupplier_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("                                    <label class=\"form-label\">Select type</label>\r\n");
       out.write("                                    <select class=\"form-select  mb-3\" required name=\"category\">            \r\n");
       out.write("                                        <option value=\"Product\">Product</option>\r\n");
-      out.write("                                        <option value=\"Raw materia\">Raw material</option>\r\n");
+      out.write("                                        <option value=\"Raw material\">Raw material</option>\r\n");
       out.write("                                    </select>\r\n");
       out.write("                                </div>\r\n");
       out.write("                                <br><div class=\"row\">\r\n");
@@ -220,52 +285,96 @@ public final class DashSupplier_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("            </div>\r\n");
       out.write("            <!--add item-->\r\n");
       out.write("\r\n");
-      out.write("            <!--edit,delete item-->\r\n");
-      out.write("            <div class=\"modal fade\" id=\"edit_remove\" data-bs-backdrop=\"static\" data-bs-keyboard=\"false\" tabindex=\"-1\" aria-hidden=\"true\">\r\n");
+      out.write("            <!--edit item-->\r\n");
+      out.write("            <div class=\"modal fade\" id=\"edit\" data-bs-backdrop=\"static\" data-bs-keyboard=\"false\" tabindex=\"-1\" aria-hidden=\"true\">\r\n");
       out.write("                <div class=\"modal-dialog modal-dialog-centered modal-dialog-scrollable\" >\r\n");
       out.write("                    <div class=\"modal-content w-150\">\r\n");
       out.write("                        <div class=\"modal-header\">\r\n");
-      out.write("                            <h1 class=\"modal-title fs-5\">Update, Delete Item</h1>\r\n");
+      out.write("                            <h1 class=\"modal-title fs-5\">Update Item</h1>\r\n");
       out.write("                            <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\"></button>\r\n");
       out.write("                        </div>\r\n");
-      out.write("                        <div class=\"modal-body\">\r\n");
-      out.write("                            <form class=\"was-validated\">\r\n");
+      out.write("                        <form class=\"was-validated\" action=\"ControlSupp?actionSup=edit\" method=\"POST\">\r\n");
+      out.write("                            <div class=\"modal-body\">\r\n");
       out.write("                                <div class=\"row\">\r\n");
-      out.write("                                    <label class=\"form-label\">Select Item Name</label>\r\n");
-      out.write("                                    <select class=\"form-select  mb-3\" required a>            \r\n");
-      out.write("                                        <option value=\"1\">Name 1</option>\r\n");
-      out.write("                                        <option value=\"2\">Name 2</option>\r\n");
+      out.write("                                    <label class=\"form-label\">Select Item ID</label>\r\n");
+      out.write("                                    <select class=\"form-select  mb-3\" required name=\"id\">\r\n");
+      out.write("                                        <option>Select</option>\r\n");
+      out.write("                                        ");
+while (data1.next()) {
+      out.write("\r\n");
+      out.write("                                        <option value=\"");
+      out.print( data1.getString("itemID"));
+      out.write('"');
+      out.write('>');
+      out.print( data1.getString("itemID"));
+      out.write("</option>\r\n");
+      out.write("                                        ");
+}
+      out.write("\r\n");
       out.write("                                    </select>\r\n");
-      out.write("                                </div>                                \r\n");
-      out.write("                                <br><div class=\"row\">\r\n");
-      out.write("                                    <div class=\"mb-2\">\r\n");
-      out.write("                                        <label class=\"form-label\">Item Type</label>\r\n");
-      out.write("                                        <div class=\"input-group\">\r\n");
-      out.write("                                            <input type=\"text\" class=\"form-control\">\r\n");
-      out.write("                                        </div>\r\n");
-      out.write("                                    </div>\r\n");
-      out.write("                                </div>                                \r\n");
+      out.write("                                </div>                   \r\n");
       out.write("                                <br><div class=\"row\">\r\n");
       out.write("                                    <div class=\"col-12\">\r\n");
-      out.write("                                        <label class=\"form-label\">Unit price</label>\r\n");
+      out.write("                                        <label class=\"form-label\">New Unit price</label>\r\n");
       out.write("                                        <div class=\"input-group mb-3\">\r\n");
-      out.write("                                            <input type=\"text\" class=\"form-control\" >\r\n");
+      out.write("                                            <input type=\"text\" class=\"form-control\" name=\"unitPrice\">\r\n");
       out.write("                                            <span class=\"input-group-text\">.00</span>\r\n");
       out.write("                                        </div>\r\n");
       out.write("                                    </div>\r\n");
       out.write("                                </div> \r\n");
       out.write("\r\n");
-      out.write("                            </form>\r\n");
-      out.write("                        </div>\r\n");
-      out.write("                        <div class=\"modal-footer\">\r\n");
-      out.write("                            <button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">Discard</button>\r\n");
-      out.write("                            <button type=\"button\" class=\"btn btn-primary\">Update</button>\r\n");
-      out.write("                            <button type=\"button\" class=\"btn btn-primary\">Delete</button>\r\n");
-      out.write("                        </div>\r\n");
+      out.write("\r\n");
+      out.write("                            </div>\r\n");
+      out.write("                            <div class=\"modal-footer\">\r\n");
+      out.write("                                <button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">Discard</button>\r\n");
+      out.write("                                <button type=\"sumbit\" class=\"btn btn-primary\">Update</button>\r\n");
+      out.write("                            </div>\r\n");
+      out.write("                        </form>\r\n");
       out.write("                    </div>\r\n");
       out.write("                </div>\r\n");
       out.write("            </div>\r\n");
-      out.write("            <!--edit,delete item-->           \r\n");
+      out.write("            <!--edit item-->  \r\n");
+      out.write("\r\n");
+      out.write("            <!--delete item-->\r\n");
+      out.write("            <div class=\"modal fade\" id=\"remove\" data-bs-backdrop=\"static\" data-bs-keyboard=\"false\" tabindex=\"-1\" aria-hidden=\"true\">\r\n");
+      out.write("                <div class=\"modal-dialog modal-dialog-centered modal-dialog-scrollable\" >\r\n");
+      out.write("                    <div class=\"modal-content w-150\">\r\n");
+      out.write("                        <div class=\"modal-header\">\r\n");
+      out.write("                            <h1 class=\"modal-title fs-5\">Delete Item</h1>\r\n");
+      out.write("                            <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\"></button>\r\n");
+      out.write("                        </div>\r\n");
+      out.write("                        <form class=\"was-validated\" action=\"ControlSupp?actionSup=delete\" method=\"POST\">\r\n");
+      out.write("                            <div class=\"modal-body\">\r\n");
+      out.write("                                <div class=\"row\">\r\n");
+      out.write("                                    <label class=\"form-label\">Select Item ID</label>\r\n");
+      out.write("                                    <select class=\"form-select  mb-3\" required name=\"id\">\r\n");
+      out.write("                                        <option>Select</option>\r\n");
+      out.write("                                        ");
+while (data2.next()) {
+      out.write("\r\n");
+      out.write("                                        <option value=\"");
+      out.print( data2.getString("itemID"));
+      out.write('"');
+      out.write('>');
+      out.print( data2.getString("itemID"));
+      out.write("</option>\r\n");
+      out.write("                                        ");
+}
+      out.write("\r\n");
+      out.write("                                    </select>\r\n");
+      out.write("                                </div>                                \r\n");
+      out.write("\r\n");
+      out.write("                            </div>\r\n");
+      out.write("                            <div class=\"modal-footer\">\r\n");
+      out.write("                                <button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">Discard</button>\r\n");
+      out.write("                                <button type=\"submit\" class=\"btn btn-primary\">Delete</button>\r\n");
+      out.write("                            </div>\r\n");
+      out.write("                        </form>\r\n");
+      out.write("\r\n");
+      out.write("                    </div>\r\n");
+      out.write("                </div>\r\n");
+      out.write("            </div>\r\n");
+      out.write("            <!--delete item-->  \r\n");
       out.write("\r\n");
       out.write("            <!--Send item-->\r\n");
       out.write("            <div class=\"modal fade\" id=\"send\" data-bs-backdrop=\"static\" data-bs-keyboard=\"false\" tabindex=\"-1\" aria-hidden=\"true\">\r\n");
@@ -275,242 +384,175 @@ public final class DashSupplier_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("                            <h1 class=\"modal-title fs-5\">Send Item to Store Keeper</h1>\r\n");
       out.write("                            <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\"></button>\r\n");
       out.write("                        </div>\r\n");
-      out.write("                        <div class=\"modal-body\">\r\n");
-      out.write("                            <form class=\"was-validated\">\r\n");
+      out.write("                        <form class=\"was-validated\" action=\"ControlSupp?actionSup=send\" method=\"POST\">\r\n");
+      out.write("                            <div class=\"modal-body\">\r\n");
       out.write("                                <div class=\"row\">\r\n");
       out.write("                                    <label class=\"form-label\">Select Product Name</label>\r\n");
-      out.write("                                    <select class=\"form-select  mb-3\" required a>            \r\n");
-      out.write("                                        <option value=\"1\">Name 1</option>\r\n");
-      out.write("                                        <option value=\"2\">Name 2</option>\r\n");
+      out.write("                                    <select class=\"form-select  mb-3\" required name=\"iid\">            \r\n");
+      out.write("                                        <option>Select</option>\r\n");
+      out.write("                                        ");
+while (data3.next()) {
+      out.write("\r\n");
+      out.write("                                        <option value=\"");
+      out.print( data3.getString("itemID"));
+      out.write('"');
+      out.write('>');
+      out.print( data3.getString("itemID"));
+      out.write("</option>\r\n");
+      out.write("                                        ");
+}
+      out.write("\r\n");
       out.write("                                    </select>\r\n");
-      out.write("                                </div>                                \r\n");
-      out.write("                                <br><div class=\"row\">\r\n");
-      out.write("                                    <div class=\"col-12\">\r\n");
-      out.write("                                        <label class=\"form-label\">Unit price</label>\r\n");
-      out.write("                                        <div class=\"input-group mb-3\">\r\n");
-      out.write("                                            <input type=\"text\" class=\"form-control\" disabled>\r\n");
-      out.write("                                            <span class=\"input-group-text\">.00</span>\r\n");
-      out.write("                                        </div>\r\n");
-      out.write("                                    </div>\r\n");
-      out.write("                                </div> \r\n");
+      out.write("                                </div>\r\n");
       out.write("                                <div class=\"row\">\r\n");
       out.write("                                    <label class=\"form-label\">Select Store Keeper</label>\r\n");
-      out.write("                                    <select class=\"form-select  mb-3\" required a>            \r\n");
-      out.write("                                        <option value=\"1\">Store Keeper 1</option>\r\n");
-      out.write("                                        <option value=\"2\">Store Keeper 2</option>\r\n");
+      out.write("                                    <select class=\"form-select  mb-3\" required name=\"skid\">            \r\n");
+      out.write("                                        <option>Select</option>\r\n");
+      out.write("                                        ");
+while (StID.next()) {
+      out.write("\r\n");
+      out.write("                                        <option value=\"");
+      out.print( StID.getString("SKID"));
+      out.write('"');
+      out.write('>');
+      out.print( StID.getString("SKID"));
+      out.write("</option>\r\n");
+      out.write("                                        ");
+}
+      out.write("\r\n");
       out.write("                                    </select>\r\n");
       out.write("                                </div>\r\n");
       out.write("                                <br><div class=\"row\">\r\n");
       out.write("                                    <div class=\"mb-2\">\r\n");
       out.write("                                        <label class=\"form-label\">Quantity</label>\r\n");
       out.write("                                        <div class=\"input-group\">\r\n");
-      out.write("                                            <input type=\"text\" class=\"form-control\" id=\"basic-url\">\r\n");
+      out.write("                                            <input type=\"number\" class=\"form-control\" id=\"basic-url\" name=\"qty\">\r\n");
       out.write("                                        </div>\r\n");
       out.write("                                    </div>\r\n");
       out.write("                                </div>\r\n");
-      out.write("                            </form>\r\n");
-      out.write("                        </div>\r\n");
-      out.write("                        <div class=\"modal-footer\">\r\n");
-      out.write("                            <button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">Discard</button>\r\n");
-      out.write("                            <button type=\"button\" class=\"btn btn-primary\">Send</button>\r\n");
-      out.write("                        </div>\r\n");
+      out.write("                                <input type=\"hidden\" name=\"sid\" value=\"");
+      out.print( U_ID);
+      out.write("\" />\r\n");
+      out.write("                            </div>\r\n");
+      out.write("                            <div class=\"modal-footer\">\r\n");
+      out.write("                                <button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">Discard</button>\r\n");
+      out.write("                                <button type=\"submit\" class=\"btn btn-primary\">Send</button>\r\n");
+      out.write("                            </div>\r\n");
+      out.write("                        </form>\r\n");
       out.write("                    </div>\r\n");
       out.write("                </div>\r\n");
       out.write("            </div>\r\n");
       out.write("            <!--Send Item-->            \r\n");
       out.write("            <!--model end-->\r\n");
       out.write("\r\n");
-      out.write("\r\n");
-      out.write("            <!--off canvas start-->   \r\n");
-      out.write("            <!--Product list start-->\r\n");
-      out.write("            <div class=\"offcanvas offcanvas-start\" data-bs-backdrop=\"static\" tabindex=\"-1\" id=\"staticBackdropAP\" style=\"width: 100%;\">\r\n");
-      out.write("                <div class=\"offcanvas-header\">\r\n");
-      out.write("                    <h3 class=\"offcanvas-title\">Product list</h3>\r\n");
-      out.write("                    <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"offcanvas\" \"></button>\r\n");
-      out.write("                </div>\r\n");
-      out.write("                <div class=\"offcanvas-body\">\r\n");
-      out.write("                    <div>\r\n");
-      out.write("                        <div class=\"col tableBody\">\r\n");
-      out.write("                            <table class=\"table text-center\">\r\n");
-      out.write("                                <th scope=\"col\">Added Date</th>\r\n");
-      out.write("                                <th scope=\"col\">Product Id</th>\r\n");
-      out.write("                                <th scope=\"col\">Product name</th>\r\n");
-      out.write("                                <th scope=\"col\">Product Image</th>\r\n");
-      out.write("                                <th scope=\"col\">Quantity(Pieces)</th>\r\n");
-      out.write("                                <tr class=\"table-light\">\r\n");
-      out.write("                                    <td>12.06.2023</td>\r\n");
-      out.write("                                    <td>P001</td>\r\n");
-      out.write("                                    <td>Blue Bird Shirt</td>\r\n");
-      out.write("                                    <td><img src=\"https://www.beverlystreet.lk/media/catalog/product/cache/1/small_image/320x/040ec09b1e35df139433887a97daa66f/5/5/5541.jpg\"style=\"height: 30px; width: 30px\" /></td>\r\n");
-      out.write("                                    <td>1000</td>\r\n");
-      out.write("                                </tr>\r\n");
-      out.write("                            </table>\r\n");
-      out.write("                        </div>\r\n");
-      out.write("                    </div>\r\n");
-      out.write("                </div>\r\n");
-      out.write("            </div>\r\n");
-      out.write("            <!--Product list End-->\r\n");
-      out.write("\r\n");
-      out.write("            <!--View Request start-->\r\n");
-      out.write("            <div class=\"offcanvas offcanvas-start\" data-bs-backdrop=\"static\" tabindex=\"-1\" id=\"Request\" style=\"width: 100%;\">\r\n");
-      out.write("                <div class=\"offcanvas-header\">\r\n");
-      out.write("                    <h3 class=\"offcanvas-title\" >View Request</h3>\r\n");
-      out.write("                    <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"offcanvas\"></button>\r\n");
-      out.write("                </div>\r\n");
-      out.write("                <div class=\"offcanvas-body\">\r\n");
-      out.write("                    <div>\r\n");
-      out.write("                        <div class=\"col tableBody\">\r\n");
-      out.write("                            <table class=\"table text-center\">\r\n");
-      out.write("                                <th scope=\"col\">Added Date</th>\r\n");
-      out.write("                                <th scope=\"col\">Product Id</th>\r\n");
-      out.write("                                <th scope=\"col\">Product name</th>\r\n");
-      out.write("                                <th scope=\"col\">Product Image</th>\r\n");
-      out.write("                                <th scope=\"col\">Quantity(Pieces)</th>\r\n");
-      out.write("                                <tr class=\"table-light\">\r\n");
-      out.write("                                    <td>12.06.2023</td>\r\n");
-      out.write("                                    <td>P001</td>\r\n");
-      out.write("                                    <td>Blue Bird Shirt</td>\r\n");
-      out.write("                                    <td><img src=\"https://www.beverlystreet.lk/media/catalog/product/cache/1/small_image/320x/040ec09b1e35df139433887a97daa66f/5/5/5541.jpg\"style=\"height: 30px; width: 30px\" /></td>\r\n");
-      out.write("                                    <td>1000</td>\r\n");
-      out.write("                                </tr>\r\n");
-      out.write("                            </table>\r\n");
-      out.write("                        </div>\r\n");
-      out.write("                    </div>\r\n");
-      out.write("                </div>\r\n");
-      out.write("            </div>\r\n");
-      out.write("            <!--View Request End-->\r\n");
-      out.write("\r\n");
-      out.write("            <!--View Transfer History start-->\r\n");
-      out.write("            <div class=\"offcanvas offcanvas-start\" data-bs-backdrop=\"static\" tabindex=\"-1\" id=\"Transfer\" style=\"width: 100%;\">\r\n");
-      out.write("                <div class=\"offcanvas-header\">\r\n");
-      out.write("                    <h3 class=\"offcanvas-title\" >Transfer History</h3>\r\n");
-      out.write("                    <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"offcanvas\"></button>\r\n");
-      out.write("                </div>\r\n");
-      out.write("                <div class=\"offcanvas-body\">\r\n");
-      out.write("                    <div>\r\n");
-      out.write("                        <div class=\"col tableBody\">\r\n");
-      out.write("                            <table class=\"table text-center\">\r\n");
-      out.write("                                <th scope=\"col\">Added Date</th>\r\n");
-      out.write("                                <th scope=\"col\">Product Id</th>\r\n");
-      out.write("                                <th scope=\"col\">Product name</th>\r\n");
-      out.write("                                <th scope=\"col\">Product Image</th>\r\n");
-      out.write("                                <th scope=\"col\">Quantity(Pieces)</th>\r\n");
-      out.write("                                <tr class=\"table-light\">\r\n");
-      out.write("                                    <td>12.06.2023</td>\r\n");
-      out.write("                                    <td>P001</td>\r\n");
-      out.write("                                    <td>Blue Bird Shirt</td>\r\n");
-      out.write("                                    <td><img src=\"https://www.beverlystreet.lk/media/catalog/product/cache/1/small_image/320x/040ec09b1e35df139433887a97daa66f/5/5/5541.jpg\"style=\"height: 30px; width: 30px\" /></td>\r\n");
-      out.write("                                    <td>1000</td>\r\n");
-      out.write("                                </tr>\r\n");
-      out.write("                            </table>\r\n");
-      out.write("                        </div>\r\n");
-      out.write("                    </div>\r\n");
-      out.write("                </div>\r\n");
-      out.write("            </div>\r\n");
-      out.write("            <!--View all items End-->\r\n");
-      out.write("            <!--off canvas end-->  \r\n");
-      out.write("\r\n");
       out.write("            <!--Table Start-->\r\n");
+      out.write("            ");
+
+                ResultSet viewitemsl5 = sup.viewitemsl5();
+                ResultSetMetaData metaData1 = viewitemsl5.getMetaData();
+                int columnCount1 = metaData1.getColumnCount();
+            
+      out.write("\r\n");
       out.write("            <div class=\"row\">\r\n");
       out.write("                <!--Recently Added Products Table Start-->\r\n");
       out.write("                <div class=\"col-md-6\">\r\n");
       out.write("                    <div class=\"text-center mt-2\">\r\n");
-      out.write("                        <h4>Recently Added products</h4>\r\n");
+      out.write("                        <h4>Recently Added Items</h4>\r\n");
       out.write("                    </div>\r\n");
+      out.write("\r\n");
       out.write("                    <table class=\"table text-center\">\r\n");
-      out.write("                        <th scope=\"col\">Added Date</th>\r\n");
-      out.write("                        <th scope=\"col\">Product Id</th>\r\n");
-      out.write("                        <th scope=\"col\">Product name</th>\r\n");
-      out.write("                        <th scope=\"col\">Product Image</th>\r\n");
-      out.write("                        <th scope=\"col\">Quantity(Pieces)</th>\r\n");
-      out.write("                        <tr class=\"table-light\">\r\n");
-      out.write("                            <td>12.06.2023</td>\r\n");
-      out.write("                            <td>P001</td>\r\n");
-      out.write("                            <td>Blue Bird Shirt</td>\r\n");
-      out.write("                            <td><img src=\"https://www.beverlystreet.lk/media/catalog/product/cache/1/small_image/320x/040ec09b1e35df139433887a97daa66f/5/5/5541.jpg\"style=\"height: 30px; width: 30px\" /></td>\r\n");
-      out.write("                            <td>1000</td>\r\n");
-      out.write("                        </tr>\r\n");
-      out.write("                        <tr class=\"table-secondary\">\r\n");
-      out.write("                            <td>12.06.2023</td>\r\n");
-      out.write("                            <td>P002</td>\r\n");
-      out.write("                            <td>Blue Bird Jeans</td>\r\n");
-      out.write("                            <td><img src=\"https://www.styledbysally.com.au/wp-content/uploads/2018/01/Classic-Blue-Men-Jeans-Pant-Cotton-Slim-Fit-Men-s-Denim-Pants-Stretch-Fashion-Mens-Clothes.jpg\" style=\"height: 30px; width: 30px\"/></td>\r\n");
-      out.write("                            <td>800</td>\r\n");
-      out.write("                        </tr>\r\n");
-      out.write("                        <tr class=\"table-light\">\r\n");
-      out.write("                            <td>12.06.2023</td>\r\n");
-      out.write("                            <td>P003</td>\r\n");
-      out.write("                            <td>Yello Crispy T-Shirt</td>\r\n");
-      out.write("                            <td><img src=\"https://5.imimg.com/data5/FW/GT/MY-23375112/men-s-yellow-color-t-shirt.jpg\" style=\"height: 30px; width: 30px\" /></td>\r\n");
-      out.write("                            <td>650</td>\r\n");
-      out.write("                        </tr>\r\n");
-      out.write("                        <tr class=\"table-secondary\">\r\n");
-      out.write("                            <td>12.06.2023</td>\r\n");
-      out.write("                            <td>P004</td>\r\n");
-      out.write("                            <td>Black Skirts</td>\r\n");
-      out.write("                            <td><img src=\"https://www.ubuy.com.lk/productimg/?image=aHR0cHM6Ly9tLm1lZGlhLWFtYXpvbi5jb20vaW1hZ2VzL0kvNjFmSXpDUW9kMEwuX0FDX1VMMTIzMF8uanBn.jpg\" style=\"height: 30px; width: 30px\"/></td>\r\n");
-      out.write("                            <td>500</td>\r\n");
-      out.write("                        </tr>\r\n");
-      out.write("                        <tr class=\"table-light\">\r\n");
-      out.write("                            <td>12.06.2023</td>\r\n");
-      out.write("                            <td>P005</td>\r\n");
-      out.write("                            <td>Red Salvar</td>\r\n");
-      out.write("                            <td><img src=\"https://singlekart.com/wp-content/uploads/2019/11/04-1.jpg\" style=\"height: 30px; width: 30px\" /></td>\r\n");
-      out.write("                            <td>250</td>\r\n");
-      out.write("                        </tr>\r\n");
+      out.write("                        <thead>\r\n");
+      out.write("                            <tr class=\"table-secondary\">\r\n");
+      out.write("                                ");
+
+                                    for (int i = 1; i <= columnCount1; i++) {
+                                        String columnName = metaData1.getColumnName(i);
+                                
+      out.write("\r\n");
+      out.write("                                <th scope=\"col\"> ");
+      out.print( columnName);
+      out.write("</th>\r\n");
+      out.write("                                    ");
+
+                                        } // End of for loop
+                                    
+      out.write("\r\n");
+      out.write("                            </tr>\r\n");
+      out.write("                        </thead>\r\n");
+      out.write("                        <tbody>\r\n");
+      out.write("                            ");
+
+                                    while (viewitemsl5.next()) {
+      out.write("<tr class=\"table-light\"> ");
+
+                                for (int i = 1; i <= columnCount1; i++) {
+                                    String columnName = metaData1.getColumnName(i);
+                                
+      out.write("\r\n");
+      out.write("                                <td> ");
+      out.print( viewitemsl5.getString(columnName));
+      out.write("</td>\r\n");
+      out.write("                                ");
+}
+      out.write("</tr>");
+}
+      out.write("\r\n");
+      out.write("                        </tbody>\r\n");
       out.write("                    </table>\r\n");
       out.write("                </div>\r\n");
       out.write("                <!--Recently Added Products Table end-->\r\n");
       out.write("\r\n");
-      out.write("                <!--Recently Supplied Products Table Start-->\r\n");
+      out.write("                <!--Recently Supplied Products Table Start-->                \r\n");
       out.write("                <div class=\"col-md-6\">\r\n");
       out.write("                    <div class=\"text-center mt-2\">\r\n");
-      out.write("                        <h4>Recently Added products</h4>\r\n");
+      out.write("                        <h4>Recently Transfer Items</h4>\r\n");
       out.write("                    </div>\r\n");
-      out.write("                    <table class=\"table text-center\">\r\n");
-      out.write("                        <th scope=\"col\">Added Date</th>\r\n");
-      out.write("                        <th scope=\"col\">Product Id</th>\r\n");
-      out.write("                        <th scope=\"col\">Product name</th>\r\n");
-      out.write("                        <th scope=\"col\">Product Image</th>\r\n");
-      out.write("                        <th scope=\"col\">Quantity(Pieces)</th>\r\n");
-      out.write("                        <tr class=\"table-light\">\r\n");
-      out.write("                            <td>12.06.2023</td>\r\n");
-      out.write("                            <td>P001</td>\r\n");
-      out.write("                            <td>Blue Bird Shirt</td>\r\n");
-      out.write("                            <td><img src=\"https://www.beverlystreet.lk/media/catalog/product/cache/1/small_image/320x/040ec09b1e35df139433887a97daa66f/5/5/5541.jpg\"style=\"height: 30px; width: 30px\" /></td>\r\n");
-      out.write("                            <td>1000</td>\r\n");
-      out.write("                        </tr>\r\n");
-      out.write("                        <tr class=\"table-secondary\">\r\n");
-      out.write("                            <td>12.06.2023</td>\r\n");
-      out.write("                            <td>P002</td>\r\n");
-      out.write("                            <td>Blue Bird Jeans</td>\r\n");
-      out.write("                            <td><img src=\"https://www.styledbysally.com.au/wp-content/uploads/2018/01/Classic-Blue-Men-Jeans-Pant-Cotton-Slim-Fit-Men-s-Denim-Pants-Stretch-Fashion-Mens-Clothes.jpg\" style=\"height: 30px; width: 30px\"/></td>\r\n");
-      out.write("                            <td>800</td>\r\n");
-      out.write("                        </tr>\r\n");
-      out.write("                        <tr class=\"table-light\">\r\n");
-      out.write("                            <td>12.06.2023</td>\r\n");
-      out.write("                            <td>P003</td>\r\n");
-      out.write("                            <td>Yello Crispy T-Shirt</td>\r\n");
-      out.write("                            <td><img src=\"https://5.imimg.com/data5/FW/GT/MY-23375112/men-s-yellow-color-t-shirt.jpg\" style=\"height: 30px; width: 30px\" /></td>\r\n");
-      out.write("                            <td>650</td>\r\n");
-      out.write("                        </tr>\r\n");
-      out.write("                        <tr class=\"table-secondary\">\r\n");
-      out.write("                            <td>12.06.2023</td>\r\n");
-      out.write("                            <td>P004</td>\r\n");
-      out.write("                            <td>Black Skirts</td>\r\n");
-      out.write("                            <td><img src=\"https://www.ubuy.com.lk/productimg/?image=aHR0cHM6Ly9tLm1lZGlhLWFtYXpvbi5jb20vaW1hZ2VzL0kvNjFmSXpDUW9kMEwuX0FDX1VMMTIzMF8uanBn.jpg\" style=\"height: 30px; width: 30px\"/></td>\r\n");
-      out.write("                            <td>500</td>\r\n");
-      out.write("                        </tr>\r\n");
-      out.write("                        <tr class=\"table-light\">\r\n");
-      out.write("                            <td>12.06.2023</td>\r\n");
-      out.write("                            <td>P005</td>\r\n");
-      out.write("                            <td>Red Salvar</td>\r\n");
-      out.write("                            <td><img src=\"https://singlekart.com/wp-content/uploads/2019/11/04-1.jpg\" style=\"height: 30px; width: 30px\" /></td>\r\n");
-      out.write("                            <td>250</td>\r\n");
-      out.write("                        </tr>\r\n");
-      out.write("                        <tr class=\"table-secondary\"></tr>\r\n");
-      out.write("                        <tr class=\"table-light\"></tr>\r\n");
-      out.write("                        <tr class=\"table-secondary\"></tr>\r\n");
+      out.write("                    ");
+
+                    ResultSet transferToSKl5 = sup.transferToSKl5();
+                    ResultSetMetaData metaData2 = transferToSKl5.getMetaData();
+                    int columnCount2 = metaData2.getColumnCount();
+                
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("                <table class=\"table text-center\">\r\n");
+      out.write("                        <thead>\r\n");
+      out.write("                            <tr class=\"table-secondary\">\r\n");
+      out.write("                                ");
+
+                                    for (int i = 1; i <= columnCount2; i++) {
+                                        String columnName = metaData2.getColumnName(i);
+                                
+      out.write("\r\n");
+      out.write("                                <th scope=\"col\"> ");
+      out.print( columnName);
+      out.write("</th>\r\n");
+      out.write("                                    ");
+
+                                        } // End of for loop
+                                    
+      out.write("\r\n");
+      out.write("                            </tr>\r\n");
+      out.write("                        </thead>\r\n");
+      out.write("                        <tbody>\r\n");
+      out.write("                                ");
+
+                                    while (transferToSKl5.next()) {
+      out.write("<tr class=\"table-light\"> ");
+
+                                    for (int i = 1; i <= columnCount2; i++) {
+                                        String columnName = metaData2.getColumnName(i);
+                                
+      out.write("\r\n");
+      out.write("                                <td> ");
+      out.print( transferToSKl5.getString(columnName));
+      out.write("</td>\r\n");
+      out.write("                                ");
+}
+      out.write("</tr>");
+}
+      out.write("\r\n");
+      out.write("                        </tbody>\r\n");
       out.write("                    </table>\r\n");
       out.write("                </div>\r\n");
       out.write("                <!--Recently Supplied Products Table Start-->\r\n");
