@@ -45,26 +45,48 @@ public class ShowSupp extends HttpServlet {
                     session = request.getSession();
                     session.setAttribute("Data", data);
                     session.setAttribute("title", "Product list");
-                    response.sendRedirect("aa.jsp");
+                    response.sendRedirect("SupplierShowTables.jsp");
                     break;
                 case "RequestBySK":
                     // Handle link 1 logic
-                    data = sup.RequestBySK();
+                    data = sup.requestBySK();
                     session = request.getSession();
                     session.setAttribute("Data", data);
                     session.setAttribute("title", "Item Requests by Stock Keepers");
-                    response.sendRedirect("aa.jsp");
+                    response.sendRedirect("SupplierShowTables2.jsp");
                     break;
                 case "TransferToSK":
                     // Handle link 1 logic
-                    data = sup.TransferToSK();
+                    data = sup.transferToSK();
                     session = request.getSession();
                     session.setAttribute("Data", data);
                     session.setAttribute("title", "Transfer History");
-                    response.sendRedirect("aa.jsp");
+                    response.sendRedirect("SupplierShowTables.jsp");
                     break;
+                case "reqbtn":
+                    String SupplyID = sup.incrementSupplyID();
+                    String RID = request.getParameter("RID");
+                    String SID = request.getParameter("SID");
+                    String SKID = request.getParameter("SKID");
+                    String itemID = request.getParameter("itemID");
+                    String Quantity = request.getParameter("Quantity");
+                    String date = sup.date();
+
+                    if (sup.checkEmptyS() - Integer.parseInt(Quantity) > 1) {
+                        if (sup.sendItemToSK(SupplyID, SID, SKID, itemID, Quantity, date) > 0) {
+                            sup.updatereq("Sent", RID);
+                        } else {
+                            sup.updatereq("Cancelled", RID);
+                        }
+                    } else {
+                        sup.updatereq("Cancelled",RID);
+                    }
+                    data = sup.requestBySK();
+                    session = request.getSession();
+                    session.setAttribute("Data", data);
+                    response.sendRedirect("SupplierShowTables2.jsp");
+
                 default:
-                // Handle default case or show an error page
             }
 
         } else {

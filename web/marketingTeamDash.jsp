@@ -116,7 +116,7 @@
                         <td> 9 </td>
                         <td> 23 Apr, 2023 </td>
                         <td>
-                            <p class="status cancelled">Cancelled</p>
+                            <a href="a.jsp"><p class="status cancelled">Cancelled</p></a>
                         </td>
                         <td> <strong>$399.99</strong> </td>
                     </tr>

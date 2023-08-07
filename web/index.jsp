@@ -13,6 +13,9 @@
 </head>
 
 <body style="background: var(--bs-body-bg);"><!-- Start: header -->
+    
+    
+    
     <div><!-- Start: Navbar Right Links -->
         <nav class="navbar navbar-expand-md bg-body py-3">
             <div class="container"><a class="navbar-brand d-flex align-items-center" href="#"></a><button
@@ -33,6 +36,16 @@
                 </div>
             </div>
         </nav><!-- End: Navbar Right Links -->
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     </div><!-- End: header --><!-- Start: Masonry gallery cards responsive -->
     <div style="padding-top: 20px;"><!-- Start: cards -->
         <div class="row" data-masonry="{&quot;percentPosition&quot;: true }"
