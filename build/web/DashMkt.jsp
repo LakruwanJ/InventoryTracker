@@ -22,7 +22,7 @@
     </head>
     <body>
         <div class="container">
-            
+
             <div class="row">
                 <div class="col-lg-3 col-md-4 col-sm-6 text-center p-3">
                     <a href="wareHouses.html" style="text-decoration: none">
@@ -58,7 +58,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
 
             <br><br>
@@ -169,8 +169,6 @@
                 <!--Recently Supplied Products Table Start-->
             </div>
 
-
-
             <!--model start-->    
             <!--Send Request start-->
             <div class="modal fade" id="send" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
@@ -180,8 +178,8 @@
                             <h1 class="modal-title fs-5">Send Request to Store Keeper</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
-                        <div class="modal-body">
-                            <form class="was-validated">
+                        <form class="was-validated">
+                            <div class="modal-body">
                                 <div class="row">
                                     <label class="form-label">Select Product Name</label>
                                     <select class="form-select  mb-3" required a>            
@@ -213,77 +211,19 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
-                            <button type="button" class="btn btn-primary">Send</button>
-                        </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
+                                <button type="button" class="btn btn-primary">Send</button>
+                            </div>
+
+                        </form>
                     </div>
                 </div>
             </div>
             <!--Send Request end-->            
             <!--model end-->
 
-            <!--off canvas start-->   
-            <!--Pending Request start-->
-            <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="Request" style="width: 100%;">
-                <div class="offcanvas-header">
-                    <h3 class="offcanvas-title">Pending Requests</h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <div>
-                        <div class="col tableBody">
-                            <table class="table text-center">
-                                <th scope="col">Added Date</th>
-                                <th scope="col">Product Id</th>
-                                <th scope="col">Product name</th>
-                                <th scope="col">Product Image</th>
-                                <th scope="col">Quantity(Pieces)</th>
-                                <tr class="table-light">
-                                    <td>12.06.2023</td>
-                                    <td>P001</td>
-                                    <td>Blue Bird Shirt</td>
-                                    <td><img src="https://www.beverlystreet.lk/media/catalog/product/cache/1/small_image/320x/040ec09b1e35df139433887a97daa66f/5/5/5541.jpg"style="height: 30px; width: 30px" /></td>
-                                    <td>1000</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--View Request End-->
-
-            <!--Transfer History start-->
-            <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="Transfer" style="width: 100%;">
-                <div class="offcanvas-header">
-                    <h3 class="offcanvas-title" id="staticBackdropLabel">Transfer History</h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <div>
-                        <div class="col tableBody">
-                            <table class="table text-center">
-                                <th scope="col">Added Date</th>
-                                <th scope="col">Product Id</th>
-                                <th scope="col">Product name</th>
-                                <th scope="col">Product Image</th>
-                                <th scope="col">Quantity(Pieces)</th>
-                                <tr class="table-light">
-                                    <td>12.06.2023</td>
-                                    <td>P001</td>
-                                    <td>Blue Bird Shirt</td>
-                                    <td><img src="https://www.beverlystreet.lk/media/catalog/product/cache/1/small_image/320x/040ec09b1e35df139433887a97daa66f/5/5/5541.jpg"style="height: 30px; width: 30px" /></td>
-                                    <td>1000</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--Transfer History End-->
-            <!--off canvas end-->  
 
         </div>
     </body>
