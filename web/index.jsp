@@ -13,6 +13,9 @@
 </head>
 
 <body style="background: var(--bs-body-bg);"><!-- Start: header -->
+    
+    
+    
     <div><!-- Start: Navbar Right Links -->
         <nav class="navbar navbar-expand-md bg-body py-3">
             <div class="container"><a class="navbar-brand d-flex align-items-center" href="#"></a><button
@@ -24,15 +27,25 @@
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item"><a class="nav-link active" href="#">Product</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Ware Houses</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Suppliers</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Stores</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Supliers</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
                     </ul><a class="btn btn-primary ms-md-2" role="button" href="#">Log out</a><a
                         class="btn btn-primary ms-md-2" role="button" href="#"
-                        style="width: 60px;height: 30px;font-size: 10px;">Sign in</a>
+                        style="width: 60px;height: 30px;font-size: 10px;">Log in</a>
                 </div>
             </div>
         </nav><!-- End: Navbar Right Links -->
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     </div><!-- End: header --><!-- Start: Masonry gallery cards responsive -->
     <div style="padding-top: 20px;"><!-- Start: cards -->
         <div class="row" data-masonry="{&quot;percentPosition&quot;: true }"
@@ -164,12 +177,25 @@
     <div><!-- Start: Footer Dark -->
         <footer class="text-center bg-dark" style="background: var(--bs-emphasis-color);">
             <div class="container text-white py-4 py-lg-5">
-                <ul class="list-inline" style="margin-bottom: 6px;">
-                    <li class="list-inline-item me-4"><a class="link-light" href="#">inventorytracker@gmail.com</a></li>
-                    <li class="list-inline-item me-4"><a class="link-light" href="#">+94 11 356 8356</a></li>
-                </ul>
-                <div style="height: 80x;"><img src="img/png%20white.png"
-                        style="max-width: 170px;width: 400px;height: 75px;"></div>
+                <div style="height: 80px;">
+                    <div class="row">
+                        <div class="col"><img src="img/png%20white.png"
+                                style="max-width: 170px;width: 150px;height: 37.8px;"></div>
+                        <div class="col" style="color: rgb(108, 117, 125);font-size: 10px;">
+                            <h1 style="font-size: 15px;color: rgb(108, 117, 125);">You can use this system overseeing
+                                and controlling all aspects of inventory, from ordering to distribution</h1>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col">
+                                    <h1 style="font-size: 18px;color: rgb(108, 117, 125);">Contact Us</h1><a
+                                        class="link-light" href="#">inventorytracker@gmail.com</a>
+                                </div>
+                            </div><a class="link-light" href="#" style="padding-left: 10px;padding-top: 0px;">+94 11 356
+                                8356</a>
+                        </div>
+                    </div>
+                </div>
                 <p class="text-muted mb-0">Copyright © 2023 Inventory Tracker</p>
             </div>
         </footer><!-- End: Footer Dark -->
