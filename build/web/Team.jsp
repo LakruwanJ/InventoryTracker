@@ -1,4 +1,4 @@
-<%-- 
+ <%-- 
     Document   : Team
     Created on : Aug 5, 2023, 9:17:52 AM
     Author     : lakru
@@ -27,24 +27,9 @@
             <h2>Suppliers</h2><hr class="pt-0 pb-0">   
 
             <div class="col-12">
-                <table class="table text-center">
-                    <th scope="col">Name</th>
-                    <th scope="col">email</th>
-                    <th scope="col">Phone number</th>
-                    <th scope="col">No.of Products</th>
-                    <tr class="table-light">
-                        <td>name</td>
-                        <td>email</td>
-                        <td>xxxxxxxx</td>
-                        <td>1000</td>
-                    </tr>
-                    <tr class="table-light">
-                        <td>name</td>
-                        <td>email</td>
-                        <td>xxxxxxxx</td>
-                        <td>1000</td>
-                    </tr>
-                </table>
+                
+                
+                
             </div>
             
             <br><br>

@@ -3,14 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/web/DashAdmin.jsp</file>
+            <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/web/SupplierShowTables.jsp</file>
             <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/web/Team.jsp</file>
-            <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/src/java/app/classes/AdminCls.java</file>
+            <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/web/dispacthGoods.jsp</file>
+            <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/web/inventoryDetails.html</file>
             <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/src/java/app/classes/ControlAdmin.java</file>
-            <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/src/java/app/classes/NewServlet.java</file>
+            <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/web/addProduct.html</file>
             <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/src/java/app/classes/ShowSupp.java</file>
             <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/src/java/app/classes/SpplierCls.java</file>
-            <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/src/java/app/classes/ControlSupp.java</file>
+            <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/src/java/app/classes/ClassTeam.java</file>
+            <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/web/productList.html</file>
+            <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/web/wareHouses.html</file>
             <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/web/DashSupplier.jsp</file>
         </group>
     </open-files>

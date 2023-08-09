@@ -64,10 +64,7 @@
                         <td>
                             <input type="checkbox">
                         </td>
-                        <td>
-                            <img src="sample_image.jpg" alt="Product Image" class="product-image">
-                            Product 1
-                        </td>
+                        <td>Product 1</td>
                         <td>SKU-001</td>
                         <td>Category 1</td>
                         <td>Brand 1</td>
@@ -81,139 +78,7 @@
                             <a href="#"><ion-icon name="trash-outline"></ion-icon></a>
                         </td>
                     </tr>
-
-                <script>
-                    const sampleData = [
-                        {
-                            productName: 'Product 2',
-                            sku: 'SKU-002',
-                            category: 'Category 2',
-                            brand: 'Brand 2',
-                            price: 200,
-                            unit: 'Unit 2',
-                            qty: 25,
-                            createdBy: 'Jane Doe',
-                        },
-                        {
-                            productName: 'Product 3',
-                            sku: 'SKU-003',
-                            category: 'Category 3',
-                            brand: 'Brand 3',
-                            price: 300,
-                            unit: 'Unit 3',
-                            qty: 30,
-                            createdBy: 'Robert Smith',
-                        },
-                        {
-                            productName: 'Product 3',
-                            sku: 'SKU-003',
-                            category: 'Category 3',
-                            brand: 'Brand 3',
-                            price: 300,
-                            unit: 'Unit 3',
-                            qty: 30,
-                            createdBy: 'Robert Smith',
-                        },
-                        {
-                            productName: 'Product 3',
-                            sku: 'SKU-003',
-                            category: 'Category 3',
-                            brand: 'Brand 3',
-                            price: 300,
-                            unit: 'Unit 3',
-                            qty: 30,
-                            createdBy: 'Robert Smith',
-                        },
-                        {
-                            productName: 'Product 3',
-                            sku: 'SKU-003',
-                            category: 'Category 3',
-                            brand: 'Brand 3',
-                            price: 300,
-                            unit: 'Unit 3',
-                            qty: 30,
-                            createdBy: 'Robert Smith',
-                        },
-                        {
-                            productName: 'Product 3',
-                            sku: 'SKU-003',
-                            category: 'Category 3',
-                            brand: 'Brand 3',
-                            price: 300,
-                            unit: 'Unit 3',
-                            qty: 30,
-                            createdBy: 'Robert Smith',
-                        },
-                        {
-                            productName: 'Product 3',
-                            sku: 'SKU-003',
-                            category: 'Category 3',
-                            brand: 'Brand 3',
-                            price: 300,
-                            unit: 'Unit 3',
-                            qty: 30,
-                            createdBy: 'Robert Smith',
-                        },
-                        {
-                            productName: 'Product 3',
-                            sku: 'SKU-003',
-                            category: 'Category 3',
-                            brand: 'Brand 3',
-                            price: 300,
-                            unit: 'Unit 3',
-                            qty: 30,
-                            createdBy: 'Robert Smith',
-                        },
-                        {
-                            productName: 'Product 3',
-                            sku: 'SKU-003',
-                            category: 'Category 3',
-                            brand: 'Brand 3',
-                            price: 300,
-                            unit: 'Unit 3',
-                            qty: 30,
-                            createdBy: 'Robert Smith',
-                        },
-                        {
-                            productName: 'Product 3',
-                            sku: 'SKU-003',
-                            category: 'Category 3',
-                            brand: 'Brand 3',
-                            price: 300,
-                            unit: 'Unit 3',
-                            qty: 30,
-                            createdBy: 'Robert Smith',
-                        },
-                    ];
-
-                    const tbody = document.querySelector('tbody');
-                    sampleData.forEach(data => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                      <td>
-                        <input type="checkbox">
-                      </td>
-                      <td>
-                        <img src="sample_image.jpg" alt="Product Image" class="product-image">
-                        ${data.productName}
-                      </td>
-                      <td>${data.sku}</td>
-                      <td>${data.category}</td>
-                      <td>${data.brand}</td>
-                      <td>$${data.price}</td>
-                      <td>${data.unit}</td>
-                      <td>${data.qty}</td>
-                      <td>${data.createdBy}</td>
-                      <td class="action-icons">
-                        <a href="#"><ion-icon name="eye-outline"></ion-icon></a>
-                        <a href="#"><ion-icon name="pencil-outline"></ion-icon></a>
-                        <a href="#"><ion-icon name="trash-outline"></ion-icon></a>
-                      </td>
-                    `;
-                        tbody.appendChild(row);
-                    });
-                </script>
-
+                
                 </tbody>
             </table>
 
