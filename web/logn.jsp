@@ -7,35 +7,38 @@
         String username = request.getParameter("uname");
         String password = request.getParameter("password");
         String role = request.getParameter("btnradio");
-        
+
         //out.print(username + "\n");
         //out.print(password + "\n");
-        //out.print(type + "\n");
-
+        //out.print(role + "\n");
         Connection con = DbConnector.getConnection();
-        String query = "SELECT username,password FROM " + role + " WHERE username=?";
+        String query = "SELECT password FROM " + role + " WHERE username=?";
         PreparedStatement pstmt = con.prepareStatement(query);
         pstmt.setString(1, username);
         ResultSet rs = pstmt.executeQuery();
 
         if (rs.next()) {
-            if (rs.getString("password") == password) {
+            if (password.equals(rs.getString("password"))) {
                 if (role.equals("admin")) {
                     response.sendRedirect("admin.jsp");
+                } else if (role.equals("supplier")) {
+                    response.sendRedirect("https://www.youtube.com");
                 } else if (role.equals("stockkeeper")) {
                     response.sendRedirect("stock_keeper.jsp");
-                } else if (role.equals("supplier")) {
-                    response.sendRedirect("supplier.jsp");
                 } else if (role.equals("marketingteam")) {
                     response.sendRedirect("marketing_team.jsp");
+
                 }
+                /*Cookie userCookie = new Cookie("loggedInUser", username);
+                userCookie.setMaxAge(999999999);
+                response.addCookie(userCookie);*/
             } else {
                 //out.print("user name or password incorrect");
                 set = 1;
             }
         } else {
             //out.print("user name or password incorrect");
-            set =1;
+            set = 1;
         }
     }
 
@@ -96,8 +99,8 @@
                                     </div>  
                                     <div class="mb-3"><button class="btn btn-primary d-block w-100 mt-4" type="submit" name="login">Login</button></div>
                                     <% if (set == 1) {%>
-                                    
-                                  <div class="alert alert-primary d-flex align-items-center" id="error" role="alert" style="background-color: white; border-color: white">
+
+                                    <div class="alert alert-primary d-flex align-items-center" id="error" role="alert" style="background-color: white; border-color: white">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" width="20px" height="20px" viewBox="0 0 16 16" role="img" aria-label="Warning:">
                                         <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
                                         </svg>
@@ -105,7 +108,7 @@
                                             Incorrect username or password
                                         </div>
                                     </div>
-                                    <% } %>
+                                    <% }%>
                                 </form>
                             </div>
                         </div>
