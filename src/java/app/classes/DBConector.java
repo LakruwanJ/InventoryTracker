@@ -10,7 +10,7 @@ import java.sql.*;
 public class DBConector {
 
     static final String DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost:3306/inventorytracker";
+    static final String DB_URL = "jdbc:mysql://localhost:3306/inventory_trackerdb";
     static final String DB_USER = "root";
     static final String DB_PASSWORD = "";
     static Connection con;
