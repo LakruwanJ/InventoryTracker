@@ -96,5 +96,22 @@ public class SKCls {
     
     return ACS;
 }
+    public List<String> getAllMTeamIds() throws ClassNotFoundException {
+        List<String> mIds = new ArrayList<>();
+        try {
+            Connection con = DBConector.getConnection();
+            String query = "SELECT MID FROM marketingteam";
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String mid = resultSet.getString("MID");
+                mIds.add(mid);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return mIds;
+    }
 
 }

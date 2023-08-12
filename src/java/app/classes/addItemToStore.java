@@ -16,9 +16,9 @@ import java.time.format.DateTimeFormatter;
  *
  * @author Lenovo
  */
-public class RequestItemsDao {
+public class addItemToStore {
 
-    public int insertRequest(String RID, String sid, String itemId, String quantity) throws ClassNotFoundException {
+    public int insertItem(String ARID, String StockID, String itemId, String quantity, String nowDate) throws ClassNotFoundException {
         int rowsAffected = 0;
         Connection con = null;
         PreparedStatement preparedStatement = null;
@@ -27,12 +27,14 @@ public class RequestItemsDao {
         try {
 
             con = DBConector.getConnection();
-            String query = "INSERT INTO requestitems (RID, SKID, SID, itemID, Quantity, Date, Status) VALUES (?,'SK0002', ?, ?, ?, '2023-08-11', 'Pending')";
+            String query = "INSERT INTO addremove (ARID, StockID, SID, itemID, Quantity, Date, Status) VALUES (?, ?, 'SK0002', ?, ?, ?, 'add')";
             preparedStatement = con.prepareStatement(query);
-            preparedStatement.setString(1, RID);
-            preparedStatement.setString(2, sid);
+            preparedStatement.setString(1, ARID);
+            preparedStatement.setString(2, StockID);
             preparedStatement.setString(3, itemId);
             preparedStatement.setString(4, quantity);
+            preparedStatement.setString(4, nowDate);
+            
             rowsAffected = preparedStatement.executeUpdate();
 
             
@@ -42,17 +44,17 @@ public class RequestItemsDao {
             return rowsAffected;
         
     }
-    public static String incrementrequestID() {
-        String lastReqID = null;
+    public static String incrementaddID() {
+        String lastAddID = null;
         try {
             Connection con = DBConector.getConnection();
-            String sql = "SELECT RID FROM requestitems ORDER BY RID DESC LIMIT 1";
+            String sql = "SELECT ARID FROM addremove ORDER BY RID DESC LIMIT 1";
             PreparedStatement pstmt = con.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                lastReqID = rs.getString("RID");
+                lastAddID = rs.getString("ARID");
             } else {
-                lastReqID = "rbs0000";
+                lastAddID = "ar0000";
             }
             pstmt.close();
             con.close();
@@ -60,8 +62,8 @@ public class RequestItemsDao {
             e.printStackTrace();
         }
 
-        String prefix = lastReqID.substring(0, 3);
-        int numericPart = Integer.parseInt(lastReqID.substring(3));
+        String prefix = lastAddID.substring(0, 3);
+        int numericPart = Integer.parseInt(lastAddID.substring(3));
         numericPart++;
         return prefix + String.format("%04d", numericPart);
     }

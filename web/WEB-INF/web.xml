@@ -33,6 +33,22 @@
         <servlet-name>ControlAdmin</servlet-name>
         <servlet-class>app.classes.ControlAdmin</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>newservvlet</servlet-name>
+        <servlet-class>hServlet.newservvlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>try1</servlet-name>
+        <servlet-class>hServlet.try1</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>additmes</servlet-name>
+        <servlet-class>hServlet.additmes</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SKtoMT</servlet-name>
+        <servlet-class>hServlet.SKtoMT</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
@@ -60,6 +76,22 @@
     <servlet-mapping>
         <servlet-name>ControlAdmin</servlet-name>
         <url-pattern>/ControlAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>newservvlet</servlet-name>
+        <url-pattern>/newservvlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>try1</servlet-name>
+        <url-pattern>/try1</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>additmes</servlet-name>
+        <url-pattern>/additmes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SKtoMT</servlet-name>
+        <url-pattern>/SKtoMT</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

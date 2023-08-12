@@ -217,7 +217,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">
-                            <form class="will-validated" action="InsertRequest" method="post">
+                            <form class="will-validated" action="newservvlet" method="post">
                                 <div class="row">
                                     <label class="form-label">Select Product ID</label>
                                     <select class="form-select  mb-3 required" id="itemId" onchange="displaySelectedItemId()" name="itemID">
@@ -302,10 +302,10 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">
-                            <form class="validated">
+                            <form class="validated" action="additmes" method="post">
                                 <div class="row">
                                     <label class="form-label">Choose Available Product</label>
-                                    <select class="form-select  mb-3" required a>            
+                                    <select class="form-select  mb-3" name="itemID">            
                                         <%
                                             SKCls SK3 = new SKCls();
                                             for (String ItemId : itemIds) {
@@ -319,7 +319,7 @@
                                 <br>
                                 <div class="row">
                                     <label class="form-label">Select Ware Houses</label>
-                                    <select class="form-select  mb-3" required a>
+                                    <select class="form-select  mb-3" name="whID">
 
                                         <%
                                             SKCls SK4 = new SKCls();
@@ -352,91 +352,14 @@
                                         <input type="text" class="form-control" id="quantity" name="quantity" >
                                     </div>
                                 </div>
-                                <!--Select ware House Start-->
-                                <!--New Ware House-->
-                                <!--                                <div class="row">
-                                                                    <div class="col-8">
-                                                                        <div class="row">
-                                                                            <div class="col-4 mt-1">
-                                                                                <input type="checkbox" class="btn-check" id="btn-check1" autocomplete="off">
-                                                                                <label class="btn btn-outline-primary" for="btn-check1" id="WH001">WH001</label>
-                                                                            </div>
-                                                                            <div class="col-8">
-                                                                                <label class="">Available Space</label>
-                                                                                <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                                                                                    <div class="progress-bar" style="width: 75%"></div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-4" id="WHOO1D" style="display: none; margin-top: -20px; ">
-                                                                        <label class="form-label">Quantity</label>
-                                                                        <div class="input-group" id="quantity" name="quantity">
-                                                                            <input type="number" class="form-control" id="quantity" name="quantity" >
-                                                                        </div>
-                                                                        <script>
-                                                                            const generateButtonWH001 = document.getElementById('WH001');
-                                                                            const generatedDivWH001 = document.getElementById('WHOO1D');
-                                                                            let isDivWH001Visible = false;
-                                
-                                                                            generateButtonWH001.addEventListener('click', () => {
-                                                                                if (isDivWH001Visible) {
-                                                                                    generatedDivWH001.style.display = 'none';
-                                                                                    isDivWH001Visible = false;
-                                                                                } else {
-                                                                                    generatedDivWH001.style.display = 'block';
-                                                                                    isDivWH001Visible = true;
-                                                                                }
-                                                                            });
-                                                                        </script>
-                                                                    </div>
-                                                                </div> 
-                                                                New Ware House
-                                                                <div class="row">
-                                                                    <div class="col-8">
-                                                                        <div class="row">
-                                                                            <div class="col-4 mt-1">
-                                                                                <input type="checkbox" class="btn-check" id="btn-check2" autocomplete="off">
-                                                                                <label class="btn btn-outline-primary" for="btn-check2" id="WH002">WH002</label>
-                                                                            </div>
-                                                                            <div class="col-8">
-                                                                                <label class="">Available Space</label>
-                                                                                <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                                                                                    <div class="progress-bar" style="width: 75%"></div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-4" id="WHOO2D" style="display: none; margin-top: -20px; ">
-                                                                        <label class="form-label">Quantity</label>
-                                                                        <div class="input-group" id="quantity" name="quantity">
-                                                                            <input type="number" class="form-control" id="quantity" name="quantity" >
-                                                                        </div>
-                                                                        <script>
-                                                                            const generateButtonWH002 = document.getElementById('WH002');
-                                                                            const generatedDivWH002 = document.getElementById('WHOO2D');
-                                                                            let isDivWH002Visible = false;
-                                
-                                                                            generateButtonWH002.addEventListener('click', () => {
-                                                                                if (isDivWH002Visible) {
-                                                                                    generatedDivWH002.style.display = 'none';
-                                                                                    isDivWH002Visible = false;
-                                                                                } else {
-                                                                                    generatedDivWH002.style.display = 'block';
-                                                                                    isDivWH002Visible = true;
-                                                                                }
-                                                                            });
-                                                                        </script>
-                                                                    </div>
-                                                                </div>    -->
-                                <!--Select ware House End-->
 
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
+                                    <button type="submit" class="btn btn-primary">Add To Store</button>
+                                </div>
                             </form>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
-                            <button type="button" class="btn btn-primary">Add To Store</button>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -451,31 +374,21 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">
-                            <form class="was-validated">
+                            <form action="SKtoMT" method="post">
                                 <div class="row">
-                                    <label class="form-label">Select Product Name</label>
-                                    <select class="form-select  mb-3" required a>            
-                                        <option value="1">Name 1</option>
-                                        <option value="2">Name 2</option>
+                                    <label class="form-label">Select Product ID</label>
+                                    <select class="form-select  mb-3" name="itemID">            
+                                       <%
+                                            SKCls SK5 = new SKCls();
+                                            for (String ItemId : itemIds) {
+                                        %>
+                                        <option value="<%= ItemId%>"><%= ItemId%></option>
+                                        <%
+                                            }
+                                        %>    
                                     </select>
-                                </div>                                
-                                <br><div class="row">
-                                    <div class="col-12">
-                                        <label class="form-label">Unit price</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" disabled>
-                                            <span class="input-group-text">.00</span>
-                                        </div>
-                                    </div>
-                                </div>                                 
+                                </div>
                                 <div class="row">
-                                    <label class="form-label">Select Marketing Team Member</label>
-                                    <select class="form-select  mb-3" required a>            
-                                        <option value="1">Store Keeper 1</option>
-                                        <option value="2">Store Keeper 2</option>
-                                    </select>
-                                </div>                                
-                                <br><div class="row">
                                     <div class="mb-2">
                                         <label class="form-label">Quantity</label>
                                         <div class="input-group">
@@ -483,12 +396,28 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="row">
+                                    <label class="form-label">Select Marketing Team Member</label>
+                                    <select class="form-select  mb-3" name="mTeamID">            
+                                        <%
+                                            SKCls SK7 = new SKCls();
+                                            List<String> mIds = SK7.getAllMTeamIds();
+                                            for (String mId : mIds) {
+                                        %>
+                                        <option value="<%= mId%>"><%= mId%></option>
+                                        <%
+                                            }
+                                        %>
+                                    </select>
+                                </div>
+                                
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
+                                    <button class="btn btn-primary" type="submit" value="Submit">Send</button>
+                                                           
                             </form>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
-                            <button type="button" class="btn btn-primary">Send</button>
-                        </div>
+
                     </div>
                 </div>
             </div>
