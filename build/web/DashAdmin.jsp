@@ -10,6 +10,19 @@
 <!DOCTYPE html>
 
 <%
+    String msj[] = {"", "User Added Succfully", "Can't Add User. Try Again", "User Removed Succfully", "Can't Remove User. Try Again"};
+    String msjClr = null;
+    String msjNum = null;
+    String alt = null;
+    msjNum = request.getParameter("m");
+
+    if (msjNum != null && !msjNum.isEmpty()) {
+        if (msjNum.equals("1") || msjNum.equals("3")) {
+            msjClr = "alert-success";
+        } else {
+            msjClr = "alert-danger";
+        }
+    }
 
     AdminCls Ad = new AdminCls();
     ResultSet data1 = Ad.viewsup();
@@ -34,6 +47,24 @@
     </head>
     <body>
         <div class="container">
+
+            <%if (msjNum != null && !msjNum.isEmpty()) {
+                    alt = "<br><div class='alert " + msjClr + " alert-dismissible fade show' role='alert'>"
+                            + "<strong>" + msj[Integer.parseInt(msjNum)] + "</strong>"
+                            + "<button type='button' class='btn-close' data-bs-dismiss='alert' onclick='redirectToPage()'>"
+                            + "</button></div><br>";
+                } else {
+                    alt = "<br>";
+                }
+            %>
+            
+            <script>
+                function redirectToPage() {
+                    window.location.href = 'DashAdmin.jsp';
+                }
+            </script>
+
+            <%= alt%>
 
             <br><br>
             <div class="row">
@@ -102,15 +133,43 @@
                                         <label class="form-label">Create Password</label>
                                         <div class="input-group">
                                             <span class="input-group-text" id="basic-addon3">Password</span>
-                                            <input type="text" class="form-control" name="pWord" required>
+                                            <input type="text" class="form-control" id="pWord" name="pWord" required>
                                         </div>
                                     </div>
                                 </div>
+                                <p id="password-error" style="color: red;"></p>
+                                <script>
+                                    const passwordInput = document.getElementById("pWord");
+                                    const passwordError = document.getElementById("password-error");
+
+                                    passwordInput.addEventListener("input", function () {
+                                        const password = passwordInput.value;
+
+                                        const hasLowerCase = /[a-z]/.test(password);
+                                        const hasUpperCase = /[A-Z]/.test(password);
+                                        const hasDigit = /\d/.test(password);
+                                        const hasSpecialChar = /[!@#$%^&*()_+{}\[\]:;<>,.?~\-]/.test(password);
+                                        const isLengthValid = password.length >= 8 && password.length <= 20;
+
+                                        if (!isLengthValid) {
+                                            passwordError.textContent = "Password must be between 8 and 20 characters.";
+                                        } else if (!hasLowerCase) {
+                                            passwordError.textContent = "Password must contain at least one lowercase letter.";
+                                        } else if (!hasUpperCase) {
+                                            passwordError.textContent = "Password must contain at least one uppercase letter.";
+                                        } else if (!hasDigit) {
+                                            passwordError.textContent = "Password must contain at least one digit.";
+                                        } else if (!hasSpecialChar) {
+                                            passwordError.textContent = "Password must contain at least one special character.";
+                                        } else {
+                                            passwordError.textContent = "";
+                                        }
+                                    });</script>
                                 <div class="row">
                                     <div class="mb-3">
                                         <label class="form-label">Add e-mail</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" name="email" required>
+                                            <input type="email" class="form-control" name="email" required>
                                         </div>
                                     </div>
                                 </div>
@@ -118,7 +177,7 @@
                                     <div class="mb-3">
                                         <label class="form-label">Phone Number</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" name="pnum" required>
+                                            <input type="number" class="form-control" name="pnum" required>
                                         </div>
                                     </div>
                                 </div>
@@ -226,11 +285,11 @@
                             </div>
                         </div>
                     </div>
-                    <div>
-                    </div>          
+                </div>          
 
 
-                </div>
-                </body>
-                </html>
+            </div>
+        </div>
+    </body>
+</html>
 

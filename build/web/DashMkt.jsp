@@ -4,7 +4,47 @@
     Author     : lakru
 --%>
 
+<%@page import="app.classes.MKTCls"%>
+<%@page import="java.sql.ResultSetMetaData"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="app.classes.SpplierCls"%>
+<%@page import="java.net.URLDecoder"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    Cookie UID = new Cookie("M_ID", "mkt0002");
+    response.addCookie(UID);
+    javax.servlet.http.Cookie[] cookies = request.getCookies();
+    String M_ID = null;
+
+    if (cookies != null) {
+        for (javax.servlet.http.Cookie cookie : cookies) {
+            if ("M_ID".equals(cookie.getName())) {
+                M_ID = URLDecoder.decode(cookie.getValue(), "UTF-8");
+                break;
+            }
+        }
+    }
+    MKTCls mkt = new MKTCls();
+    SpplierCls sup = new SpplierCls();
+    ResultSet itemData = sup.viewitems();
+    ResultSet skData = sup.selectSK();
+    String selectedItemID = "";
+
+    String msj[] = {"", "Request Added Succfully", "Request Added Succfully. But Item Not Available Now"};
+    String msjClr = null;
+    String msjNum = null;
+    String alt = null;
+    msjNum = request.getParameter("m");
+
+    if (msjNum != null && !msjNum.isEmpty()) {
+        if (msjNum.equals("1")) {
+            msjClr = "alert-success";
+        } else {
+            msjClr = "alert-danger";
+        }
+    }
+
+%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -22,6 +62,24 @@
     </head>
     <body>
         <div class="container">
+
+            <%if (msjNum != null && !msjNum.isEmpty()) {
+                    alt = "<br><div class='alert " + msjClr + " alert-dismissible fade show' role='alert'>"
+                            + "<strong>" + msj[Integer.parseInt(msjNum)] + "</strong>"
+                            + "<button type='button' class='btn-close' data-bs-dismiss='alert' onclick='redirectToPage()'>"
+                            + "</button></div><br>";
+                } else {
+                    alt = "<br>";
+                }
+            %>
+
+            <%= alt%>
+
+            <script>
+                function redirectToPage() {
+                    window.location.href = 'DashMkt.jsp';
+                }
+            </script>
 
             <div class="row">
                 <div class="col-lg-3 col-md-4 col-sm-6 text-center p-3">
@@ -43,20 +101,24 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 text-center p-3">
-                    <div class="card cardsFirstTW mt-2 pt-2" style="width: 100%" type="button" data-bs-toggle="offcanvas" data-bs-target="#Request">
-                        <div class="card-body">
-                            <div class="iconInCard"><h1><i class="fa-solid fa-magnifying-glass"></i></h1></div>
-                            <h2>Pending Request</h2>
+                    <a href="ControlMkt?actionMkt=sendReqtoSk" style="text-decoration: none">
+                        <div class="card cardsFirstTW mt-2 pt-2" style="width: 100%">
+                            <div class="card-body">
+                                <div class="iconInCard"><h1><i class="fa-solid fa-magnifying-glass"></i></h1></div>
+                                <h2>Pending Request</h2>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 text-center p-3">
-                    <div class="card cardsFirstTW mt-2 pt-2" style="width: 100%" type="button" data-bs-toggle="offcanvas" data-bs-target="#Transfer">
-                        <div class="card-body">
-                            <div class="iconInCard"><h1><i class="fa-solid fa-plane-arrival"></i></h1></div>
-                            <h2>Transfer History</h2>
+                    <a href="ControlMkt?actionMkt=TransferToSK" style="text-decoration: none">
+                        <div class="card cardsFirstTW mt-2 pt-2" style="width: 100%">
+                            <div class="card-body">
+                                <div class="iconInCard"><h1><i class="fa-solid fa-plane-arrival"></i></h1></div>
+                                <h2>Transfer History</h2>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
             </div>
@@ -65,109 +127,79 @@
 
             <!--Table Start-->
             <div class="row">
-                <!--Recently Added Products Table Start-->
+                <%
+                    ResultSet reqByM = mkt.requestByML10();
+                    ResultSetMetaData metaData1 = reqByM.getMetaData();
+                    int columnCount1 = metaData1.getColumnCount();
+                %>            
                 <div class="col-md-6">
                     <div class="text-center mt-2">
-                        <h4>Recently Added products</h4>
+                        <h4>Recently Added Request</h4>
                     </div>
-                    <table class="table text-center">
-                        <th scope="col">Added Date</th>
-                        <th scope="col">Product Id</th>
-                        <th scope="col">Product name</th>
-                        <th scope="col">Product Image</th>
-                        <th scope="col">Quantity(Pieces)</th>
-                        <tr class="table-light">
-                            <td>12.06.2023</td>
-                            <td>P001</td>
-                            <td>Blue Bird Shirt</td>
-                            <td><img src="https://www.beverlystreet.lk/media/catalog/product/cache/1/small_image/320x/040ec09b1e35df139433887a97daa66f/5/5/5541.jpg"style="height: 30px; width: 30px" /></td>
-                            <td>1000</td>
-                        </tr>
-                        <tr class="table-secondary">
-                            <td>12.06.2023</td>
-                            <td>P002</td>
-                            <td>Blue Bird Jeans</td>
-                            <td><img src="https://www.styledbysally.com.au/wp-content/uploads/2018/01/Classic-Blue-Men-Jeans-Pant-Cotton-Slim-Fit-Men-s-Denim-Pants-Stretch-Fashion-Mens-Clothes.jpg" style="height: 30px; width: 30px"/></td>
-                            <td>800</td>
-                        </tr>
-                        <tr class="table-light">
-                            <td>12.06.2023</td>
-                            <td>P003</td>
-                            <td>Yello Crispy T-Shirt</td>
-                            <td><img src="https://5.imimg.com/data5/FW/GT/MY-23375112/men-s-yellow-color-t-shirt.jpg" style="height: 30px; width: 30px" /></td>
-                            <td>650</td>
-                        </tr>
-                        <tr class="table-secondary">
-                            <td>12.06.2023</td>
-                            <td>P004</td>
-                            <td>Black Skirts</td>
-                            <td><img src="https://www.ubuy.com.lk/productimg/?image=aHR0cHM6Ly9tLm1lZGlhLWFtYXpvbi5jb20vaW1hZ2VzL0kvNjFmSXpDUW9kMEwuX0FDX1VMMTIzMF8uanBn.jpg" style="height: 30px; width: 30px"/></td>
-                            <td>500</td>
-                        </tr>
-                        <tr class="table-light">
-                            <td>12.06.2023</td>
-                            <td>P005</td>
-                            <td>Red Salvar</td>
-                            <td><img src="https://singlekart.com/wp-content/uploads/2019/11/04-1.jpg" style="height: 30px; width: 30px" /></td>
-                            <td>250</td>
-                        </tr>
-                    </table>
-                </div>
-                <!--Recently Added Products Table end-->
 
-                <!--Recently Supplied Products Table Start-->
-                <div class="col-md-6">
-                    <div class="text-center mt-2">
-                        <h4>Recently Added products</h4>
-                    </div>
                     <table class="table text-center">
-                        <th scope="col">Added Date</th>
-                        <th scope="col">Product Id</th>
-                        <th scope="col">Product name</th>
-                        <th scope="col">Product Image</th>
-                        <th scope="col">Quantity(Pieces)</th>
-                        <tr class="table-light">
-                            <td>12.06.2023</td>
-                            <td>P001</td>
-                            <td>Blue Bird Shirt</td>
-                            <td><img src="https://www.beverlystreet.lk/media/catalog/product/cache/1/small_image/320x/040ec09b1e35df139433887a97daa66f/5/5/5541.jpg"style="height: 30px; width: 30px" /></td>
-                            <td>1000</td>
-                        </tr>
-                        <tr class="table-secondary">
-                            <td>12.06.2023</td>
-                            <td>P002</td>
-                            <td>Blue Bird Jeans</td>
-                            <td><img src="https://www.styledbysally.com.au/wp-content/uploads/2018/01/Classic-Blue-Men-Jeans-Pant-Cotton-Slim-Fit-Men-s-Denim-Pants-Stretch-Fashion-Mens-Clothes.jpg" style="height: 30px; width: 30px"/></td>
-                            <td>800</td>
-                        </tr>
-                        <tr class="table-light">
-                            <td>12.06.2023</td>
-                            <td>P003</td>
-                            <td>Yello Crispy T-Shirt</td>
-                            <td><img src="https://5.imimg.com/data5/FW/GT/MY-23375112/men-s-yellow-color-t-shirt.jpg" style="height: 30px; width: 30px" /></td>
-                            <td>650</td>
-                        </tr>
-                        <tr class="table-secondary">
-                            <td>12.06.2023</td>
-                            <td>P004</td>
-                            <td>Black Skirts</td>
-                            <td><img src="https://www.ubuy.com.lk/productimg/?image=aHR0cHM6Ly9tLm1lZGlhLWFtYXpvbi5jb20vaW1hZ2VzL0kvNjFmSXpDUW9kMEwuX0FDX1VMMTIzMF8uanBn.jpg" style="height: 30px; width: 30px"/></td>
-                            <td>500</td>
-                        </tr>
-                        <tr class="table-light">
-                            <td>12.06.2023</td>
-                            <td>P005</td>
-                            <td>Red Salvar</td>
-                            <td><img src="https://singlekart.com/wp-content/uploads/2019/11/04-1.jpg" style="height: 30px; width: 30px" /></td>
-                            <td>250</td>
-                        </tr>
-                        <tr class="table-secondary"></tr>
-                        <tr class="table-light"></tr>
-                        <tr class="table-secondary"></tr>
+                        <thead>
+                            <tr class="table-secondary">
+                                <%
+                                    for (int i = 1; i <= columnCount1; i++) {
+                                        String columnName = metaData1.getColumnName(i);
+                                %>
+                                <th scope="col"> <%= columnName%></th>
+                                    <%
+                                        }
+                                    %>
+                            </tr>
+                        </thead>
+                            <tbody>
+                                <%
+                                while (reqByM.next()) {%><tr class="table-light"> <%
+                                        for (int i = 1; i <= columnCount1; i++) {
+                                            String columnName = metaData1.getColumnName(i);
+                                %>
+                                <td> <%= reqByM.getString(columnName)%></td>
+                                <%}%></tr><%}%>
+                        </tbody>
                     </table>
                 </div>
-                <!--Recently Supplied Products Table Start-->
+
+
+                <div class="col-md-6">
+                    <div class="text-center mt-2">
+                        <h4>Recently Transfer Items</h4>
+                    </div>
+                    <%
+                        ResultSet tfromSK = mkt.transferfromSKL10();
+                        ResultSetMetaData metaData2 = tfromSK.getMetaData();
+                        int columnCount2 = metaData2.getColumnCount();
+                    %>
+
+                    <table class="table text-center">
+                        <thead>
+                            <tr class="table-secondary">
+                                <%
+                                    for (int i = 1; i <= columnCount2; i++) {
+                                        String columnName = metaData2.getColumnName(i);
+                                %>
+                                <th scope="col"> <%= columnName%></th>
+                                    <%
+                                        }
+                                    %>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%
+                                    while (tfromSK.next()) {%><tr class="table-light"> <%
+                                    for (int i = 1; i <= columnCount2; i++) {
+                                        String columnName = metaData2.getColumnName(i);
+                                %>
+                                <td> <%= tfromSK.getString(columnName)%></td>
+                                <%}%></tr><%}%>
+                        </tbody>
+                    </table>
+                </div>
             </div>
+            <!--table end-->
+
 
             <!--model start-->    
             <!--Send Request start-->
@@ -178,43 +210,37 @@
                             <h1 class="modal-title fs-5">Send Request to Store Keeper</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
-                        <form class="was-validated">
+                        <form class="was-validated" action="ControlMkt?actionMkt=req" method="POST">
                             <div class="modal-body">
                                 <div class="row">
-                                    <label class="form-label">Select Product Name</label>
-                                    <select class="form-select  mb-3" required a>            
-                                        <option value="1">Name 1</option>
-                                        <option value="2">Name 2</option>
+                                    <label class="form-label">Select Item ID</label>
+                                    <select class="form-select  mb-3" required name="itemID">            
+                                        <%while (itemData.next()) {%>
+                                        <option value="<%= itemData.getString("itemID")%>"><%= itemData.getString("itemID")%></option>
+                                        <%}%>
                                     </select>
                                 </div>
-                                <br><div class="row">
-                                    <div class="col-12">
-                                        <label class="form-label">Unit price</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" disabled>
-                                            <span class="input-group-text">.00</span>
-                                        </div>
-                                    </div>
-                                </div> 
                                 <div class="row">
                                     <label class="form-label">Select Store Keeper</label>
-                                    <select class="form-select  mb-3" required a>            
-                                        <option value="1">Store Keeper 1</option>
-                                        <option value="2">Store Keeper 2</option>
+                                    <select class="form-select  mb-3" required name="SID">            
+                                        <%while (skData.next()) {%>
+                                        <option value="<%= skData.getString("SKID")%>"><%= skData.getString("SKID")%></option>
+                                        <%}%>
                                     </select>
                                 </div>
                                 <br><div class="row">
                                     <div class="mb-2">
                                         <label class="form-label">Quantity</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control">
+                                            <input type="number" class="form-control" required name="qty">
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <input type="hidden" name="MID" value="<%= M_ID%>" />
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
-                                <button type="button" class="btn btn-primary">Send</button>
+                                <button type="resrt" class="btn btn-secondary" data-bs-dismiss="modal" >Discard</button>
+                                <button type="submit" name="sendReqtoSk" Value="sendReqtoSk" class="btn btn-primary">Send</button>
                             </div>
 
                         </form>
