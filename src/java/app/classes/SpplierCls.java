@@ -37,16 +37,17 @@ public class SpplierCls {
         return prefix + String.format("%04d", numericPart);
     }
 
-    public static int addItem(String newID, String itemName, String category, double unitPrice) {
+    public static int addItem(String newID, String itemName, String category, String unitCap, double unitPrice) {
         int a = 0;
         try {
             Connection con = DBConector.getConnection();
-            String sql = "INSERT INTO items (itemID, Name, type, UnitPrice) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO items (itemID, Name, type, UnitCapacity, UnitPrice) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setString(1, newID);
             pstmt.setString(2, itemName);
             pstmt.setString(3, category);
-            pstmt.setDouble(4, unitPrice);
+            pstmt.setString(4, unitCap);
+            pstmt.setDouble(5, unitPrice);
             a = pstmt.executeUpdate();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -159,12 +160,32 @@ public class SpplierCls {
 
     }
 
+    public static int getUnitCap(String unitCap_) {
+        int unitCap = 0;
+        try {
+            Connection con = DBConector.getConnection();
+            String sql = "SELECT UnitCapacity FROM items WHERE itemID = ?";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, unitCap_);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                unitCap = rs.getInt("UnitCapacity");
+            }
+
+            pstmt.close();
+            con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        return unitCap;
+
+    }
+
     public static int sendItemToSK(String SupplyID, String supplier, String skeeper, String item, String qty, String date) {
         int a = 0;
         try {
             Connection con = DBConector.getConnection();
             String sql = "INSERT INTO supply (SupplyID, SID, SKID, itemID, Quantity ,date) VALUES (?, ?, ?, ?, ?, ?)";
-            System.out.println(sql);
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setString(1, SupplyID);
             pstmt.setString(2, supplier);

@@ -23,15 +23,23 @@
     </servlet>
     <servlet>
         <servlet-name>ShowSupp</servlet-name>
-        <servlet-class>app.classes.ShowSupp</servlet-class>
+        <servlet-class>Servlet.ShowSupp</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ControlSupp</servlet-name>
-        <servlet-class>app.classes.ControlSupp</servlet-class>
+        <servlet-class>Servlet.ControlSupp</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ControlAdmin</servlet-name>
-        <servlet-class>app.classes.ControlAdmin</servlet-class>
+        <servlet-class>Servlet.ControlAdmin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ControlMkt</servlet-name>
+        <servlet-class>Servlet.ControlMkt</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NewServlet</servlet-name>
+        <servlet-class>Servlet.NewServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
@@ -60,6 +68,14 @@
     <servlet-mapping>
         <servlet-name>ControlAdmin</servlet-name>
         <url-pattern>/ControlAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControlMkt</servlet-name>
+        <url-pattern>/ControlMkt</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewServlet</servlet-name>
+        <url-pattern>/NewServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

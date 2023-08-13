@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package app.classes;
+package Servlet;
 
+import app.classes.MKTCls;
+import app.classes.SpplierCls;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
@@ -40,15 +42,13 @@ public class ShowSupp extends HttpServlet {
         if (action != null) {
             switch (action) {
                 case "viewitems":
-                    // Handle link 1 logic
                     data = sup.viewitems();
                     session = request.getSession();
                     session.setAttribute("Data", data);
                     session.setAttribute("title", "Product list");
-                    response.sendRedirect("SupplierShowTables.jsp");
+                    response.sendRedirect("ShowTables.jsp");
                     break;
                 case "RequestBySK":
-                    // Handle link 1 logic
                     data = sup.requestBySK();
                     session = request.getSession();
                     session.setAttribute("Data", data);
@@ -56,12 +56,11 @@ public class ShowSupp extends HttpServlet {
                     response.sendRedirect("SupplierShowTables2.jsp");
                     break;
                 case "TransferToSK":
-                    // Handle link 1 logic
                     data = sup.transferToSK();
                     session = request.getSession();
                     session.setAttribute("Data", data);
                     session.setAttribute("title", "Transfer History");
-                    response.sendRedirect("SupplierShowTables.jsp");
+                    response.sendRedirect("ShowTables.jsp");
                     break;
                 case "reqbtn":
                     String SupplyID = sup.incrementSupplyID();
