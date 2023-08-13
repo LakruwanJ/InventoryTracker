@@ -3,15 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/web/DashAdmin.jsp</file>
-            <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/web/Team.jsp</file>
-            <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/src/java/app/classes/AdminCls.java</file>
-            <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/src/java/app/classes/ControlAdmin.java</file>
-            <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/src/java/app/classes/NewServlet.java</file>
-            <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/src/java/app/classes/ShowSupp.java</file>
-            <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/src/java/app/classes/SpplierCls.java</file>
-            <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/src/java/app/classes/ControlSupp.java</file>
-            <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/web/DashSupplier.jsp</file>
+            <file>file:/C:/xampp/htdocs/InventoryTracker/src/java/hServlet/SKtoMT.java</file>
+            <file>file:/C:/xampp/htdocs/InventoryTracker/src/java/hServlet/additmes.java</file>
+            <file>file:/C:/xampp/htdocs/InventoryTracker/src/java/app/classes/whClasses.java</file>
+            <file>file:/C:/xampp/htdocs/InventoryTracker/src/java/app/classes/addItemToStore.java</file>
+            <file>file:/C:/xampp/htdocs/InventoryTracker/src/java/app/classes/RequestItemsDao.java</file>
+            <file>file:/C:/xampp/htdocs/InventoryTracker/web/WareHouse.jsp</file>
+            <file>file:/C:/xampp/htdocs/InventoryTracker/src/java/hServlet/try1.java</file>
+            <file>file:/C:/xampp/htdocs/InventoryTracker/src/java/app/classes/SKCls.java</file>
+            <file>file:/C:/xampp/htdocs/InventoryTracker/web/DashSK.jsp</file>
+            <file>file:/C:/xampp/htdocs/InventoryTracker/src/java/app/classes/ReleseItems.java</file>
+            <file>file:/C:/xampp/htdocs/InventoryTracker/src/java/hServlet/newservvlet.java</file>
         </group>
     </open-files>
 </project-private>
