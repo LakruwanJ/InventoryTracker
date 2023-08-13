@@ -515,5 +515,30 @@ javax.servlet.http.Cookie[] cookies = request.getCookies();
             <!--off canvas end-->  
 
         </div>
+        
+        <footer class="text-center bg-dark" style="background: var(--bs-emphasis-color);">
+                <div class="container text-white py-4 py-lg-5">
+                    <div style="height: 80px;">
+                        <div class="row">
+                            <div class="col"><img src="img/png%20white.png"
+                                                  style="max-width: 170px;width: 150px;height: 37.8px;"></div>
+                            <div class="col" style="color: rgb(108, 117, 125);font-size: 10px;">
+                                <h1 style="font-size: 15px;color: rgb(108, 117, 125);">You can use this system overseeing
+                                    and controlling all aspects of inventory, from ordering to distribution</h1>
+                            </div>
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col">
+                                        <h1 style="font-size: 18px;color: rgb(108, 117, 125);">Contact Us</h1><a
+                                            class="link-light" href="#">inventorytracker@gmail.com</a>
+                                    </div>
+                                </div><a class="link-light" href="#" style="padding-left: 10px;padding-top: 0px;">+94 11 356
+                                    8356</a>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-muted mb-0">Copyright Â© 2023 Inventory Tracker</p>
+                </div>
+            </footer>
     </body>
 </html>

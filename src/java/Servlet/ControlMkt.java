@@ -68,12 +68,12 @@ public class ControlMkt extends HttpServlet {
                     if (mkt.checkAvailble(item) > Integer.parseInt(qty)) {
                         sts = "Pending";
                         if (mkt.sendReqToSK(RmID, skID, mktid, item, qty, date, sts) > 0) {
-                            response.sendRedirect("DashMkt.jsp?m=1");
+//                            response.sendRedirect("DashMkt.jsp?m=1");
                         }
                     } else {
                         sts = "Not Available";
                         if (mkt.sendReqToSK(RmID, skID, mktid, item, qty, date, sts) > 0) {
-                            response.sendRedirect("DashMkt.jsp?m=2");
+//                            response.sendRedirect("DashMkt.jsp?m=2");
                         }
                     }
 

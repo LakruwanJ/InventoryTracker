@@ -67,7 +67,7 @@ public final class DashMkt_jsp extends org.apache.jasper.runtime.HttpJspBase
             }
         }
     }else{
-        response.sendRedirect("logn.jsp");
+        response.sendRedirect("Login.jsp");
     }
     MKTCls mkt = new MKTCls();
     SpplierCls sup = new SpplierCls();
@@ -107,6 +107,24 @@ public final class DashMkt_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <link rel=\"stylesheet\" href=\"skcss.css\" />\r\n");
       out.write("    </head>\r\n");
       out.write("    <body>\r\n");
+      out.write("        <nav class=\"navbar navbar-expand-md bg-body py-3\">\r\n");
+      out.write("            <div class=\"container\"><a class=\"navbar-brand d-flex align-items-center\" href=\"#\"></a><button\r\n");
+      out.write("                    data-bs-toggle=\"collapse\" class=\"navbar-toggler\" data-bs-target=\"#navcol-2\"><span\r\n");
+      out.write("                        class=\"visually-hidden\">Toggle navigation</span><span\r\n");
+      out.write("                        class=\"navbar-toggler-icon\"></span></button>\r\n");
+      out.write("                <div class=\"collapse navbar-collapse\" id=\"navcol-2\"><img src=\"img/logo-no-background.png\"\r\n");
+      out.write("                        style=\"width: 150px;\">\r\n");
+      out.write("                    <ul class=\"navbar-nav ms-auto\">\r\n");
+      out.write("                        <li class=\"nav-item\"><a class=\"nav-link active\" href=\"#\">Home</a></li>\r\n");
+      out.write("                        <li class=\"nav-item\"><a class=\"nav-link\" href=\"Team.jsp\">Team Members</a></li>\r\n");
+      out.write("                        <li class=\"nav-item\"><a class=\"nav-link\" href=\"#\">Details</a></li>\r\n");
+      out.write("                        <li class=\"nav-item\"></li>\r\n");
+      out.write("                        <li class=\"nav-item\"><a class=\"nav-link\" href=\"ChangePassword.jsp\">Change Password</a></li>\r\n");
+      out.write("                    </ul><a class=\"btn btn-primary ms-md-2\" role=\"button\" href=\"logout\">Log out</a>\r\n");
+      out.write("                </div>\r\n");
+      out.write("            </div>\r\n");
+      out.write("        </nav>\r\n");
+      out.write("        \r\n");
       out.write("        <div class=\"container\">\r\n");
       out.write("\r\n");
       out.write("            ");
@@ -358,6 +376,31 @@ while (skData.next()) {
       out.write("\r\n");
       out.write("\r\n");
       out.write("        </div>\r\n");
+      out.write("                            \r\n");
+      out.write("                            <footer class=\"text-center bg-dark\" style=\"background: var(--bs-emphasis-color);\">\r\n");
+      out.write("                <div class=\"container text-white py-4 py-lg-5\">\r\n");
+      out.write("                    <div style=\"height: 80px;\">\r\n");
+      out.write("                        <div class=\"row\">\r\n");
+      out.write("                            <div class=\"col\"><img src=\"img/png%20white.png\"\r\n");
+      out.write("                                                  style=\"max-width: 170px;width: 150px;height: 37.8px;\"></div>\r\n");
+      out.write("                            <div class=\"col\" style=\"color: rgb(108, 117, 125);font-size: 10px;\">\r\n");
+      out.write("                                <h1 style=\"font-size: 15px;color: rgb(108, 117, 125);\">You can use this system overseeing\r\n");
+      out.write("                                    and controlling all aspects of inventory, from ordering to distribution</h1>\r\n");
+      out.write("                            </div>\r\n");
+      out.write("                            <div class=\"col\">\r\n");
+      out.write("                                <div class=\"row\">\r\n");
+      out.write("                                    <div class=\"col\">\r\n");
+      out.write("                                        <h1 style=\"font-size: 18px;color: rgb(108, 117, 125);\">Contact Us</h1><a\r\n");
+      out.write("                                            class=\"link-light\" href=\"#\">inventorytracker@gmail.com</a>\r\n");
+      out.write("                                    </div>\r\n");
+      out.write("                                </div><a class=\"link-light\" href=\"#\" style=\"padding-left: 10px;padding-top: 0px;\">+94 11 356\r\n");
+      out.write("                                    8356</a>\r\n");
+      out.write("                            </div>\r\n");
+      out.write("                        </div>\r\n");
+      out.write("                    </div>\r\n");
+      out.write("                    <p class=\"text-muted mb-0\">Copyright Â© 2023 Inventory Tracker</p>\r\n");
+      out.write("                </div>\r\n");
+      out.write("            </footer>\r\n");
       out.write("    </body>\r\n");
       out.write("</html>");
     } catch (Throwable t) {

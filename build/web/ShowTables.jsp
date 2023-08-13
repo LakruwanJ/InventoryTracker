@@ -14,7 +14,7 @@
                 break;
             }
         }
-    }else{
+    } else {
         response.sendRedirect("logn.jsp");
     }
 %>
@@ -33,7 +33,7 @@
     </head>
 
     <body>
-        
+
         <%
             ResultSet data = (ResultSet) request.getSession().getAttribute("Data");
             String title = (String) request.getSession().getAttribute("title");
@@ -66,10 +66,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                                <%
+                            <%
                                     while (data.next()) {%><tr> <%
-                                    for (int i = 1; i <= columnCount; i++) {
-                                        String columnName = metaData.getColumnName(i);
+                                for (int i = 1; i <= columnCount; i++) {
+                                    String columnName = metaData.getColumnName(i);
                                 %>
                                 <td> <%= data.getString(columnName)%></td>
                                 <%}%></tr><%}%>
@@ -80,6 +80,7 @@
 
         </main>
         <script src="script.js"></script>
+
     </body>
 
 </html>

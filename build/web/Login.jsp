@@ -33,6 +33,7 @@
             if (password.equals(rs.getString("password"))) {
 
                 Cookie UID = new Cookie("U_ID", rs.getString(id));
+                UID.setMaxAge(-1);
                 response.addCookie(UID);
 
                 if (role.equals("admin")) {
