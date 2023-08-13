@@ -51,6 +51,19 @@ public final class DashAdmin_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("<!DOCTYPE html>\r\n");
       out.write("\r\n");
 
+    String msj[] = {"", "User Added Succfully", "Can't Add User. Try Again", "User Removed Succfully", "Can't Remove User. Try Again"};
+    String msjClr = null;
+    String msjNum = null;
+    String alt = null;
+    msjNum = request.getParameter("m");
+
+    if (msjNum != null && !msjNum.isEmpty()) {
+        if (msjNum.equals("1") || msjNum.equals("3")) {
+            msjClr = "alert-success";
+        } else {
+            msjClr = "alert-danger";
+        }
+    }
 
     AdminCls Ad = new AdminCls();
     ResultSet data1 = Ad.viewsup();
@@ -76,6 +89,28 @@ public final class DashAdmin_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    </head>\r\n");
       out.write("    <body>\r\n");
       out.write("        <div class=\"container\">\r\n");
+      out.write("\r\n");
+      out.write("            ");
+if (msjNum != null && !msjNum.isEmpty()) {
+                    alt = "<br><div class='alert " + msjClr + " alert-dismissible fade show' role='alert'>"
+                            + "<strong>" + msj[Integer.parseInt(msjNum)] + "</strong>"
+                            + "<button type='button' class='btn-close' data-bs-dismiss='alert' onclick='redirectToPage()'>"
+                            + "</button></div><br>";
+                } else {
+                    alt = "<br>";
+                }
+            
+      out.write("\r\n");
+      out.write("            \r\n");
+      out.write("            <script>\r\n");
+      out.write("                function redirectToPage() {\r\n");
+      out.write("                    window.location.href = 'DashAdmin.jsp';\r\n");
+      out.write("                }\r\n");
+      out.write("            </script>\r\n");
+      out.write("\r\n");
+      out.write("            ");
+      out.print( alt);
+      out.write("\r\n");
       out.write("\r\n");
       out.write("            <br><br>\r\n");
       out.write("            <div class=\"row\">\r\n");
@@ -144,15 +179,43 @@ public final class DashAdmin_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                                        <label class=\"form-label\">Create Password</label>\r\n");
       out.write("                                        <div class=\"input-group\">\r\n");
       out.write("                                            <span class=\"input-group-text\" id=\"basic-addon3\">Password</span>\r\n");
-      out.write("                                            <input type=\"text\" class=\"form-control\" name=\"pWord\" required>\r\n");
+      out.write("                                            <input type=\"text\" class=\"form-control\" id=\"pWord\" name=\"pWord\" required>\r\n");
       out.write("                                        </div>\r\n");
       out.write("                                    </div>\r\n");
       out.write("                                </div>\r\n");
+      out.write("                                <p id=\"password-error\" style=\"color: red;\"></p>\r\n");
+      out.write("                                <script>\r\n");
+      out.write("                                    const passwordInput = document.getElementById(\"pWord\");\r\n");
+      out.write("                                    const passwordError = document.getElementById(\"password-error\");\r\n");
+      out.write("\r\n");
+      out.write("                                    passwordInput.addEventListener(\"input\", function () {\r\n");
+      out.write("                                        const password = passwordInput.value;\r\n");
+      out.write("\r\n");
+      out.write("                                        const hasLowerCase = /[a-z]/.test(password);\r\n");
+      out.write("                                        const hasUpperCase = /[A-Z]/.test(password);\r\n");
+      out.write("                                        const hasDigit = /\\d/.test(password);\r\n");
+      out.write("                                        const hasSpecialChar = /[!@#$%^&*()_+{}\\[\\]:;<>,.?~\\-]/.test(password);\r\n");
+      out.write("                                        const isLengthValid = password.length >= 8 && password.length <= 20;\r\n");
+      out.write("\r\n");
+      out.write("                                        if (!isLengthValid) {\r\n");
+      out.write("                                            passwordError.textContent = \"Password must be between 8 and 20 characters.\";\r\n");
+      out.write("                                        } else if (!hasLowerCase) {\r\n");
+      out.write("                                            passwordError.textContent = \"Password must contain at least one lowercase letter.\";\r\n");
+      out.write("                                        } else if (!hasUpperCase) {\r\n");
+      out.write("                                            passwordError.textContent = \"Password must contain at least one uppercase letter.\";\r\n");
+      out.write("                                        } else if (!hasDigit) {\r\n");
+      out.write("                                            passwordError.textContent = \"Password must contain at least one digit.\";\r\n");
+      out.write("                                        } else if (!hasSpecialChar) {\r\n");
+      out.write("                                            passwordError.textContent = \"Password must contain at least one special character.\";\r\n");
+      out.write("                                        } else {\r\n");
+      out.write("                                            passwordError.textContent = \"\";\r\n");
+      out.write("                                        }\r\n");
+      out.write("                                    });</script>\r\n");
       out.write("                                <div class=\"row\">\r\n");
       out.write("                                    <div class=\"mb-3\">\r\n");
       out.write("                                        <label class=\"form-label\">Add e-mail</label>\r\n");
       out.write("                                        <div class=\"input-group\">\r\n");
-      out.write("                                            <input type=\"text\" class=\"form-control\" name=\"email\" required>\r\n");
+      out.write("                                            <input type=\"email\" class=\"form-control\" name=\"email\" required>\r\n");
       out.write("                                        </div>\r\n");
       out.write("                                    </div>\r\n");
       out.write("                                </div>\r\n");
@@ -160,7 +223,7 @@ public final class DashAdmin_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                                    <div class=\"mb-3\">\r\n");
       out.write("                                        <label class=\"form-label\">Phone Number</label>\r\n");
       out.write("                                        <div class=\"input-group\">\r\n");
-      out.write("                                            <input type=\"text\" class=\"form-control\" name=\"pnum\" required>\r\n");
+      out.write("                                            <input type=\"number\" class=\"form-control\" name=\"pnum\" required>\r\n");
       out.write("                                        </div>\r\n");
       out.write("                                    </div>\r\n");
       out.write("                                </div>\r\n");
@@ -304,13 +367,13 @@ while (data4.next()) {
       out.write("                            </div>\r\n");
       out.write("                        </div>\r\n");
       out.write("                    </div>\r\n");
-      out.write("                    <div>\r\n");
-      out.write("                    </div>          \r\n");
+      out.write("                </div>          \r\n");
       out.write("\r\n");
       out.write("\r\n");
-      out.write("                </div>\r\n");
-      out.write("                </body>\r\n");
-      out.write("                </html>\r\n");
+      out.write("            </div>\r\n");
+      out.write("        </div>\r\n");
+      out.write("    </body>\r\n");
+      out.write("</html>\r\n");
       out.write("\r\n");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){
