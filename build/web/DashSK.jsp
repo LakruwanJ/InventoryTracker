@@ -3,26 +3,11 @@
     Created on : Aug 5, 2023, 5:48:53 AM
     Author     : lakru
 --%>
-
-<%@page import="java.net.URLDecoder"%>
+<%@page import="java.util.List"%>
+<%@page import="app.classes.SKCls"%>
+<%@page import="app.classes.RequestItemsDao"%>
+<%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-<%
-javax.servlet.http.Cookie[] cookies = request.getCookies();
-    String U_ID = null;
-
-    if (cookies != null) {
-        for (javax.servlet.http.Cookie cookie : cookies) {
-            if ("U_ID".equals(cookie.getName())) {
-                U_ID = URLDecoder.decode(cookie.getValue(), "UTF-8");
-                break;
-            }
-        }
-    }else{
-        response.sendRedirect("logn.jsp");
-    }
-
-%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -40,7 +25,7 @@ javax.servlet.http.Cookie[] cookies = request.getCookies();
     </head>
     <body>
         <div class="container">
-            
+
             <br><br>            
             <div class="row">
                 <h2>Manage Suppliers</h2><hr class="pt-0 pb-0">                
@@ -69,7 +54,7 @@ javax.servlet.http.Cookie[] cookies = request.getCookies();
                     </div>
                 </div>
             </div>
-            
+
             <br><br>            
             <div class="row">
                 <h2>Manage Store</h2><hr class="pt-0 pb-0">                
@@ -82,7 +67,7 @@ javax.servlet.http.Cookie[] cookies = request.getCookies();
                     </div>
                 </div>
             </div>
-            
+
             <br><br>            
             <div class="row">               
                 <h2>Manage Marketing team</h2><hr class="pt-0 pb-0">
@@ -232,100 +217,154 @@ javax.servlet.http.Cookie[] cookies = request.getCookies();
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">
-                            <form class="was-validated">
+                            <form class="will-validated" action="newservvlet" method="post">
                                 <div class="row">
-                                    <label class="form-label">Select Product Name</label>
-                                    <select class="form-select  mb-3" required a>            
-                                        <option value="1">Name 1</option>
-                                        <option value="2">Name 2</option>
+                                    <label class="form-label">Select Product ID</label>
+                                    <select class="form-select  mb-3 required" id="itemId" onchange="displaySelectedItemId()" name="itemID">
+                                        <%
+                                            SKCls SK1 = new SKCls();
+                                            List<String> itemIds = SK1.getAllItemIds();
+                                            for (String ItemId : itemIds) {
+                                        %>
+                                        <option value="<%= ItemId%>"><%= ItemId%></option>
+                                        <%
+                                            }
+                                        %>
                                     </select>
-                                </div>
-                                <br><div class="row">
-                                    <div class="col-12">
-                                        <label class="form-label">Unit price</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" disabled>
-                                            <span class="input-group-text">.00</span>
-                                        </div>
-                                    </div>
-                                </div> 
+                                </div>                
                                 <div class="row">
                                     <label class="form-label">Select Supplier</label>
-                                    <select class="form-select  mb-3" required a>            
-                                        <option value="1">Supplier 1</option>
-                                        <option value="2">Supplier 2</option>
+                                    <select class="form-select  mb-3 required" id="supId" onchange="displaySelectedsupId()" name="supID">            
+                                        <%
+                                            SKCls SK2 = new SKCls();
+                                            List<String> supIds = SK2.getAllSupplierIds();
+                                            for (String sid : supIds) {
+                                        %>
+                                        <option value="<%=sid%>"><%=sid%></option>
+                                        <%
+                                            }
+                                        %>                                     
                                     </select>
                                 </div>
-                                <br><div class="row">
-                                    <div class="mb-2">
-                                        <label class="form-label">Quantity</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control">
+                                <div class="row">                                    
+                                    <div class=""col>
+                                        <div class="row mt-4"><h5>Your Request Details: </h5></div>
+                                        <div class="row">
+                                            <div class="col-4 mt-2">
+                                                <script>
+                                                    function displaySelectedItemId() {
+                                                        var selectedItem = document.getElementById("itemId").value;
+                                                        var resultLabel = document.getElementById("resultLabel");
+                                                        resultLabel.textContent = "Item ID: " + selectedItem;
+                                                    }
+                                                </script>
+                                                <p id="resultLabel"></p>
+                                            </div>
+                                            <div class="col-4 mt-2">
+                                                <script>
+                                                    function displaySelectedsupId() {
+                                                        var selectedItem = document.getElementById("supId").value;
+                                                        var resultLabe2 = document.getElementById("resultLabe2");
+                                                        resultLabe2.textContent = "Supplier ID: " + selectedItem;
+                                                    }
+                                                </script>
+                                                <p id="resultLabe2"></p>
+                                            </div>
+                                            <div class="col-4 text-center" style="margin-top: -35px;">
+                                                <label class="form-label">Quantity</label>
+                                                <div class="input-group" id="quantity" name="quantity">
+                                                    <input type="text" class="form-control" id="quantity" name="quantity" >
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <hr>
+                                <div>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
+                                    <button class="btn btn-primary" type="submit" value="Submit">Request</button>
+                                </div>
                             </form>
+                            <div id="result"></div>                            
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
-                            <button type="button" class="btn btn-primary">Request</button>
-                        </div>
+
                     </div>
                 </div>
             </div>
             <!--Send req end-->   
-            
+
             <!--Add items to store start-->
             <div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
                     <div class="modal-content w-150">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5">Send Request to Supplier</h1>
+                            <h1 class="modal-title fs-5">Add Item to Store</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">
-                            <form class="was-validated">
+                            <form class="validated" action="additmes" method="post">
                                 <div class="row">
                                     <label class="form-label">Choose Available Product</label>
-                                    <select class="form-select  mb-3" required a>            
-                                        <option value="1">Name 1</option>
-                                        <option value="2">Name 2</option>
+                                    <select class="form-select  mb-3" name="itemID">            
+                                        <%
+                                            SKCls SK3 = new SKCls();
+                                            for (String ItemId : itemIds) {
+                                        %>
+                                        <option value="<%= ItemId%>"><%= ItemId%></option>
+                                        <%
+                                            }
+                                        %>                     
                                     </select>
                                 </div>
-                                <br><div class="row">
-                                    <div class="col-12">
-                                        <label class="form-label">Quantity</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" disabled>
-                                        </div>
-                                    </div>
-                                </div> 
+                                <br>
                                 <div class="row">
-                                    <label class="form-label">Select Supplier</label>
-                                    <select class="form-select  mb-3" required a>            
-                                        <option value="1">Supplier 1</option>
-                                        <option value="2">Supplier 2</option>
+                                    <label class="form-label">Select Ware Houses</label>
+                                    <select class="form-select  mb-3" name="whID">
+
+                                        <%
+                                            SKCls SK4 = new SKCls();
+                                            List<String> WHIds = SK4.getAllWHID();
+                                            List<Integer> ACS = SK4.getAC();
+                                            for (int i = 0; i < WHIds.size(); i++) {
+                                                String WHId = WHIds.get(i);
+                                                int Ac = ACS.get(i);
+                                        %>
+                                        <option value="<%= WHId%>">
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td><%= WHId%></td>
+                                                    <td>Available Space:</td>
+                                                    <td><%= Ac%></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        </option>
+                                        <%
+                                            }
+                                        %>
+
                                     </select>
                                 </div>
-                                <br><div class="row">
-                                    <div class="mb-2">
-                                        <label class="form-label">Available Quantity</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" disabled>
-                                        </div>
+                                <div class="row">
+                                    <label class="form-label">Quantity</label>
+                                    <div class="input-group" id="quantity" name="quantity">
+                                        <input type="text" class="form-control" id="quantity" name="quantity" >
                                     </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
+                                    <button type="submit" class="btn btn-primary">Add To Store</button>
                                 </div>
                             </form>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
-                            <button type="button" class="btn btn-primary">Add To Store</button>
-                        </div>
+
                     </div>
                 </div>
             </div>
             <!--Add items to store end-->
-            
+
             <!--Send item-->
             <div class="modal fade" id="sendm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
@@ -335,31 +374,21 @@ javax.servlet.http.Cookie[] cookies = request.getCookies();
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">
-                            <form class="was-validated">
+                            <form action="SKtoMT" method="post">
                                 <div class="row">
-                                    <label class="form-label">Select Product Name</label>
-                                    <select class="form-select  mb-3" required a>            
-                                        <option value="1">Name 1</option>
-                                        <option value="2">Name 2</option>
+                                    <label class="form-label">Select Product ID</label>
+                                    <select class="form-select  mb-3" name="itemID">            
+                                       <%
+                                            SKCls SK5 = new SKCls();
+                                            for (String ItemId : itemIds) {
+                                        %>
+                                        <option value="<%= ItemId%>"><%= ItemId%></option>
+                                        <%
+                                            }
+                                        %>    
                                     </select>
-                                </div>                                
-                                <br><div class="row">
-                                    <div class="col-12">
-                                        <label class="form-label">Unit price</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" disabled>
-                                            <span class="input-group-text">.00</span>
-                                        </div>
-                                    </div>
-                                </div>                                 
+                                </div>
                                 <div class="row">
-                                    <label class="form-label">Select Marketing Team Member</label>
-                                    <select class="form-select  mb-3" required a>            
-                                        <option value="1">Store Keeper 1</option>
-                                        <option value="2">Store Keeper 2</option>
-                                    </select>
-                                </div>                                
-                                <br><div class="row">
                                     <div class="mb-2">
                                         <label class="form-label">Quantity</label>
                                         <div class="input-group">
@@ -367,12 +396,28 @@ javax.servlet.http.Cookie[] cookies = request.getCookies();
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="row">
+                                    <label class="form-label">Select Marketing Team Member</label>
+                                    <select class="form-select  mb-3" name="mTeamID">            
+                                        <%
+                                            SKCls SK7 = new SKCls();
+                                            List<String> mIds = SK7.getAllMTeamIds();
+                                            for (String mId : mIds) {
+                                        %>
+                                        <option value="<%= mId%>"><%= mId%></option>
+                                        <%
+                                            }
+                                        %>
+                                    </select>
+                                </div>
+                                
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
+                                    <button class="btn btn-primary" type="submit" value="Submit">Send</button>
+                                                           
                             </form>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
-                            <button type="button" class="btn btn-primary">Send</button>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -408,7 +453,7 @@ javax.servlet.http.Cookie[] cookies = request.getCookies();
                 </div>
             </div>
             <!--View Request supplier End-->
-            
+
             <!--Pending Request Marketing team start-->
             <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="Requestm" style="width: 100%;">
                 <div class="offcanvas-header">
@@ -466,7 +511,7 @@ javax.servlet.http.Cookie[] cookies = request.getCookies();
                 </div>
             </div>
             <!--Transfer History supplier End-->
-            
+
             <!--Transfer History Marketing team start-->
             <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="Transferm" style="width: 100%;">
                 <div class="offcanvas-header">
