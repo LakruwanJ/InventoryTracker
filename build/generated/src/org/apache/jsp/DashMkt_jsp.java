@@ -3,6 +3,11 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import app.classes.MKTCls;
+import java.sql.ResultSetMetaData;
+import java.sql.ResultSet;
+import app.classes.SpplierCls;
+import java.net.URLDecoder;
 
 public final class DashMkt_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
@@ -44,6 +49,47 @@ public final class DashMkt_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\r\n");
       out.write("\r\n");
       out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+
+    Cookie UID = new Cookie("M_ID", "mkt0002");
+    response.addCookie(UID);
+    javax.servlet.http.Cookie[] cookies = request.getCookies();
+    String M_ID = null;
+
+    if (cookies != null) {
+        for (javax.servlet.http.Cookie cookie : cookies) {
+            if ("M_ID".equals(cookie.getName())) {
+                M_ID = URLDecoder.decode(cookie.getValue(), "UTF-8");
+                break;
+            }
+        }
+    }
+    MKTCls mkt = new MKTCls();
+    SpplierCls sup = new SpplierCls();
+    ResultSet itemData = sup.viewitems();
+    ResultSet skData = sup.selectSK();
+    String selectedItemID = "";
+
+    String msj[] = {"", "Request Added Succfully", "Request Added Succfully. But Item Not Available Now"};
+    String msjClr = null;
+    String msjNum = null;
+    String alt = null;
+    msjNum = request.getParameter("m");
+
+    if (msjNum != null && !msjNum.isEmpty()) {
+        if (msjNum.equals("1")) {
+            msjClr = "alert-success";
+        } else {
+            msjClr = "alert-danger";
+        }
+    }
+
+
+      out.write("\r\n");
       out.write("<!DOCTYPE html>\r\n");
       out.write("<html lang=\"en\">\r\n");
       out.write("    <head>\r\n");
@@ -61,6 +107,28 @@ public final class DashMkt_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    </head>\r\n");
       out.write("    <body>\r\n");
       out.write("        <div class=\"container\">\r\n");
+      out.write("\r\n");
+      out.write("            ");
+if (msjNum != null && !msjNum.isEmpty()) {
+                    alt = "<br><div class='alert " + msjClr + " alert-dismissible fade show' role='alert'>"
+                            + "<strong>" + msj[Integer.parseInt(msjNum)] + "</strong>"
+                            + "<button type='button' class='btn-close' data-bs-dismiss='alert' onclick='redirectToPage()'>"
+                            + "</button></div><br>";
+                } else {
+                    alt = "<br>";
+                }
+            
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("            ");
+      out.print( alt);
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("            <script>\r\n");
+      out.write("                function redirectToPage() {\r\n");
+      out.write("                    window.location.href = 'DashMkt.jsp';\r\n");
+      out.write("                }\r\n");
+      out.write("            </script>\r\n");
       out.write("\r\n");
       out.write("            <div class=\"row\">\r\n");
       out.write("                <div class=\"col-lg-3 col-md-4 col-sm-6 text-center p-3\">\r\n");
@@ -82,20 +150,24 @@ public final class DashMkt_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                    </div>\r\n");
       out.write("                </div>\r\n");
       out.write("                <div class=\"col-lg-3 col-md-4 col-sm-6 text-center p-3\">\r\n");
-      out.write("                    <div class=\"card cardsFirstTW mt-2 pt-2\" style=\"width: 100%\" type=\"button\" data-bs-toggle=\"offcanvas\" data-bs-target=\"#Request\">\r\n");
-      out.write("                        <div class=\"card-body\">\r\n");
-      out.write("                            <div class=\"iconInCard\"><h1><i class=\"fa-solid fa-magnifying-glass\"></i></h1></div>\r\n");
-      out.write("                            <h2>Pending Request</h2>\r\n");
+      out.write("                    <a href=\"ControlMkt?actionMkt=sendReqtoSk\" style=\"text-decoration: none\">\r\n");
+      out.write("                        <div class=\"card cardsFirstTW mt-2 pt-2\" style=\"width: 100%\">\r\n");
+      out.write("                            <div class=\"card-body\">\r\n");
+      out.write("                                <div class=\"iconInCard\"><h1><i class=\"fa-solid fa-magnifying-glass\"></i></h1></div>\r\n");
+      out.write("                                <h2>Pending Request</h2>\r\n");
+      out.write("                            </div>\r\n");
       out.write("                        </div>\r\n");
-      out.write("                    </div>\r\n");
+      out.write("                    </a>\r\n");
       out.write("                </div>\r\n");
       out.write("                <div class=\"col-lg-3 col-md-4 col-sm-6 text-center p-3\">\r\n");
-      out.write("                    <div class=\"card cardsFirstTW mt-2 pt-2\" style=\"width: 100%\" type=\"button\" data-bs-toggle=\"offcanvas\" data-bs-target=\"#Transfer\">\r\n");
-      out.write("                        <div class=\"card-body\">\r\n");
-      out.write("                            <div class=\"iconInCard\"><h1><i class=\"fa-solid fa-plane-arrival\"></i></h1></div>\r\n");
-      out.write("                            <h2>Transfer History</h2>\r\n");
+      out.write("                    <a href=\"ControlMkt?actionMkt=TransferToSK\" style=\"text-decoration: none\">\r\n");
+      out.write("                        <div class=\"card cardsFirstTW mt-2 pt-2\" style=\"width: 100%\">\r\n");
+      out.write("                            <div class=\"card-body\">\r\n");
+      out.write("                                <div class=\"iconInCard\"><h1><i class=\"fa-solid fa-plane-arrival\"></i></h1></div>\r\n");
+      out.write("                                <h2>Transfer History</h2>\r\n");
+      out.write("                            </div>\r\n");
       out.write("                        </div>\r\n");
-      out.write("                    </div>\r\n");
+      out.write("                    </a>\r\n");
       out.write("                </div>\r\n");
       out.write("\r\n");
       out.write("            </div>\r\n");
@@ -104,109 +176,115 @@ public final class DashMkt_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\r\n");
       out.write("            <!--Table Start-->\r\n");
       out.write("            <div class=\"row\">\r\n");
-      out.write("                <!--Recently Added Products Table Start-->\r\n");
+      out.write("                ");
+
+                    ResultSet reqByM = mkt.requestByML10();
+                    ResultSetMetaData metaData1 = reqByM.getMetaData();
+                    int columnCount1 = metaData1.getColumnCount();
+                
+      out.write("            \r\n");
       out.write("                <div class=\"col-md-6\">\r\n");
       out.write("                    <div class=\"text-center mt-2\">\r\n");
-      out.write("                        <h4>Recently Added products</h4>\r\n");
+      out.write("                        <h4>Recently Added Request</h4>\r\n");
       out.write("                    </div>\r\n");
-      out.write("                    <table class=\"table text-center\">\r\n");
-      out.write("                        <th scope=\"col\">Added Date</th>\r\n");
-      out.write("                        <th scope=\"col\">Product Id</th>\r\n");
-      out.write("                        <th scope=\"col\">Product name</th>\r\n");
-      out.write("                        <th scope=\"col\">Product Image</th>\r\n");
-      out.write("                        <th scope=\"col\">Quantity(Pieces)</th>\r\n");
-      out.write("                        <tr class=\"table-light\">\r\n");
-      out.write("                            <td>12.06.2023</td>\r\n");
-      out.write("                            <td>P001</td>\r\n");
-      out.write("                            <td>Blue Bird Shirt</td>\r\n");
-      out.write("                            <td><img src=\"https://www.beverlystreet.lk/media/catalog/product/cache/1/small_image/320x/040ec09b1e35df139433887a97daa66f/5/5/5541.jpg\"style=\"height: 30px; width: 30px\" /></td>\r\n");
-      out.write("                            <td>1000</td>\r\n");
-      out.write("                        </tr>\r\n");
-      out.write("                        <tr class=\"table-secondary\">\r\n");
-      out.write("                            <td>12.06.2023</td>\r\n");
-      out.write("                            <td>P002</td>\r\n");
-      out.write("                            <td>Blue Bird Jeans</td>\r\n");
-      out.write("                            <td><img src=\"https://www.styledbysally.com.au/wp-content/uploads/2018/01/Classic-Blue-Men-Jeans-Pant-Cotton-Slim-Fit-Men-s-Denim-Pants-Stretch-Fashion-Mens-Clothes.jpg\" style=\"height: 30px; width: 30px\"/></td>\r\n");
-      out.write("                            <td>800</td>\r\n");
-      out.write("                        </tr>\r\n");
-      out.write("                        <tr class=\"table-light\">\r\n");
-      out.write("                            <td>12.06.2023</td>\r\n");
-      out.write("                            <td>P003</td>\r\n");
-      out.write("                            <td>Yello Crispy T-Shirt</td>\r\n");
-      out.write("                            <td><img src=\"https://5.imimg.com/data5/FW/GT/MY-23375112/men-s-yellow-color-t-shirt.jpg\" style=\"height: 30px; width: 30px\" /></td>\r\n");
-      out.write("                            <td>650</td>\r\n");
-      out.write("                        </tr>\r\n");
-      out.write("                        <tr class=\"table-secondary\">\r\n");
-      out.write("                            <td>12.06.2023</td>\r\n");
-      out.write("                            <td>P004</td>\r\n");
-      out.write("                            <td>Black Skirts</td>\r\n");
-      out.write("                            <td><img src=\"https://www.ubuy.com.lk/productimg/?image=aHR0cHM6Ly9tLm1lZGlhLWFtYXpvbi5jb20vaW1hZ2VzL0kvNjFmSXpDUW9kMEwuX0FDX1VMMTIzMF8uanBn.jpg\" style=\"height: 30px; width: 30px\"/></td>\r\n");
-      out.write("                            <td>500</td>\r\n");
-      out.write("                        </tr>\r\n");
-      out.write("                        <tr class=\"table-light\">\r\n");
-      out.write("                            <td>12.06.2023</td>\r\n");
-      out.write("                            <td>P005</td>\r\n");
-      out.write("                            <td>Red Salvar</td>\r\n");
-      out.write("                            <td><img src=\"https://singlekart.com/wp-content/uploads/2019/11/04-1.jpg\" style=\"height: 30px; width: 30px\" /></td>\r\n");
-      out.write("                            <td>250</td>\r\n");
-      out.write("                        </tr>\r\n");
-      out.write("                    </table>\r\n");
-      out.write("                </div>\r\n");
-      out.write("                <!--Recently Added Products Table end-->\r\n");
       out.write("\r\n");
-      out.write("                <!--Recently Supplied Products Table Start-->\r\n");
-      out.write("                <div class=\"col-md-6\">\r\n");
-      out.write("                    <div class=\"text-center mt-2\">\r\n");
-      out.write("                        <h4>Recently Added products</h4>\r\n");
-      out.write("                    </div>\r\n");
       out.write("                    <table class=\"table text-center\">\r\n");
-      out.write("                        <th scope=\"col\">Added Date</th>\r\n");
-      out.write("                        <th scope=\"col\">Product Id</th>\r\n");
-      out.write("                        <th scope=\"col\">Product name</th>\r\n");
-      out.write("                        <th scope=\"col\">Product Image</th>\r\n");
-      out.write("                        <th scope=\"col\">Quantity(Pieces)</th>\r\n");
-      out.write("                        <tr class=\"table-light\">\r\n");
-      out.write("                            <td>12.06.2023</td>\r\n");
-      out.write("                            <td>P001</td>\r\n");
-      out.write("                            <td>Blue Bird Shirt</td>\r\n");
-      out.write("                            <td><img src=\"https://www.beverlystreet.lk/media/catalog/product/cache/1/small_image/320x/040ec09b1e35df139433887a97daa66f/5/5/5541.jpg\"style=\"height: 30px; width: 30px\" /></td>\r\n");
-      out.write("                            <td>1000</td>\r\n");
-      out.write("                        </tr>\r\n");
-      out.write("                        <tr class=\"table-secondary\">\r\n");
-      out.write("                            <td>12.06.2023</td>\r\n");
-      out.write("                            <td>P002</td>\r\n");
-      out.write("                            <td>Blue Bird Jeans</td>\r\n");
-      out.write("                            <td><img src=\"https://www.styledbysally.com.au/wp-content/uploads/2018/01/Classic-Blue-Men-Jeans-Pant-Cotton-Slim-Fit-Men-s-Denim-Pants-Stretch-Fashion-Mens-Clothes.jpg\" style=\"height: 30px; width: 30px\"/></td>\r\n");
-      out.write("                            <td>800</td>\r\n");
-      out.write("                        </tr>\r\n");
-      out.write("                        <tr class=\"table-light\">\r\n");
-      out.write("                            <td>12.06.2023</td>\r\n");
-      out.write("                            <td>P003</td>\r\n");
-      out.write("                            <td>Yello Crispy T-Shirt</td>\r\n");
-      out.write("                            <td><img src=\"https://5.imimg.com/data5/FW/GT/MY-23375112/men-s-yellow-color-t-shirt.jpg\" style=\"height: 30px; width: 30px\" /></td>\r\n");
-      out.write("                            <td>650</td>\r\n");
-      out.write("                        </tr>\r\n");
-      out.write("                        <tr class=\"table-secondary\">\r\n");
-      out.write("                            <td>12.06.2023</td>\r\n");
-      out.write("                            <td>P004</td>\r\n");
-      out.write("                            <td>Black Skirts</td>\r\n");
-      out.write("                            <td><img src=\"https://www.ubuy.com.lk/productimg/?image=aHR0cHM6Ly9tLm1lZGlhLWFtYXpvbi5jb20vaW1hZ2VzL0kvNjFmSXpDUW9kMEwuX0FDX1VMMTIzMF8uanBn.jpg\" style=\"height: 30px; width: 30px\"/></td>\r\n");
-      out.write("                            <td>500</td>\r\n");
-      out.write("                        </tr>\r\n");
-      out.write("                        <tr class=\"table-light\">\r\n");
-      out.write("                            <td>12.06.2023</td>\r\n");
-      out.write("                            <td>P005</td>\r\n");
-      out.write("                            <td>Red Salvar</td>\r\n");
-      out.write("                            <td><img src=\"https://singlekart.com/wp-content/uploads/2019/11/04-1.jpg\" style=\"height: 30px; width: 30px\" /></td>\r\n");
-      out.write("                            <td>250</td>\r\n");
-      out.write("                        </tr>\r\n");
-      out.write("                        <tr class=\"table-secondary\"></tr>\r\n");
-      out.write("                        <tr class=\"table-light\"></tr>\r\n");
-      out.write("                        <tr class=\"table-secondary\"></tr>\r\n");
+      out.write("                        <thead>\r\n");
+      out.write("                            <tr class=\"table-secondary\">\r\n");
+      out.write("                                ");
+
+                                    for (int i = 1; i <= columnCount1; i++) {
+                                        String columnName = metaData1.getColumnName(i);
+                                
+      out.write("\r\n");
+      out.write("                                <th scope=\"col\"> ");
+      out.print( columnName);
+      out.write("</th>\r\n");
+      out.write("                                    ");
+
+                                        }
+                                    
+      out.write("\r\n");
+      out.write("                            </tr>\r\n");
+      out.write("                        </thead>\r\n");
+      out.write("                            <tbody>\r\n");
+      out.write("                                ");
+
+                                while (reqByM.next()) {
+      out.write("<tr class=\"table-light\"> ");
+
+                                        for (int i = 1; i <= columnCount1; i++) {
+                                            String columnName = metaData1.getColumnName(i);
+                                
+      out.write("\r\n");
+      out.write("                                <td> ");
+      out.print( reqByM.getString(columnName));
+      out.write("</td>\r\n");
+      out.write("                                ");
+}
+      out.write("</tr>");
+}
+      out.write("\r\n");
+      out.write("                        </tbody>\r\n");
       out.write("                    </table>\r\n");
       out.write("                </div>\r\n");
-      out.write("                <!--Recently Supplied Products Table Start-->\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("                <div class=\"col-md-6\">\r\n");
+      out.write("                    <div class=\"text-center mt-2\">\r\n");
+      out.write("                        <h4>Recently Transfer Items</h4>\r\n");
+      out.write("                    </div>\r\n");
+      out.write("                    ");
+
+                        ResultSet tfromSK = mkt.transferfromSKL10();
+                        ResultSetMetaData metaData2 = tfromSK.getMetaData();
+                        int columnCount2 = metaData2.getColumnCount();
+                    
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("                    <table class=\"table text-center\">\r\n");
+      out.write("                        <thead>\r\n");
+      out.write("                            <tr class=\"table-secondary\">\r\n");
+      out.write("                                ");
+
+                                    for (int i = 1; i <= columnCount2; i++) {
+                                        String columnName = metaData2.getColumnName(i);
+                                
+      out.write("\r\n");
+      out.write("                                <th scope=\"col\"> ");
+      out.print( columnName);
+      out.write("</th>\r\n");
+      out.write("                                    ");
+
+                                        }
+                                    
+      out.write("\r\n");
+      out.write("                            </tr>\r\n");
+      out.write("                        </thead>\r\n");
+      out.write("                        <tbody>\r\n");
+      out.write("                            ");
+
+                                    while (tfromSK.next()) {
+      out.write("<tr class=\"table-light\"> ");
+
+                                    for (int i = 1; i <= columnCount2; i++) {
+                                        String columnName = metaData2.getColumnName(i);
+                                
+      out.write("\r\n");
+      out.write("                                <td> ");
+      out.print( tfromSK.getString(columnName));
+      out.write("</td>\r\n");
+      out.write("                                ");
+}
+      out.write("</tr>");
+}
+      out.write("\r\n");
+      out.write("                        </tbody>\r\n");
+      out.write("                    </table>\r\n");
+      out.write("                </div>\r\n");
       out.write("            </div>\r\n");
+      out.write("            <!--table end-->\r\n");
+      out.write("\r\n");
       out.write("\r\n");
       out.write("            <!--model start-->    \r\n");
       out.write("            <!--Send Request start-->\r\n");
@@ -217,43 +295,57 @@ public final class DashMkt_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                            <h1 class=\"modal-title fs-5\">Send Request to Store Keeper</h1>\r\n");
       out.write("                            <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\"></button>\r\n");
       out.write("                        </div>\r\n");
-      out.write("                        <form class=\"was-validated\">\r\n");
+      out.write("                        <form class=\"was-validated\" action=\"ControlMkt?actionMkt=req\" method=\"POST\">\r\n");
       out.write("                            <div class=\"modal-body\">\r\n");
       out.write("                                <div class=\"row\">\r\n");
-      out.write("                                    <label class=\"form-label\">Select Product Name</label>\r\n");
-      out.write("                                    <select class=\"form-select  mb-3\" required a>            \r\n");
-      out.write("                                        <option value=\"1\">Name 1</option>\r\n");
-      out.write("                                        <option value=\"2\">Name 2</option>\r\n");
+      out.write("                                    <label class=\"form-label\">Select Item ID</label>\r\n");
+      out.write("                                    <select class=\"form-select  mb-3\" required name=\"itemID\">            \r\n");
+      out.write("                                        ");
+while (itemData.next()) {
+      out.write("\r\n");
+      out.write("                                        <option value=\"");
+      out.print( itemData.getString("itemID"));
+      out.write('"');
+      out.write('>');
+      out.print( itemData.getString("itemID"));
+      out.write("</option>\r\n");
+      out.write("                                        ");
+}
+      out.write("\r\n");
       out.write("                                    </select>\r\n");
       out.write("                                </div>\r\n");
-      out.write("                                <br><div class=\"row\">\r\n");
-      out.write("                                    <div class=\"col-12\">\r\n");
-      out.write("                                        <label class=\"form-label\">Unit price</label>\r\n");
-      out.write("                                        <div class=\"input-group mb-3\">\r\n");
-      out.write("                                            <input type=\"text\" class=\"form-control\" disabled>\r\n");
-      out.write("                                            <span class=\"input-group-text\">.00</span>\r\n");
-      out.write("                                        </div>\r\n");
-      out.write("                                    </div>\r\n");
-      out.write("                                </div> \r\n");
       out.write("                                <div class=\"row\">\r\n");
       out.write("                                    <label class=\"form-label\">Select Store Keeper</label>\r\n");
-      out.write("                                    <select class=\"form-select  mb-3\" required a>            \r\n");
-      out.write("                                        <option value=\"1\">Store Keeper 1</option>\r\n");
-      out.write("                                        <option value=\"2\">Store Keeper 2</option>\r\n");
+      out.write("                                    <select class=\"form-select  mb-3\" required name=\"SID\">            \r\n");
+      out.write("                                        ");
+while (skData.next()) {
+      out.write("\r\n");
+      out.write("                                        <option value=\"");
+      out.print( skData.getString("SKID"));
+      out.write('"');
+      out.write('>');
+      out.print( skData.getString("SKID"));
+      out.write("</option>\r\n");
+      out.write("                                        ");
+}
+      out.write("\r\n");
       out.write("                                    </select>\r\n");
       out.write("                                </div>\r\n");
       out.write("                                <br><div class=\"row\">\r\n");
       out.write("                                    <div class=\"mb-2\">\r\n");
       out.write("                                        <label class=\"form-label\">Quantity</label>\r\n");
       out.write("                                        <div class=\"input-group\">\r\n");
-      out.write("                                            <input type=\"text\" class=\"form-control\">\r\n");
+      out.write("                                            <input type=\"number\" class=\"form-control\" required name=\"qty\">\r\n");
       out.write("                                        </div>\r\n");
       out.write("                                    </div>\r\n");
       out.write("                                </div>\r\n");
       out.write("                            </div>\r\n");
+      out.write("                            <input type=\"hidden\" name=\"MID\" value=\"");
+      out.print( M_ID);
+      out.write("\" />\r\n");
       out.write("                            <div class=\"modal-footer\">\r\n");
-      out.write("                                <button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">Discard</button>\r\n");
-      out.write("                                <button type=\"button\" class=\"btn btn-primary\">Send</button>\r\n");
+      out.write("                                <button type=\"resrt\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\" >Discard</button>\r\n");
+      out.write("                                <button type=\"submit\" name=\"sendReqtoSk\" Value=\"sendReqtoSk\" class=\"btn btn-primary\">Send</button>\r\n");
       out.write("                            </div>\r\n");
       out.write("\r\n");
       out.write("                        </form>\r\n");
