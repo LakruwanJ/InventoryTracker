@@ -5,8 +5,6 @@
 --%>
 <%@page import="java.net.URLDecoder"%>
 <%
-Cookie UID = new Cookie("U_ID", "sup0002");
-    response.addCookie(UID);
     javax.servlet.http.Cookie[] cookies = request.getCookies();
     String U_ID = null;
 
@@ -17,6 +15,8 @@ Cookie UID = new Cookie("U_ID", "sup0002");
                 break;
             }
         }
+    }else{
+        response.sendRedirect("logn.jsp");
     }
 %>
 <!DOCTYPE html>

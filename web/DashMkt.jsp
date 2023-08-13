@@ -11,18 +11,19 @@
 <%@page import="java.net.URLDecoder"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    Cookie UID = new Cookie("M_ID", "mkt0002");
-    response.addCookie(UID);
+
     javax.servlet.http.Cookie[] cookies = request.getCookies();
-    String M_ID = null;
+    String U_ID = null;
 
     if (cookies != null) {
         for (javax.servlet.http.Cookie cookie : cookies) {
-            if ("M_ID".equals(cookie.getName())) {
-                M_ID = URLDecoder.decode(cookie.getValue(), "UTF-8");
+            if ("U_ID".equals(cookie.getName())) {
+                U_ID = URLDecoder.decode(cookie.getValue(), "UTF-8");
                 break;
             }
         }
+    }else{
+        response.sendRedirect("logn.jsp");
     }
     MKTCls mkt = new MKTCls();
     SpplierCls sup = new SpplierCls();
@@ -237,7 +238,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <input type="hidden" name="MID" value="<%= M_ID%>" />
+                            <input type="hidden" name="MID" value="<%= U_ID%>" />
                             <div class="modal-footer">
                                 <button type="resrt" class="btn btn-secondary" data-bs-dismiss="modal" >Discard</button>
                                 <button type="submit" name="sendReqtoSk" Value="sendReqtoSk" class="btn btn-primary">Send</button>

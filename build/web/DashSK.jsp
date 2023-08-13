@@ -4,7 +4,25 @@
     Author     : lakru
 --%>
 
+<%@page import="java.net.URLDecoder"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%
+javax.servlet.http.Cookie[] cookies = request.getCookies();
+    String U_ID = null;
+
+    if (cookies != null) {
+        for (javax.servlet.http.Cookie cookie : cookies) {
+            if ("U_ID".equals(cookie.getName())) {
+                U_ID = URLDecoder.decode(cookie.getValue(), "UTF-8");
+                break;
+            }
+        }
+    }else{
+        response.sendRedirect("logn.jsp");
+    }
+
+%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
