@@ -4,12 +4,27 @@
     Author     : lakru
 --%>
 
+<%@page import="java.net.URLDecoder"%>
 <%@page import="app.classes.AdminCls"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
 <%
+    javax.servlet.http.Cookie[] cookies = request.getCookies();
+    String U_ID = null;
+
+    if (cookies != null) {
+        for (javax.servlet.http.Cookie cookie : cookies) {
+            if ("U_ID".equals(cookie.getName())) {
+                U_ID = URLDecoder.decode(cookie.getValue(), "UTF-8");
+                break;
+            }
+        }
+    }else{
+        response.sendRedirect("logn.jsp");
+    }
+    
     String msj[] = {"", "User Added Succfully", "Can't Add User. Try Again", "User Removed Succfully", "Can't Remove User. Try Again"};
     String msjClr = null;
     String msjNum = null;

@@ -13,8 +13,7 @@
 <%@ page import="app.classes.ItemData, app.classes.SpplierCls, app.classes.DBConector" %>
 
 <%
-    Cookie UID = new Cookie("U_ID", "sup0002");
-    response.addCookie(UID);
+    
     javax.servlet.http.Cookie[] cookies = request.getCookies();
     String U_ID = null;
 
@@ -25,6 +24,8 @@
                 break;
             }
         }
+    }else{
+        response.sendRedirect("logn.jsp");
     }
     SpplierCls sup = new SpplierCls();
     ResultSet data1 = sup.viewitems();

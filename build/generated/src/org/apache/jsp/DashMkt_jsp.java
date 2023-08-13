@@ -55,18 +55,19 @@ public final class DashMkt_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\r\n");
       out.write("\r\n");
 
-    Cookie UID = new Cookie("M_ID", "mkt0002");
-    response.addCookie(UID);
+
     javax.servlet.http.Cookie[] cookies = request.getCookies();
-    String M_ID = null;
+    String U_ID = null;
 
     if (cookies != null) {
         for (javax.servlet.http.Cookie cookie : cookies) {
-            if ("M_ID".equals(cookie.getName())) {
-                M_ID = URLDecoder.decode(cookie.getValue(), "UTF-8");
+            if ("U_ID".equals(cookie.getName())) {
+                U_ID = URLDecoder.decode(cookie.getValue(), "UTF-8");
                 break;
             }
         }
+    }else{
+        response.sendRedirect("logn.jsp");
     }
     MKTCls mkt = new MKTCls();
     SpplierCls sup = new SpplierCls();
@@ -341,7 +342,7 @@ while (skData.next()) {
       out.write("                                </div>\r\n");
       out.write("                            </div>\r\n");
       out.write("                            <input type=\"hidden\" name=\"MID\" value=\"");
-      out.print( M_ID);
+      out.print( U_ID);
       out.write("\" />\r\n");
       out.write("                            <div class=\"modal-footer\">\r\n");
       out.write("                                <button type=\"resrt\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\" >Discard</button>\r\n");
