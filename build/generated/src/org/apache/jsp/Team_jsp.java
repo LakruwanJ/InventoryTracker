@@ -3,6 +3,10 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import app.classes.ShowUsers;
+import app.classes.MKTCls;
+import java.sql.ResultSetMetaData;
+import java.sql.ResultSet;
 
 public final class Team_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
@@ -44,7 +48,35 @@ public final class Team_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\r\n");
       out.write("\r\n");
       out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
       out.write("<!DOCTYPE html>\r\n");
+      out.write("\r\n");
+
+    ShowUsers mkt = new ShowUsers();
+    
+    ResultSet AllSup = mkt.AllSup();
+    ResultSetMetaData metaData1 = AllSup.getMetaData();
+    int columnCount1 = metaData1.getColumnCount();
+    
+    ResultSet AllSk = mkt.AllSk();
+    ResultSetMetaData metaData2 = AllSk.getMetaData();
+    int columnCount2 = metaData2.getColumnCount();
+    
+    ResultSet AllMkt = mkt.AllMkt();
+    ResultSetMetaData metaData3 = AllMkt.getMetaData();
+    int columnCount3 = metaData3.getColumnCount();
+    
+    ResultSet AllAdmin = mkt.AllAdmin();
+    ResultSetMetaData metaData4 = AllAdmin.getMetaData();
+    int columnCount4 = metaData4.getColumnCount();
+    
+
+      out.write(" \r\n");
+      out.write("\r\n");
+      out.write("\r\n");
       out.write("<html>\r\n");
       out.write("    <head>\r\n");
       out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\r\n");
@@ -66,86 +98,159 @@ public final class Team_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            <h2>Suppliers</h2><hr class=\"pt-0 pb-0\">   \r\n");
       out.write("\r\n");
       out.write("            <div class=\"col-12\">\r\n");
-      out.write("                <table class=\"table text-center\">\r\n");
-      out.write("                    <th scope=\"col\">Name</th>\r\n");
-      out.write("                    <th scope=\"col\">email</th>\r\n");
-      out.write("                    <th scope=\"col\">Phone number</th>\r\n");
-      out.write("                    <th scope=\"col\">No.of Products</th>\r\n");
-      out.write("                    <tr class=\"table-light\">\r\n");
-      out.write("                        <td>name</td>\r\n");
-      out.write("                        <td>email</td>\r\n");
-      out.write("                        <td>xxxxxxxx</td>\r\n");
-      out.write("                        <td>1000</td>\r\n");
-      out.write("                    </tr>\r\n");
-      out.write("                    <tr class=\"table-light\">\r\n");
-      out.write("                        <td>name</td>\r\n");
-      out.write("                        <td>email</td>\r\n");
-      out.write("                        <td>xxxxxxxx</td>\r\n");
-      out.write("                        <td>1000</td>\r\n");
-      out.write("                    </tr>\r\n");
+      out.write("                <table class=\"table table-center\">\r\n");
+      out.write("\r\n");
+      out.write("                    <thead>\r\n");
+      out.write("                        <tr>\r\n");
+      out.write("                            <th>Supplier ID</th>\r\n");
+      out.write("                            <th>User Name</th>\r\n");
+      out.write("                            <th>Phone Number</th>\r\n");
+      out.write("                            <th>e-mail</th>\r\n");
+      out.write("                        </tr>\r\n");
+      out.write("                    </thead>\r\n");
+      out.write("\r\n");
+      out.write("                    <tbody>\r\n");
+      out.write("                        <tr>\r\n");
+      out.write("                        ");
+
+                                while (AllSup.next()) {
+      out.write("<tr class=\"table-light\"> ");
+
+                                for (int i = 1; i <= columnCount1; i++) {
+                                    String columnName = metaData1.getColumnName(i);
+                            
+      out.write("\r\n");
+      out.write("                            <td> ");
+      out.print( AllSup.getString(columnName));
+      out.write("</td>\r\n");
+      out.write("                            ");
+}
+      out.write("</tr>");
+}
+      out.write("\r\n");
+      out.write("                        </tr>\r\n");
+      out.write("\r\n");
+      out.write("                    </tbody>\r\n");
       out.write("                </table>\r\n");
       out.write("            </div>\r\n");
-      out.write("            \r\n");
+      out.write("\r\n");
       out.write("            <br><br>\r\n");
       out.write("            <h2>Stock Keepers</h2><hr class=\"pt-0 pb-0\">   \r\n");
       out.write("\r\n");
       out.write("            <div class=\"col-12\">\r\n");
-      out.write("                <table class=\"table text-center\">\r\n");
-      out.write("                    <th scope=\"col\">Name</th>\r\n");
-      out.write("                    <th scope=\"col\">email</th>\r\n");
-      out.write("                    <th scope=\"col\">Phone number</th>\r\n");
-      out.write("                    <tr class=\"table-light\">\r\n");
-      out.write("                        <td>name</td>\r\n");
-      out.write("                        <td>email</td>\r\n");
-      out.write("                        <td>xxxxxxxx</td>\r\n");
-      out.write("                    </tr>\r\n");
-      out.write("                    <tr class=\"table-light\">\r\n");
-      out.write("                        <td>name</td>\r\n");
-      out.write("                        <td>email</td>\r\n");
-      out.write("                        <td>xxxxxxxx</td>\r\n");
-      out.write("                    </tr>\r\n");
+      out.write("                <table class=\"table table-center\">\r\n");
+      out.write("\r\n");
+      out.write("                    <thead>\r\n");
+      out.write("                        <tr>\r\n");
+      out.write("                            <th>Supplier ID</th>\r\n");
+      out.write("                            <th>Stock Keeper Name</th>\r\n");
+      out.write("                            <th>Phone Number</th>\r\n");
+      out.write("                            <th>e-mail</th>\r\n");
+      out.write("                        </tr>\r\n");
+      out.write("                    </thead>\r\n");
+      out.write("\r\n");
+      out.write("                    <tbody>\r\n");
+      out.write("                        <tr>\r\n");
+      out.write("                        ");
+
+                                while (AllSk.next()) {
+      out.write("<tr class=\"table-light\"> ");
+
+                                for (int i = 1; i <= columnCount2; i++) {
+                                    String columnName = metaData2.getColumnName(i);
+                            
+      out.write("\r\n");
+      out.write("                            <td> ");
+      out.print( AllSk.getString(columnName));
+      out.write("</td>\r\n");
+      out.write("                            ");
+}
+      out.write("</tr>");
+}
+      out.write("\r\n");
+      out.write("                        </tr>\r\n");
+      out.write("\r\n");
+      out.write("                    </tbody>\r\n");
       out.write("                </table>\r\n");
       out.write("            </div>\r\n");
-      out.write("            \r\n");
+      out.write("\r\n");
       out.write("            <br><br>\r\n");
       out.write("            <h2>Marketing Team</h2><hr class=\"pt-0 pb-0\">   \r\n");
       out.write("\r\n");
       out.write("            <div class=\"col-12\">\r\n");
-      out.write("                <table class=\"table text-center\">\r\n");
-      out.write("                    <th scope=\"col\">Name</th>\r\n");
-      out.write("                    <th scope=\"col\">email</th>\r\n");
-      out.write("                    <th scope=\"col\">Phone number</th>\r\n");
-      out.write("                    <tr class=\"table-light\">\r\n");
-      out.write("                        <td>name</td>\r\n");
-      out.write("                        <td>email</td>\r\n");
-      out.write("                        <td>xxxxxxxx</td>\r\n");
-      out.write("                    </tr>\r\n");
-      out.write("                    <tr class=\"table-light\">\r\n");
-      out.write("                        <td>name</td>\r\n");
-      out.write("                        <td>email</td>\r\n");
-      out.write("                        <td>xxxxxxxx</td>\r\n");
-      out.write("                    </tr>\r\n");
+      out.write("                <table class=\"table table-center\">\r\n");
+      out.write("\r\n");
+      out.write("                    <thead>\r\n");
+      out.write("                        <tr>\r\n");
+      out.write("                            <th>Member ID</th>\r\n");
+      out.write("                            <th>User Name</th>\r\n");
+      out.write("                            <th>Phone Number</th>\r\n");
+      out.write("                            <th>e-mail</th>\r\n");
+      out.write("                        </tr>\r\n");
+      out.write("                    </thead>\r\n");
+      out.write("\r\n");
+      out.write("                    <tbody>\r\n");
+      out.write("                        <tr>\r\n");
+      out.write("                        ");
+
+                                while (AllMkt.next()) {
+      out.write("<tr class=\"table-light\"> ");
+
+                                for (int i = 1; i <= columnCount3; i++) {
+                                    String columnName = metaData3.getColumnName(i);
+                            
+      out.write("\r\n");
+      out.write("                            <td> ");
+      out.print( AllMkt.getString(columnName));
+      out.write("</td>\r\n");
+      out.write("                            ");
+}
+      out.write("</tr>");
+}
+      out.write("\r\n");
+      out.write("                        </tr>\r\n");
+      out.write("\r\n");
+      out.write("                    </tbody>\r\n");
       out.write("                </table>\r\n");
       out.write("            </div>\r\n");
-      out.write("            \r\n");
+      out.write("\r\n");
       out.write("            <br><br>\r\n");
       out.write("            <h2>System Administrators</h2><hr class=\"pt-0 pb-0\">   \r\n");
       out.write("\r\n");
       out.write("            <div class=\"col-12\">\r\n");
-      out.write("                <table class=\"table text-center\">\r\n");
-      out.write("                    <th scope=\"col\">Name</th>\r\n");
-      out.write("                    <th scope=\"col\">email</th>\r\n");
-      out.write("                    <th scope=\"col\">Phone number</th>\r\n");
-      out.write("                    <tr class=\"table-light\">\r\n");
-      out.write("                        <td>name</td>\r\n");
-      out.write("                        <td>email</td>\r\n");
-      out.write("                        <td>xxxxxxxx</td>\r\n");
-      out.write("                    </tr>\r\n");
-      out.write("                    <tr class=\"table-light\">\r\n");
-      out.write("                        <td>name</td>\r\n");
-      out.write("                        <td>email</td>\r\n");
-      out.write("                        <td>xxxxxxxx</td>\r\n");
-      out.write("                    </tr>\r\n");
+      out.write("                <table class=\"table table-center\">\r\n");
+      out.write("\r\n");
+      out.write("                    <thead>\r\n");
+      out.write("                        <tr>\r\n");
+      out.write("                            <th>Admin ID</th>\r\n");
+      out.write("                            <th>User Name</th>\r\n");
+      out.write("                            <th>Phone Number</th>\r\n");
+      out.write("                            <th>e-mail</th>\r\n");
+      out.write("                        </tr>\r\n");
+      out.write("                    </thead>\r\n");
+      out.write("\r\n");
+      out.write("                    <tbody>\r\n");
+      out.write("                        <tr>\r\n");
+      out.write("                        ");
+
+                                while (AllAdmin.next()) {
+      out.write("<tr class=\"table-light\"> ");
+
+                                for (int i = 1; i <= columnCount4; i++) {
+                                    String columnName = metaData4.getColumnName(i);
+                            
+      out.write("\r\n");
+      out.write("                            <td> ");
+      out.print( AllAdmin.getString(columnName));
+      out.write("</td>\r\n");
+      out.write("                            ");
+}
+      out.write("</tr>");
+}
+      out.write("\r\n");
+      out.write("                        </tr>\r\n");
+      out.write("\r\n");
+      out.write("                    </tbody>\r\n");
       out.write("                </table>\r\n");
       out.write("            </div>\r\n");
       out.write("        </div>\r\n");

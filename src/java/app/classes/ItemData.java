@@ -15,6 +15,7 @@ public class ItemData {
     private double unitPrice;
     private String category;
     private String ID;
+    private String Capacity;
     private String qty;
 
     public String getID() {
@@ -23,6 +24,14 @@ public class ItemData {
 
     public void setID(String ID) {
         this.ID = ID;
+    }
+
+    public String getCapacity() {
+        return Capacity;
+    }
+
+    public void setCapacity(String Capacity) {
+        this.Capacity = Capacity;
     }
 
     public String getItemName() {

@@ -97,10 +97,10 @@
     </head>
     <body>
         <div class="container">
-            <%                if (msjNum != null && !msjNum.isEmpty()) {
+            <%if (msjNum != null && !msjNum.isEmpty()) {
                     alt = "<br><div class='alert " + msjClr + " alert-dismissible fade show' role='alert'>"
                             + "<strong>" + msj[Integer.parseInt(msjNum)] + "</strong>"
-                            + "<button type='button' class='btn-close' data-bs-dismiss='alert'>"
+                            + "<button type='button' class='btn-close' data-bs-dismiss='alert' onclick='redirectToPage()'>"
                             + "</button></div><br>";
                 } else {
                     alt = "<br>";
@@ -108,6 +108,12 @@
             %>
 
             <%= alt%>
+            
+            <script>
+                function redirectToPage() {
+                    window.location.href = 'DashSupplier.jsp';
+                }
+            </script>
 
             <!--Fist card row Start-->
             <div class="row">
@@ -202,22 +208,30 @@
                                     <div class="mb-2">
                                         <label class="form-label">Item Name</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" name="itemName">
+                                            <input type="text" class="form-control" name="itemName" required>
                                         </div>
                                     </div>
                                 </div>
                                 <br><div class="row">
                                     <label class="form-label">Select type</label>
-                                    <select class="form-select  mb-3" required name="category">            
+                                    <select class="form-select  mb-3" required name="category" required>            
                                         <option value="Product">Product</option>
                                         <option value="Raw material">Raw material</option>
                                     </select>
                                 </div>
                                 <br><div class="row">
                                     <div class="col-12">
+                                        <label class="form-label">Unit Capacity</label>
+                                        <div class="input-group mb-3">
+                                            <input type="number" class="form-control" name="unitCap" required>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <br><div class="row">
+                                    <div class="col-12">
                                         <label class="form-label">Unit price</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control" name="unitPrice">
+                                            <input type="number" class="form-control" name="unitPrice" required>
                                             <span class="input-group-text">.00</span>
                                         </div>
                                     </div>
@@ -256,7 +270,7 @@
                                     <div class="col-12">
                                         <label class="form-label">New Unit price</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control" name="unitPrice">
+                                            <input type="number" class="form-control" name="unitPrice" required>
                                             <span class="input-group-text">.00</span>
                                         </div>
                                     </div>
@@ -338,7 +352,7 @@
                                     <div class="mb-2">
                                         <label class="form-label">Quantity</label>
                                         <div class="input-group">
-                                            <input type="number" class="form-control" id="basic-url" name="qty">
+                                            <input type="number" class="form-control" id="basic-url" name="qty" required>
                                         </div>
                                     </div>
                                 </div>
@@ -381,11 +395,11 @@
                                     %>
                             </tr>
                         </thead>
-                        <tbody>
-                            <%
-                                    while (viewitemsl5.next()) {%><tr class="table-light"> <%
-                                for (int i = 1; i <= columnCount1; i++) {
-                                    String columnName = metaData1.getColumnName(i);
+                            <tbody>
+                                <%
+                                while (viewitemsl5.next()) {%><tr class="table-light"> <%
+                                        for (int i = 1; i <= columnCount1; i++) {
+                                            String columnName = metaData1.getColumnName(i);
                                 %>
                                 <td> <%= viewitemsl5.getString(columnName)%></td>
                                 <%}%></tr><%}%>
@@ -400,12 +414,12 @@
                         <h4>Recently Transfer Items</h4>
                     </div>
                     <%
-                    ResultSet transferToSKl5 = sup.transferToSKl5();
-                    ResultSetMetaData metaData2 = transferToSKl5.getMetaData();
-                    int columnCount2 = metaData2.getColumnCount();
-                %>
+                        ResultSet transferToSKl5 = sup.transferToSKl5();
+                        ResultSetMetaData metaData2 = transferToSKl5.getMetaData();
+                        int columnCount2 = metaData2.getColumnCount();
+                    %>
 
-                <table class="table text-center">
+                    <table class="table text-center">
                         <thead>
                             <tr class="table-secondary">
                                 <%
@@ -419,10 +433,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                                <%
+                            <%
                                     while (transferToSKl5.next()) {%><tr class="table-light"> <%
-                                    for (int i = 1; i <= columnCount2; i++) {
-                                        String columnName = metaData2.getColumnName(i);
+                                        for (int i = 1; i <= columnCount2; i++) {
+                                            String columnName = metaData2.getColumnName(i);
                                 %>
                                 <td> <%= transferToSKl5.getString(columnName)%></td>
                                 <%}%></tr><%}%>
