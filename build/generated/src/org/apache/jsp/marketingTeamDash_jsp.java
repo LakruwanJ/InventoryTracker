@@ -159,7 +159,7 @@ public final class marketingTeamDash_jsp extends org.apache.jasper.runtime.HttpJ
       out.write("                        <td> 9 </td>\r\n");
       out.write("                        <td> 23 Apr, 2023 </td>\r\n");
       out.write("                        <td>\r\n");
-      out.write("                            <p class=\"status cancelled\">Cancelled</p>\r\n");
+      out.write("                            <a href=\"a.jsp\"><p class=\"status cancelled\">Cancelled</p></a>\r\n");
       out.write("                        </td>\r\n");
       out.write("                        <td> <strong>$399.99</strong> </td>\r\n");
       out.write("                    </tr>\r\n");

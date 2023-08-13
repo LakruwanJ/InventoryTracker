@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package app.classes;
+package Servlet;
 
+import app.classes.ItemData;
+import app.classes.SpplierCls;
+import app.classes.StockKData;
+import app.classes.SupplierData;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
@@ -43,6 +47,7 @@ public class ControlSupp extends HttpServlet {
         ResultSet data;
         String itemName;
         String category;
+        String unitCap;
         Double unitPrice;
         String ID;
         String SupID;
@@ -56,15 +61,17 @@ public class ControlSupp extends HttpServlet {
                 case "add":
                     item.setItemName(request.getParameter("itemName"));
                     item.setCategory(request.getParameter("category"));
+                    item.setCapacity(request.getParameter("unitCap"));
                     item.setUnitPrice(Double.parseDouble(request.getParameter("unitPrice")));
 
                     String newID = supcls.incrementItemID();
 
                     itemName = item.getItemName();
                     category = item.getCategory();
+                    unitCap = item.getCapacity();
                     unitPrice = item.getUnitPrice();
 
-                    if (supcls.addItem(newID, itemName, category, unitPrice) > 0) {
+                    if (supcls.addItem(newID, itemName, category, unitCap, unitPrice) > 0) {
                         response.sendRedirect("DashSupplier.jsp?m=1");
                     } else {
                         response.sendRedirect("DashSupplier.jsp?m=2");
@@ -107,8 +114,10 @@ public class ControlSupp extends HttpServlet {
                     SkID = stockK.getSKID();
                     qty = item.getQty();
                     ID = item.getID();
+                    
+                    int FullCap = supcls.getUnitCap(ID) * Integer.parseInt(qty);                  
 
-                    if (supcls.checkEmptyS() - Integer.parseInt(qty) > 1) {
+                    if (supcls.checkEmptyS() - FullCap > 0) {
                         if (supcls.sendItemToSK(newid, SupID, SkID, ID, qty, date) > 0) {
                             response.sendRedirect("DashSupplier.jsp?m=7");
                         } else {

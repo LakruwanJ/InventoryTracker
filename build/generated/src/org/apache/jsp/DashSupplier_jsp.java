@@ -146,10 +146,10 @@ public final class DashSupplier_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("    <body>\r\n");
       out.write("        <div class=\"container\">\r\n");
       out.write("            ");
-                if (msjNum != null && !msjNum.isEmpty()) {
+if (msjNum != null && !msjNum.isEmpty()) {
                     alt = "<br><div class='alert " + msjClr + " alert-dismissible fade show' role='alert'>"
                             + "<strong>" + msj[Integer.parseInt(msjNum)] + "</strong>"
-                            + "<button type='button' class='btn-close' data-bs-dismiss='alert'>"
+                            + "<button type='button' class='btn-close' data-bs-dismiss='alert' onclick='redirectToPage()'>"
                             + "</button></div><br>";
                 } else {
                     alt = "<br>";
@@ -160,6 +160,12 @@ public final class DashSupplier_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("            ");
       out.print( alt);
       out.write("\r\n");
+      out.write("            \r\n");
+      out.write("            <script>\r\n");
+      out.write("                function redirectToPage() {\r\n");
+      out.write("                    window.location.href = 'DashSupplier.jsp';\r\n");
+      out.write("                }\r\n");
+      out.write("            </script>\r\n");
       out.write("\r\n");
       out.write("            <!--Fist card row Start-->\r\n");
       out.write("            <div class=\"row\">\r\n");
@@ -254,22 +260,30 @@ public final class DashSupplier_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("                                    <div class=\"mb-2\">\r\n");
       out.write("                                        <label class=\"form-label\">Item Name</label>\r\n");
       out.write("                                        <div class=\"input-group\">\r\n");
-      out.write("                                            <input type=\"text\" class=\"form-control\" name=\"itemName\">\r\n");
+      out.write("                                            <input type=\"text\" class=\"form-control\" name=\"itemName\" required>\r\n");
       out.write("                                        </div>\r\n");
       out.write("                                    </div>\r\n");
       out.write("                                </div>\r\n");
       out.write("                                <br><div class=\"row\">\r\n");
       out.write("                                    <label class=\"form-label\">Select type</label>\r\n");
-      out.write("                                    <select class=\"form-select  mb-3\" required name=\"category\">            \r\n");
+      out.write("                                    <select class=\"form-select  mb-3\" required name=\"category\" required>            \r\n");
       out.write("                                        <option value=\"Product\">Product</option>\r\n");
       out.write("                                        <option value=\"Raw material\">Raw material</option>\r\n");
       out.write("                                    </select>\r\n");
       out.write("                                </div>\r\n");
       out.write("                                <br><div class=\"row\">\r\n");
       out.write("                                    <div class=\"col-12\">\r\n");
+      out.write("                                        <label class=\"form-label\">Unit Capacity</label>\r\n");
+      out.write("                                        <div class=\"input-group mb-3\">\r\n");
+      out.write("                                            <input type=\"number\" class=\"form-control\" name=\"unitCap\" required>\r\n");
+      out.write("                                        </div>\r\n");
+      out.write("                                    </div>\r\n");
+      out.write("                                </div> \r\n");
+      out.write("                                <br><div class=\"row\">\r\n");
+      out.write("                                    <div class=\"col-12\">\r\n");
       out.write("                                        <label class=\"form-label\">Unit price</label>\r\n");
       out.write("                                        <div class=\"input-group mb-3\">\r\n");
-      out.write("                                            <input type=\"text\" class=\"form-control\" name=\"unitPrice\">\r\n");
+      out.write("                                            <input type=\"number\" class=\"form-control\" name=\"unitPrice\" required>\r\n");
       out.write("                                            <span class=\"input-group-text\">.00</span>\r\n");
       out.write("                                        </div>\r\n");
       out.write("                                    </div>\r\n");
@@ -317,7 +331,7 @@ while (data1.next()) {
       out.write("                                    <div class=\"col-12\">\r\n");
       out.write("                                        <label class=\"form-label\">New Unit price</label>\r\n");
       out.write("                                        <div class=\"input-group mb-3\">\r\n");
-      out.write("                                            <input type=\"text\" class=\"form-control\" name=\"unitPrice\">\r\n");
+      out.write("                                            <input type=\"number\" class=\"form-control\" name=\"unitPrice\" required>\r\n");
       out.write("                                            <span class=\"input-group-text\">.00</span>\r\n");
       out.write("                                        </div>\r\n");
       out.write("                                    </div>\r\n");
@@ -426,7 +440,7 @@ while (StID.next()) {
       out.write("                                    <div class=\"mb-2\">\r\n");
       out.write("                                        <label class=\"form-label\">Quantity</label>\r\n");
       out.write("                                        <div class=\"input-group\">\r\n");
-      out.write("                                            <input type=\"number\" class=\"form-control\" id=\"basic-url\" name=\"qty\">\r\n");
+      out.write("                                            <input type=\"number\" class=\"form-control\" id=\"basic-url\" name=\"qty\" required>\r\n");
       out.write("                                        </div>\r\n");
       out.write("                                    </div>\r\n");
       out.write("                                </div>\r\n");
@@ -479,14 +493,14 @@ while (StID.next()) {
       out.write("\r\n");
       out.write("                            </tr>\r\n");
       out.write("                        </thead>\r\n");
-      out.write("                        <tbody>\r\n");
-      out.write("                            ");
+      out.write("                            <tbody>\r\n");
+      out.write("                                ");
 
-                                    while (viewitemsl5.next()) {
+                                while (viewitemsl5.next()) {
       out.write("<tr class=\"table-light\"> ");
 
-                                for (int i = 1; i <= columnCount1; i++) {
-                                    String columnName = metaData1.getColumnName(i);
+                                        for (int i = 1; i <= columnCount1; i++) {
+                                            String columnName = metaData1.getColumnName(i);
                                 
       out.write("\r\n");
       out.write("                                <td> ");
@@ -509,13 +523,13 @@ while (StID.next()) {
       out.write("                    </div>\r\n");
       out.write("                    ");
 
-                    ResultSet transferToSKl5 = sup.transferToSKl5();
-                    ResultSetMetaData metaData2 = transferToSKl5.getMetaData();
-                    int columnCount2 = metaData2.getColumnCount();
-                
+                        ResultSet transferToSKl5 = sup.transferToSKl5();
+                        ResultSetMetaData metaData2 = transferToSKl5.getMetaData();
+                        int columnCount2 = metaData2.getColumnCount();
+                    
       out.write("\r\n");
       out.write("\r\n");
-      out.write("                <table class=\"table text-center\">\r\n");
+      out.write("                    <table class=\"table text-center\">\r\n");
       out.write("                        <thead>\r\n");
       out.write("                            <tr class=\"table-secondary\">\r\n");
       out.write("                                ");
@@ -535,13 +549,13 @@ while (StID.next()) {
       out.write("                            </tr>\r\n");
       out.write("                        </thead>\r\n");
       out.write("                        <tbody>\r\n");
-      out.write("                                ");
+      out.write("                            ");
 
                                     while (transferToSKl5.next()) {
       out.write("<tr class=\"table-light\"> ");
 
-                                    for (int i = 1; i <= columnCount2; i++) {
-                                        String columnName = metaData2.getColumnName(i);
+                                        for (int i = 1; i <= columnCount2; i++) {
+                                            String columnName = metaData2.getColumnName(i);
                                 
       out.write("\r\n");
       out.write("                                <td> ");
