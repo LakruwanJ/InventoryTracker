@@ -19,10 +19,13 @@
 
         if (rs.next()) {
             if (password.equals(rs.getString("password"))) {
+                Cookie userCookie = new Cookie("loggedInUser", username + ":" + password + ":" + role);
+                userCookie.setMaxAge(5184000);
+                response.addCookie(userCookie);
                 if (role.equals("admin")) {
                     response.sendRedirect("admin.jsp");
                 } else if (role.equals("supplier")) {
-                    response.sendRedirect("https://www.youtube.com");
+                    response.sendRedirect("cookie.jsp");
                 } else if (role.equals("stockkeeper")) {
                     response.sendRedirect("stock_keeper.jsp");
                 } else if (role.equals("marketingteam")) {
@@ -44,6 +47,7 @@
 
 
 %>
+
 
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en">
