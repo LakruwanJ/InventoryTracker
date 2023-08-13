@@ -38,7 +38,9 @@
                 if (role.equals("admin")) {
                     response.sendRedirect("DashAdmin.jsp");
                 } else if (role.equals("supplier")) {
+
                     response.sendRedirect("DashSpplier.jsp");
+
                 } else if (role.equals("stockkeeper")) {
                     response.sendRedirect("DashSK.jsp");
                 } else if (role.equals("marketingteam")) {
@@ -61,6 +63,7 @@
 
 
 %>
+
 
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en">
