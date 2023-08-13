@@ -1,5 +1,5 @@
 <%@page import ="java.sql.*" %>
-<%@page import ="Classes.DbConnector" %>
+<%@page import ="app.classes.DBConector" %>
 <%@page import ="java.sql.PreparedStatement" %>
 <%
     int set = 0;
@@ -7,30 +7,46 @@
         String username = request.getParameter("uname");
         String password = request.getParameter("password");
         String role = request.getParameter("btnradio");
+        String id = null;
 
         //out.print(username + "\n");
         //out.print(password + "\n");
         //out.print(role + "\n");
-        Connection con = DbConnector.getConnection();
-        String query = "SELECT password FROM " + role + " WHERE username=?";
+        if (role.equals("admin")) {
+            id = "Aid";
+        } else if (role.equals("supplier")) {
+            id = "SID";
+        } else if (role.equals("stockkeeper")) {
+            id = "SKID";
+        } else if (role.equals("marketingteam")) {
+            id = "MID";
+        } 
+
+        Connection con = DBConector.getConnection();
+        String query = "SELECT password,"+id+" FROM " + role + " WHERE username=?";
         PreparedStatement pstmt = con.prepareStatement(query);
         pstmt.setString(1, username);
         ResultSet rs = pstmt.executeQuery();
 
         if (rs.next()) {
-            if (password.equals(rs.getString("password"))) {
-                Cookie userCookie = new Cookie("loggedInUser", username + ":" + password + ":" + role);
-                userCookie.setMaxAge(5184000);
-                response.addCookie(userCookie);
-                if (role.equals("admin")) {
-                    response.sendRedirect("admin.jsp");
-                } else if (role.equals("supplier")) {
-                    response.sendRedirect("cookie.jsp");
-                } else if (role.equals("stockkeeper")) {
-                    response.sendRedirect("stock_keeper.jsp");
-                } else if (role.equals("marketingteam")) {
-                    response.sendRedirect("marketing_team.jsp");
 
+            if (password.equals(rs.getString("password"))) {
+
+                Cookie UID = new Cookie("U_ID", rs.getString(id));
+                response.addCookie(UID);
+
+                if (role.equals("admin")) {
+                    response.sendRedirect("DashAdmin.jsp");
+                } else if (role.equals("supplier")) {
+
+                    response.sendRedirect("DashSpplier.jsp");
+
+                } else if (role.equals("stockkeeper")) {
+                    response.sendRedirect("DashSK.jsp");
+                } else if (role.equals("marketingteam")) {
+                    response.sendRedirect("DashMkt.jsp");
+                } else {
+                    response.sendRedirect("Login.jsp");
                 }
                 /*Cookie userCookie = new Cookie("loggedInUser", username);
                 userCookie.setMaxAge(999999999);
