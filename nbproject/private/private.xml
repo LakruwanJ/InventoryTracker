@@ -2,6 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/web/DashAdmin.jsp</file>
+            <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/web/DashMkt.jsp</file>
+            <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/src/java/Servlet/ControlAdmin.java</file>
+            <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/src/java/Servlet/ControlMkt.java</file>
+            <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/web/Login.jsp</file>
+            <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/web/ChangePassword.jsp</file>
+            <file>file:/C:/Users/lakru/OneDrive/Documents/NetBeansProjects/InventoryTracker/src/java/app/classes/MKTCls.java</file>
+        </group>
     </open-files>
 </project-private>

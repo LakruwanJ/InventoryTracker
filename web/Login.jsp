@@ -1,3 +1,4 @@
+<%@page import="app.classes.MD5"%>
 <%@page import ="java.sql.*" %>
 <%@page import ="app.classes.DBConector" %>
 <%@page import ="java.sql.PreparedStatement" %>
@@ -5,7 +6,7 @@
     int set = 0;
     if (request.getParameter("login") != null) {
         String username = request.getParameter("uname");
-        String password = request.getParameter("password");
+        String password = MD5.getMd5(request.getParameter("password"));
         String role = request.getParameter("btnradio");
         String id = null;
 

@@ -7,6 +7,7 @@ package Servlet;
 
 import app.classes.AdminCls;
 import app.classes.DBConector;
+import app.classes.MD5;
 import app.classes.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -45,7 +46,7 @@ public class ControlAdmin extends HttpServlet {
             switch (action) {
                 case "add":
                     user.setUsername(request.getParameter("uName"));
-                    user.setPassword(request.getParameter("pWord"));
+                    user.setPassword(MD5.getMd5(request.getParameter("pWord")));
                     user.setEmail(request.getParameter("email"));
                     user.setPhonoNo(request.getParameter("pnum"));
 

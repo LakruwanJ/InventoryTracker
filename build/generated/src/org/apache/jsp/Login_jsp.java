@@ -3,6 +3,7 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import app.classes.MD5;
 import java.sql.*;
 import app.classes.DBConector;
 import java.sql.PreparedStatement;
@@ -47,11 +48,12 @@ public final class Login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\r\n");
       out.write("\r\n");
       out.write("\r\n");
+      out.write("\r\n");
 
     int set = 0;
     if (request.getParameter("login") != null) {
         String username = request.getParameter("uname");
-        String password = request.getParameter("password");
+        String password = MD5.getMd5(request.getParameter("password"));
         String role = request.getParameter("btnradio");
         String id = null;
 
