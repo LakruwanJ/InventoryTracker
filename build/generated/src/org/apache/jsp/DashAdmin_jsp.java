@@ -3,6 +3,7 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import java.net.URLDecoder;
 import app.classes.AdminCls;
 import java.sql.ResultSet;
 
@@ -48,9 +49,24 @@ public final class DashAdmin_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\r\n");
       out.write("\r\n");
       out.write("\r\n");
+      out.write("\r\n");
       out.write("<!DOCTYPE html>\r\n");
       out.write("\r\n");
 
+    javax.servlet.http.Cookie[] cookies = request.getCookies();
+    String U_ID = null;
+
+    if (cookies != null) {
+        for (javax.servlet.http.Cookie cookie : cookies) {
+            if ("U_ID".equals(cookie.getName())) {
+                U_ID = URLDecoder.decode(cookie.getValue(), "UTF-8");
+                break;
+            }
+        }
+    }else{
+        response.sendRedirect("logn.jsp");
+    }
+    
     String msj[] = {"", "User Added Succfully", "Can't Add User. Try Again", "User Removed Succfully", "Can't Remove User. Try Again"};
     String msjClr = null;
     String msjNum = null;
@@ -88,6 +104,23 @@ public final class DashAdmin_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <link rel=\"stylesheet\" href=\"skcss.css\" />\r\n");
       out.write("    </head>\r\n");
       out.write("    <body>\r\n");
+      out.write("        <nav class=\"navbar navbar-expand-md bg-body py-3\">\r\n");
+      out.write("            <div class=\"container\"><a class=\"navbar-brand d-flex align-items-center\" href=\"#\"></a><button\r\n");
+      out.write("                    data-bs-toggle=\"collapse\" class=\"navbar-toggler\" data-bs-target=\"#navcol-2\"><span\r\n");
+      out.write("                        class=\"visually-hidden\">Toggle navigation</span><span\r\n");
+      out.write("                        class=\"navbar-toggler-icon\"></span></button>\r\n");
+      out.write("                <div class=\"collapse navbar-collapse\" id=\"navcol-2\"><img src=\"img/logo-no-background.png\"\r\n");
+      out.write("                        style=\"width: 150px;\">\r\n");
+      out.write("                    <ul class=\"navbar-nav ms-auto\">\r\n");
+      out.write("                        <li class=\"nav-item\"><a class=\"nav-link active\" href=\"#\">Home</a></li>\r\n");
+      out.write("                        <li class=\"nav-item\"><a class=\"nav-link\" href=\"Team.jsp\">Team Members</a></li>\r\n");
+      out.write("                        <li class=\"nav-item\"><a class=\"nav-link\" href=\"#\">Details</a></li>\r\n");
+      out.write("                        <li class=\"nav-item\"></li>\r\n");
+      out.write("                        <li class=\"nav-item\"><a class=\"nav-link\" href=\"ChangePassword.jsp\">Change Password</a></li>\r\n");
+      out.write("                    </ul><a class=\"btn btn-primary ms-md-2\" role=\"button\" href=\"logout\">Log out</a>\r\n");
+      out.write("                </div>\r\n");
+      out.write("            </div>\r\n");
+      out.write("        </nav>\r\n");
       out.write("        <div class=\"container\">\r\n");
       out.write("\r\n");
       out.write("            ");

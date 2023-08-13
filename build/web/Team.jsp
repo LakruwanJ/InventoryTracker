@@ -62,6 +62,25 @@
 
     </head>
     <body>
+        
+        <nav class="navbar navbar-expand-md bg-body py-3">
+            <div class="container"><a class="navbar-brand d-flex align-items-center" href="#"></a><button
+                    data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-3"><span
+                        class="visually-hidden">Toggle navigation</span><span
+                        class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navcol-3"><img src="img/logo-no-background.png"
+                        style="width: 150px;">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="Team.jsp">Team Members</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Details</a></li>
+                        <li class="nav-item"></li>
+                        <li class="nav-item"><a class="nav-link" href="ChangePassword.jsp">Change Password</a></li>
+                    </ul><a class="btn btn-primary ms-md-2" role="button" href="#">Log out</a>
+                </div>
+            </div>
+        </nav>
+        
         <div class="container">
 
             <br><br>

@@ -69,7 +69,7 @@ public class ChangePassword extends HttpServlet {
             PreparedStatement pstmt = con.prepareStatement(sql);            
             pstmt.setString(1,ur.getPassword()); 
             if (pstmt.executeUpdate() > 0) {
-                response.sendRedirect("logn.jsp?m=1");
+                response.sendRedirect("Login.jsp?m=1");
             } else {
                 response.sendRedirect("ChangePassword.jsp?m=1");
             }

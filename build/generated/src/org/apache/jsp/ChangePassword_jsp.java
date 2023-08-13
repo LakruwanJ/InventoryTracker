@@ -45,8 +45,6 @@ public final class ChangePassword_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write('\n');
       out.write('\n');
 
-Cookie UID = new Cookie("U_ID", "sup0002");
-    response.addCookie(UID);
     javax.servlet.http.Cookie[] cookies = request.getCookies();
     String U_ID = null;
 
@@ -57,6 +55,8 @@ Cookie UID = new Cookie("U_ID", "sup0002");
                 break;
             }
         }
+    }else{
+        response.sendRedirect("logn.jsp");
     }
 
       out.write("\n");

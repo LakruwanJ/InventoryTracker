@@ -33,6 +33,7 @@
     </head>
 
     <body>
+        
         <%
             ResultSet data = (ResultSet) request.getSession().getAttribute("Data");
             String title = (String) request.getSession().getAttribute("title");

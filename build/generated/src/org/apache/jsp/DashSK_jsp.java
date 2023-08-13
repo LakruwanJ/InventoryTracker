@@ -3,6 +3,7 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import java.net.URLDecoder;
 
 public final class DashSK_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
@@ -43,6 +44,25 @@ public final class DashSK_jsp extends org.apache.jasper.runtime.HttpJspBase
 
       out.write("\r\n");
       out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+
+javax.servlet.http.Cookie[] cookies = request.getCookies();
+    String U_ID = null;
+
+    if (cookies != null) {
+        for (javax.servlet.http.Cookie cookie : cookies) {
+            if ("U_ID".equals(cookie.getName())) {
+                U_ID = URLDecoder.decode(cookie.getValue(), "UTF-8");
+                break;
+            }
+        }
+    }else{
+        response.sendRedirect("logn.jsp");
+    }
+
+
       out.write("\r\n");
       out.write("<!DOCTYPE html>\r\n");
       out.write("<html lang=\"en\">\r\n");
