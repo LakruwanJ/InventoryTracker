@@ -6,7 +6,7 @@
     int set = 0;
     if (request.getParameter("login") != null) {
         String username = request.getParameter("uname");
-        String password = MD5.getMd5(request.getParameter("password"));
+        String password = request.getParameter("password");
         String role = request.getParameter("btnradio");
         String id = null;
 

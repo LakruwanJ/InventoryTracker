@@ -65,15 +65,29 @@ public class ControlMkt extends HttpServlet {
                     String qty = request.getParameter("qty");
                     String date = mkt.date();
 
+                    try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet NewServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet NewServlet at " + RmID + skID +mktid +item+sts+ qty+date + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+                    
                     if (mkt.checkAvailble(item) > Integer.parseInt(qty)) {
+                        
                         sts = "Pending";
                         if (mkt.sendReqToSK(RmID, skID, mktid, item, qty, date, sts) > 0) {
-//                            response.sendRedirect("DashMkt.jsp?m=1");
+                            response.sendRedirect("DashMkt.jsp?m=1");
                         }
                     } else {
                         sts = "Not Available";
                         if (mkt.sendReqToSK(RmID, skID, mktid, item, qty, date, sts) > 0) {
-//                            response.sendRedirect("DashMkt.jsp?m=2");
+                            response.sendRedirect("DashMkt.jsp?m=2");
                         }
                     }
 

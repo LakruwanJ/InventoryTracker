@@ -69,7 +69,7 @@ public class MKTCls {
         int emptyCapacity = 0;
         try {
             Connection con = DBConector.getConnection();
-            String sql = "SELECT Quantity FROM addremove WHERE itemID = ? AND Status = 'add'";
+            String sql = "SELECT Quantity FROM addremove WHERE itemID = ? AND Status = 'Add'";            
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setString(1, itemID);
             ResultSet rs = pstmt.executeQuery();

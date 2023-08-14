@@ -25,7 +25,7 @@
             }
         }
     }else{
-        response.sendRedirect("logn.jsp");
+        response.sendRedirect("Login.jsp");
     }
     SpplierCls sup = new SpplierCls();
     ResultSet data1 = sup.viewitems();

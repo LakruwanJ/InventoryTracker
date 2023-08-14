@@ -72,7 +72,7 @@ public final class DashSupplier_jsp extends org.apache.jasper.runtime.HttpJspBas
             }
         }
     }else{
-        response.sendRedirect("logn.jsp");
+        response.sendRedirect("Login.jsp");
     }
     SpplierCls sup = new SpplierCls();
     ResultSet data1 = sup.viewitems();
