@@ -11,8 +11,8 @@ public class DBConector {
 
     static final String DRIVER = "com.mysql.jdbc.Driver";
     static final String DB_URL = "jdbc:mysql://localhost:3306/inventorytracker";
-    static final String DB_USER = "root";
-    static final String DB_PASSWORD = "";
+    static final String DB_USER = "inventory";
+    static final String DB_PASSWORD = "inventory";
     static Connection con;
 
     public static Connection getConnection() throws ClassNotFoundException, SQLException {

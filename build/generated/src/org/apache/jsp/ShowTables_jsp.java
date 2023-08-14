@@ -60,7 +60,7 @@ public final class ShowTables_jsp extends org.apache.jasper.runtime.HttpJspBase
                 break;
             }
         }
-    }else{
+    } else {
         response.sendRedirect("logn.jsp");
     }
 
@@ -80,23 +80,7 @@ public final class ShowTables_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    </head>\r\n");
       out.write("\r\n");
       out.write("    <body>\r\n");
-      out.write("        \r\n");
-      out.write("        <nav class=\"navbar navbar-expand-md bg-body py-3\">\r\n");
-      out.write("            <div class=\"container\"><a class=\"navbar-brand d-flex align-items-center\" href=\"#\"></a><button\r\n");
-      out.write("                    data-bs-toggle=\"collapse\" class=\"navbar-toggler\" data-bs-target=\"#navcol-3\"><span\r\n");
-      out.write("                        class=\"visually-hidden\">Toggle navigation</span><span\r\n");
-      out.write("                        class=\"navbar-toggler-icon\"></span></button>\r\n");
-      out.write("                <div class=\"collapse navbar-collapse\" id=\"navcol-3\"><img src=\"img/logo-no-background.png\"\r\n");
-      out.write("                        style=\"width: 150px;\">\r\n");
-      out.write("                    <ul class=\"navbar-nav ms-auto\">\r\n");
-      out.write("                        <li class=\"nav-item\"><a class=\"nav-link active\" href=\"Team.jsp\">Team Members</a></li>\r\n");
-      out.write("                        <li class=\"nav-item\"><a class=\"nav-link\" href=\"#\">Details</a></li>\r\n");
-      out.write("                        <li class=\"nav-item\"></li>\r\n");
-      out.write("                    </ul><a class=\"btn btn-primary ms-md-2\" role=\"button\" href=\"#\">Log out</a>\r\n");
-      out.write("                </div>\r\n");
-      out.write("            </div>\r\n");
-      out.write("        </nav>\r\n");
-      out.write("        \r\n");
+      out.write("\r\n");
       out.write("        ");
 
             ResultSet data = (ResultSet) request.getSession().getAttribute("Data");
@@ -139,13 +123,13 @@ public final class ShowTables_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                            </tr>\r\n");
       out.write("                        </thead>\r\n");
       out.write("                        <tbody>\r\n");
-      out.write("                                ");
+      out.write("                            ");
 
                                     while (data.next()) {
       out.write("<tr> ");
 
-                                    for (int i = 1; i <= columnCount; i++) {
-                                        String columnName = metaData.getColumnName(i);
+                                for (int i = 1; i <= columnCount; i++) {
+                                    String columnName = metaData.getColumnName(i);
                                 
       out.write("\r\n");
       out.write("                                <td> ");
@@ -163,6 +147,7 @@ public final class ShowTables_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\r\n");
       out.write("        </main>\r\n");
       out.write("        <script src=\"script.js\"></script>\r\n");
+      out.write("\r\n");
       out.write("    </body>\r\n");
       out.write("\r\n");
       out.write("</html>");
